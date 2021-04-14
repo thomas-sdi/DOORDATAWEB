@@ -1,0 +1,12 @@
+<? 
+header("Content-Type: " . filetype($this->placeholder('fileName')));
+//header("Content-Type: application/pdf");
+header('Content-Disposition: attachment; filename="' . basename($this->placeholder('fileName')) . '"');
+//header('Content-Disposition: '.($this->placeholder('disposition')?$this->placeholder('disposition'):'attachment').'; filename="' . basename($this->placeholder('fileName')) . '"');
+header("Pragma-directive: no-cache");
+header("Cache-directive: no-cache");
+header("Cache-control: no-cache");
+header("Pragma: no-cache");
+header("Expires: 0");
+readfile($this->placeholder('fileName')); 
+?>

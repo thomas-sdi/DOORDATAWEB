@@ -1,0 +1,19 @@
+<!-- inspections grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">	
+	<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+		array(
+			"grid" 		=> $this->grid,
+			"can"  		=> $this->access['inspection'],
+			"caption"      => 'INSPECTIONS',
+			"caption_singular" => "INSPECTION",
+			"customGrid"   => 'custom.InspectionGrid',
+			'dialog'       => 'gridDialogInspection',
+			"detailedView"	=> "/inspection/inspection",
+			"imageNew"	 	=> $this->baseUrl . "/public/images/New Inspection.png",
+			'parentPaneId'		=> "list_of_inspections",
+		 	'gridParams'		=> $this->gridParams,
+		 	'formActionUrl' => $this->baseUrl . '/inspection/save?_model=' . $this->grid->getId(), 
+		 	'childGridIds'		=> array('cmp_inspection_door', 'cmp_inspection_inspects'),
+		)) 
+	?>
+</div>

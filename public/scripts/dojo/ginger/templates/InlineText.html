@@ -1,0 +1,16 @@
+<table dojoAttachPoint="domNode, mainNode" dojoAttachEvent="onmouseover:_onMouseOver, onmouseout:_onMouseOut">
+	<tr>
+		<td class="inputLeftBorder"></td>
+		<td class="inputBg">
+			<span dojoAttachPoint="displayNode, containerNode"
+		  		  dojoAttachEvent="onfocus:_onMouseOver, onblur:_onMouseOut,ondijitclick:_onClick">
+		  	</span>
+		  </td>
+		<td class="inputRightBorder"></td>
+		<td>
+			<span dojoAttachPoint="progressNode" style="visibility: hidden; display: none;">
+				<img src="${progressImageSrc}"/>
+			</span>
+		</td>		
+	</tr>
+</table>

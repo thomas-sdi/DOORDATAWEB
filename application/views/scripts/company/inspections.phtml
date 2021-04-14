@@ -1,0 +1,81 @@
+
+		<?= $this->partial(
+			"../widgets/bratiliusgrid.phtml", 
+			array("grid" 				=> $this->grid, 
+				  'caption' 			=> 'INSPECTIONS: ' . $this->companyName,
+				  "caption_singular" 	=> "INSPECTION",
+				  "customGrid"   		=> 'custom.InspectionGrid',
+				  'dialog'       		=> 'gridDialogInspection',
+		  		  "detailedView"		=> "/company/inspection",
+				  "imageNew"	 		=> $this->baseUrl . "/public/images/New Inspection.png",
+				  'parentPaneId'		=> "owner_list_of_inspections",
+		 	  	  'gridParams'			=> $this->gridParams,
+		      	  'formActionUrl' 		=> $this->baseUrl . '/company/save?_model=company_inspections',
+		      	  'childGridIds'		=> array('cmp_company_doors','cmp_company_history'),
+		 		)
+		)?>
+
+
+
+<? /*
+
+
+<div dojoType="dijit.layout.BorderContainer" style="width: 100%; height: 90%;" design="headline">
+    <div dojoType='dijit.layout.ContentPane' region='top' splitter='true'
+		 style="height: 60%; width: 100%;">
+		<?= $this->partial(
+			"../widgets/bratiliusgrid.phtml", 
+			array("grid" 				=> $this->grid, 
+				  'caption' 			=> 'INSPECTIONS: ' . $this->companyName,
+				  "caption_singular" 	=> "INSPECTION",
+				  'dialog'       		=> 'gridDialogInspection',
+		  		  "detailedView"		=> $this->baseUrl . "/company/inspection",
+				  "imageNew"	 		=> $this->baseUrl . "/public/images/New Inspection.png",
+				  'parentPaneId'		=> "owner_list_of_inspections",
+		 	  	  'gridParams'			=> $this->gridParams,
+		      	  'formActionUrl' 		=> $this->baseUrl . '/company/save?_model=company_inspections'
+		 		)
+		)?>
+	</div>
+	         
+	<div dojoType="ginger.TabContainer" region="center" style="width: 100%;">
+		<div dojoType="dijit.layout.ContentPane" title="Doors">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+				        	    array("grid" 		 => $this->doorsGrid,
+									  'caption' 	 => 'DOORS',
+				        	          "caption_singular" => "DOOR",
+									  'dialog'       => 'gridDialogDoor',
+									  "detailedView" => $this->baseUrl . "/company/door",
+				        	    	  'searchView'	 => $this->baseUrl . "/company/doorsearch",
+				        	    	  "imageNew"	 => $this->baseUrl . "/public/images/New Door.png")) ?>
+    	</div>
+    	<div dojoType="dijit.layout.ContentPane" title="History">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+        	    array("grid"    => $this->historyGrid,
+        	    	  "caption" => "HISTORY",
+        	    	  "icons"   => array("search"=>true, "excel"=>true))); ?>
+    	</div>
+    	<div dojoType="dijit.layout.ContentPane" title="Photobucket">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+        	    array("grid"  		 => $this->photobucketGrid, 
+        	    	  "customGrid"   => 'custom.PhotobucketGrid',
+		              "caption" 	 => "PHOTOBUCKET",
+        	    	  "icons"		 => array('new' => true, 'search' => true, 'excel' => true, 'download' => true),  
+        	    	  "detailedView" => $this->baseUrl . "/company/photobucket",
+        	    	  "imageNew"	 => $this->baseUrl . "/public/images/New Photobucket.png")) 
+        	?>
+    	</div>
+ 	</div>
+</div>
+
+
+<!-- SUBMIT DIALOG -->
+<div id="dialogSubmit" dojoType="dijit.Dialog">
+	<table>
+		<tr><td><label id="lblInfo"></label></td></tr>
+		<tr><td align="center"><button dojoType="dijit.form.Button" type="submit" class="short">OK</button></td></tr>
+	</table>
+</div>
+ * 
+ * 
+ */ ?>

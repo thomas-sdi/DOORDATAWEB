@@ -1,0 +1,47 @@
+<script>
+function pressed(e) {
+	if (e.keyCode == dojo.keys.ENTER) 
+		dijit.byId('loginForm').submit(function(){changeBody('/index/home', false, true);});
+}
+</script>
+<div>
+    
+
+       <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                
+                <form dojoType="ginger.form.ValidationForm" id="authForm" action='<?= $this->baseUrl?>/auth/login' method="post" onkeypress="pressed">
+                <div class="login-form authDialog">
+                <div class="login-logo">
+                    <a href="#">
+                        <img class="align-content" src="<?= $this->logoUrl ?>" alt="">
+                    </a>
+                </div>
+                     <div class="form-group">
+                            <label>User Name</label>
+                            <input type = "text" dojoType = 'ginger.form.TextBox'
+                           name = "login" id = "auth_login" class="form-control" />
+                        </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type = "password" class="form-control" dojoType = 'ginger.form.TextBox'
+                        name = "password" id = "auth_password" />
+                        </div>
+      
+                                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" dojoType="dijit.form.Button" id="authForm_submit" onclick="dijit.byId('authForm').submit(function(){changeBody('/index/home', false, true);})">Sign in</button>
+                               
+                                        <button type="button" class="btn social facebook btn-flat btn-addon mb-3" dojoType="dijit.form.Button" id="authForm_cancel" onclick="javascript: window.location = 'http://doordatasolutions.com'">Cancel</button>
+                           
+                              </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .dijitTextBox {width:100%;}
+    .dijitContentPane {background: #f1f2f7;}
+</style>

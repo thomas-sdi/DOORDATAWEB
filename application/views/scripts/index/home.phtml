@@ -1,0 +1,152 @@
+<?php
+$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+//this is whether or not dojo should be built before use
+$dojoDir = $baseUrl. "/public/scripts/dojo";
+?>
+<script type="text/javascript">
+    //make sure the menu opens and closes onclick
+    //TODO: this does have glitches when the page is resized
+    $("#responsive-open-menu").click(
+      function() {
+         $("#page-sidebar").toggle();
+     }
+     );
+    
+    $("#collapse-sidebar").click(function() {
+        $("#page-sidebar, #page-content-wrapper, #header-logo").removeClass("rm-transition"); 
+        $("body").toggleClass("sidebar-collapsed"); 
+        $(".glyph-icon", this).toggleClass("icon-typicons-menu-outline").toggleClass("icon-typicons-menu");
+    });
+
+    
+    bratiliusDialog.setParentUrl("/index/home");
+    
+    function selectTab(id, href) {
+      for (var i = 0; i < <?= count($this->tabs) ?>; i++) {
+         var tab = dojo.byId('navbar_' + i);
+         if (i == id) tab.className = 'active';
+         else tab.className = '';
+     }
+     changeBody(href, false, false);
+     if(!$('#collapse-sidebar').is(":visible")){
+			$("#page-sidebar").toggle(); //hide menu after it was used
+		}
+		
+	};
+	
+	// set the theme
+	dojo.addClass(dojo.body(), '<?= $this->companyTheme ?>');
+	dojo.cookie('theme', '<?= $this->companyThemeId ?>');
+	dojo.cookie('companyLogo', '<?= $this->companyLogoUrl ?>');
+	
+</script>
+<div id="sb-site" class="wrapper">
+    <header class="main-header">
+        <div id="page-header" class="clearfix">
+            <!-- header-logo: DoorData mini logo -->
+            <div id="header-logo" class="rm-transition">
+
+               <div style="position: relative;top:25px;"><a id="collapse-sidebar" href="javascript:void(0)" title="">
+                <i  class="fa fa-bars" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0)" class="tooltip-button hidden-desktop" title="Navigation Menu'" id="responsive-open-menu">
+                <i  class="fa fa-bars" aria-hidden="true"></i>
+
+            </a>
+        </div>
+
+        
+        
+        <!-- <img id="companyLogoHeader" src="<?= $this->companyLogoUrl ?>" style="width: 100%; max-width: 155px;"> -->
+
+        
+    </div><!-- #header-logo -->
+    <div id="header-left">
+        <img id="companyLogoHeader" src="<?= $this->companyLogoUrl ?>" style="width:auto;">
+    </div>
+    <!--header-right: username and logout button -->
+    <div id="header-right">
+       <div class="text-center usertitlename"><p style=" color:#000;"><b><?= $this->userName ?></b>, Welcome!</p></div>
+       <div class="user-profile dropdown">
+        <a href="#" title="" class="user-ico clearfix" data-toggle="dropdown">
+
+           <?php 
+           $path = "public/logos/profile/".$this->employee['column_0_ID'].".png";
+           if(file_exists($path)){ ?>
+               <img width="36" class="img-rounded" src="public/logos/profile/<?= $this->employee['column_0_ID'] ?>.png?t=<?= time(); ?>" alt="" jsid="profileimage" id="profileimage">
+           <?php }else{ ?>
+               <img width="36" class="img-rounded" src="public/images/1.png" alt="">
+           <?php } ?>
+
+           <i class="glyph-icon icon-chevron-down"></i>
+       </a>
+       <div class="dropdown-menu pad0B float-right">
+        <div class="box-sm">
+            <div class="pad5A button-pane button-pane-alt text-center mobileusername" style=" color:#000;">
+                <?= $this->userName ?>, Welcome
+            </div>
+            <div class="pad5A button-pane button-pane-alt text-center">
+               <!--  <a href="javascript:changeBody('/auth/logout', false, true);" class="display-block font-normal signoutbtn">
+                    <i class="glyph-icon icon-power-off"></i>
+                    Logout
+                </a> -->
+                <a href="<?= $this->baseUrl ?>/auth/logout/" class="display-block font-normal signoutbtn">
+                    <i class="glyph-icon icon-power-off"></i>
+                    Logout
+                </a>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div><!-- #page-header -->
+</header>
+<!-- page-sidebar: we are going to put here all the menu items -->
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div id="page-sidebar" class="rm-transition">
+            <div id="page-sidebar-wrapper" style="margin-bottom: 0;">
+                <div id="sidebar-menu" style="text-align:left;">
+
+                    <ul style="margin-top: 25px;"><? 
+                    $i = 0; 
+                    foreach ($this->tabs as $title => $href):
+                     list($p1, $sctl) = preg_split("[/?]", $this->firstTab);
+                     list($p1, $shref) = preg_split("[/?]", $href);
+                     ?>		
+                     <li id="navbar_<?= $i ?>" class="<?= $i == 0 ? 'active' : '' ?>">
+                         <a href="javascript:selectTab(<?= $i ?>, '<?= $href ?>');">
+                            <?= $this->allIcons[$title] ?>
+                            <span><?= $title == 'My Company' ? '<i>Online</i> <b>DOOR</b>DATA' : $title ?></span>
+                        </a>
+                    </li>
+                    <? $i++; 
+                endforeach; ?>
+            </ul>
+        </div><!-- #sidebar-menu -->
+        <div class="divider"></div>
+    </div><!-- #page-sidebar-wrapper -->
+</div><!-- #page-sidebar -->
+</section>
+</aside>
+
+<!-- ALL THE MAIN PAGE CONTENT IS GOING TO BE PUT HERE -->
+<div class="row content_part">
+    <div id="page-content-wrapper" class="rm-transition">
+       <!-- Main content -->
+       <div dojoType="dojox.layout.ContentPane" region="center" class='frameDiv jumbotron'
+       href="<?= $this->baseUrl . $this->firstTab ?>" align="left"
+       id="frameDiv" jsid="frameDiv">
+   </div>
+</div><!-- #page-content-wrapper -->
+</div>
+</div><!-- #sb-site -->
+
+
+
+
+<div dojoType="dojox.layout.ContentPane" region="bottom" class="footerpart"
+>&copy; 2009-<?= date('Y') ?> <?= $this->customBranding ? 'Powered By ' : '' ?>DOORDATA Solutions. All rights reserved. Phone: 877-521-DATA
+</div>

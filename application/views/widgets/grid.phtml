@@ -1,0 +1,127 @@
+<?
+    // set commonly used variables
+    $base      = Zend_Controller_Front::getInstance()->getBaseUrl();
+    $baseUrl   = Zend_Controller_Front::getInstance()->getBaseUrl() . '/' .
+                 Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    $id = $this->grid->getId();
+	$selectorColumn = $this->grid->getSelector();
+	$imageNew = $this->imageNew;
+
+?>
+<div dojoType="dijit.layout.BorderContainer" gutters="false" design="headline">
+	<!-- Toolbar -->
+	<div dojoType='dijit.layout.ContentPane' region='top' style="width: 100%; overflow: hidden;
+		 	height: <?= ($selectorColumn ? '75px' : '50px') ?>;">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<? if ($this->caption): ?>
+				<td style="padding-left: 10px; padding-top: 5px;">
+					<b style="font-size: 16pt"><?= $this->caption ?></b>
+				</td>
+				<? endif;?>
+				<? if (is_array($this->icons)==true){ //we display only items that are in this array
+					if(array_key_exists("new", $this->icons)) {?>
+						<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="new" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>" <?= $imageNew ? 'image="' . $imageNew . '"' : null ?>></div></td> <?}
+					if(array_key_exists("search", $this->icons)) {?>
+						<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="search" caption="<?= $this->caption ?>" grid="cmp_<?= $id ?>"></div></td>
+						<td style="padding: 7px 0px 0px 10px; visibility: hidden; display: none;" id="<?= $id ?>_search_mark"><font color="red" size="5px"><b>!</b></font></td> <?}
+					if(array_key_exists("delete", $this->icons)) {?>
+						<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="delete" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>"></div></td> <?}
+					if(array_key_exists("excel", $this->icons)) {?> 
+						<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="excel" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>"></div></td> <? }
+					if(array_key_exists("download", $this->icons)) {?> 
+						<td style="padding: 5px 0px 0px 10px;"><div dojoType="custom.GridButton" action="download" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>"></div></td> <? }
+				} else { ?>
+				<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="new" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>" <?= $imageNew ? 'image="' . $imageNew . '"' : null ?>></div></td>
+				<td style="padding: 7px 0px 0px 10px;" nowrap><span dojoType="custom.GridButton" action="search" caption="<?= $this->caption ?>" grid="cmp_<?= $id ?>"></span></td>
+				<td style="padding: 7px 0px 0px 10px; visibility: hidden; display: none" id="<?= $id ?>_search_mark"><font color="red" size="5px"><b>!</b></font></td>
+				<td style="padding: 7px 0px 0px 10px;"><div dojoType="custom.GridButton" action="excel" caption="<?= $this->caption_singular ? $this->caption_singular : $this->caption ?>" grid="cmp_<?= $id ?>"></div></td>	 
+				<? } ?>
+			</tr>
+		</table>
+		<? if ($selectorColumn): ?>
+		<table cellpadding="0" cellspacing="0"><tr><td style="padding-top: 10px">
+			<a style="color: black" href="javascript:cmp_<?= $id ?>.checkAll()">check all</a>&nbsp;&nbsp;
+			<a style="color: black" href="javascript:cmp_<?= $id ?>.clearAll()">clear all</a>
+		</td></tr></table>
+		<? endif; ?>
+	</div>
+	<!-- Grid -->
+	<table region="center"
+		dojoType='<?= ($this->customGrid ? $this->customGrid : 'ginger.Grid') ?>' 
+	    id               = 'cmp_<?= $id ?>'
+	    jsId             = 'cmp_<?= $id ?>'
+		numbered         = '<?= $this->grid->getNumbered() ?>'
+		rowsPerPage      = '<?= Zend_Registry::getInstance()->configuration->paginator->page ?>'
+	    clientSort       = 'true'
+		 <? if($selectorColumn): ?>
+		selector	     = '<?= $selectorColumn->getId() ?>'
+		<? endif; ?>
+		inline			 = <?= ($this->inline ? 'true' : 'false') ?>
+	    idColumnIndex    = '<?= key($this->grid->getColumnsByField('ID')) ?>'
+	    controller       = "<?= $baseUrl ?>"
+	    detailedDialog   = '<?= ($this->dialog ? $this->dialog : 'gridDialog') ?>'
+	    detailedView     = "<?= ($this->detailedView ? $this->detailedView : $baseUrl . '/detailed?_model=' . $id) ?>"
+		searchView       = "<?= ($this->searchView   ? $this->searchView   : $baseUrl . '/search?_model='   . $id) ?>"
+		maxRows			 = "<?= $this->grid->getMaxRows() ?>"
+	    columnReordering = 'true'
+		<? if ($this->grid->getParent()): ?>
+			<? if (is_object($this->grid->getParent())): ?>
+	    parent           = 'cmp_<?= $this->grid->getParent()->getId() ?>'
+			<? else: ?>
+	    parentId         = '<?= $this->grid->getParent() ?>'
+	 		<? endif; ?>
+		<? endif; ?>>
+	    <thead>
+	        <tr>
+	        <? if ($this->grid->getNumbered()): ?>
+				<th width="25px" field = '_number' style = 'padding: 0px'>&nbsp;</th>
+			<? endif; ?>
+	        <?  foreach ($this->grid->getColumns() as $columnId => $column):
+	        		// ignore columns not visible in the grid
+	                if (!$column->getVisible(Data_Column_Grid::GRID)) continue;
+						
+					$view = $column->getView();
+					$width = $column->getWidth() ? $column->getWidth() : $this->grid->getDefaultColumnWidth(); 
+			?>
+	            <th width = '<?= $width ?>'
+	            	<? if ($column->getMaxLength() != null): ?>
+					widgetProps  = '{maxLength: <?= $column->getMaxLength() ?>}'
+					<? endif; ?>
+	                <? if ($view == Data_Column_Grid::DATE): ?>
+	                cellType     = 'dojox.grid.cells.DateTextBox'
+	                formatter    = 'formatDate'
+					constraint	 = '{dateFormat:"<?= App::dateFormat() ?>"}'
+	                <? elseif ($view == Data_Column_Grid::DROPDOWN): ?>
+	                formatter    = 'formatReference'
+	                <? elseif($view == Data_Column_Grid::CHECKBOX): ?>
+					alwaysEditing = 'true'
+	                cellType     = 'ginger.GridCheckBox'
+	                <? elseif($view == Data_Column_Grid::MEMO): ?>
+	                cellType     = 'dojox.grid.cells.Editor'
+	                <? elseif($column->getLink()): ?>
+	                formatter    = 'formatLink'
+	                cellType     = 'ginger.GridLink'  
+	                link         = "<?= $column->getLink() ?>"
+	                constraint   = "{link: '<?=$column->getLink() ?>', grid: '<?= $id ?>'}"
+	                <? elseif($column->getCalculated()): ?>
+	                formatter    = 'formatCalculated'
+					<? else: ?>
+					cellType     = 'dojox.grid.cells.Cell'
+	                <? endif; ?>
+	                <? if($view == Data_Column_Grid::CHECKBOX): ?>
+	                editable     = true
+	                readonly     = <?= $this->inline && $column->getEditable() ? 'false' : 'true' ?>
+	                <? else: ?>
+	                editable     = <?= ($this->inline ? $column->getEditableText() : 'false') ?>
+	                <? endif; ?>
+	                defaultValue = '<?= $column->getDefault()?>'
+	                field        = '<?= $column->getId() ?>'
+	                <?/*hidden       = <?= $column->getHidden() || !$column->getVisible(Data_Column_Grid::GRID) ? 'true' : 'false' ?>*/?>
+					 styles		 = '<?= $column->getVisible(Data_Column_Grid::GRID) ? '' : 'display: none;' ?>'
+	            ><?= $column->getTitle() ?></th>
+	        <? endforeach; ?>
+	        </tr>
+	    </thead>
+	</table>
+</div>

@@ -1,0 +1,27 @@
+<!-- radio buttons to capture branding options !-->
+
+<? $this->placeholder('content')->captureStart() ?>
+<div style="margin: 5px">
+	<input type="checkbox" dojoType="ginger.form.CheckBox" id='inspection_company_logo' name="logo" style='margin-right: 5px' value='1'
+	<? echo $this->logoBranding ? 'checked' : '' ?>/>Enable Logo Change
+	<input type="checkbox" dojoType="ginger.form.CheckBox" id='inspection_company_color' name="color" style='margin-right: 5px; margin-left: 30px' value='1'
+	<? echo $this->colorBranding ? 'checked' : '' ?>/>Enable Color Change
+	<input type="checkbox" dojoType="ginger.form.CheckBox" id='inspection_bogus' name="bogus" style='visibility: hidden; display: none;' value='1' checked/>
+
+</div>
+<? $this->placeholder('content')->captureEnd() ?>
+
+<!-- standard detailed view form with the above element embedded for administrators -->
+<?= $this->partial("../widgets/primarycontact.phtml", array(
+			"grid"   => $this->grid,
+			"record" => $this->record,
+			"model"     => 'inspection_company',
+			"allEmployees" => $this->allEmployees,
+			"primaryContact" => $this->primaryContact,
+			"type" => 1002,
+			'extraContent' => $this->isAdmin ? $this->placeholder('content') : null,
+			'icon' => 'icon-bars',
+			'title' => 'Inspection Company',
+			'controller' => 'inspectioncompany'
+			)
+); ?>

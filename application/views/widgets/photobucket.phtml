@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	window.onload = function()
+	{
+		parent.parent.photobucket_complete(getParameter(document.location.href, "url"));
+	};
+
+	function getParameter ( queryString, parameterName ) {
+		var parameterName = parameterName + "=";
+		if ( queryString.length > 0 )
+		{
+			begin = queryString.indexOf ( parameterName );
+			if ( begin != -1 )
+			{
+				begin += parameterName.length;
+				end = queryString.indexOf ( "&" , begin );
+				if ( end == -1 )
+				{
+					end = queryString.length
+				}
+				return unescape ( queryString.substring ( begin, end ) );
+			}
+			return "";
+		}
+	}
+
+	function photobucket_complete(inurl)
+	{
+		dojo.byId('<?= $this->grid->getId() ?>_column_1').value = inurl;
+		dojo.byId('<?= $this->grid->getId() ?>_picture').innerHTML = inurl;
+	}
+</script>
+
+<? $readonly = $this->grid->isReadonly(0); ?>
+
+<div dojoType="dijit.layout.ContentPane" style="position: relative; width: <?= $readonly?'450px':'710px' ?>; height: 500px;">
+<? if (!$readonly) { ?>
+	<!-- Media plugin -->
+	<div style="position:absolute; left: 420px; top: 0px">
+	<iframe id="plugin" src="http://photobucket.com/plugin?&url=<?= $this->fullBaseUrl ?>/inspection/photobucket&linkType=tag&media=image&btntxt=Paste" bgcolor="transparent" width="270" height="450" frameborder="0" scrolling="no"></iframe>
+	</div>
+<? } ?>
+<table style="width: 350px">
+	<tr>
+    	<td>Name</td><td><?= $this->grid->getFieldControl('NAME', $this->record, array('style' => ' width: 100%; margin-left: -1px ')) ?></td>
+    </tr>
+    <tr>
+    	<td>Url</td><td><?= $this->grid->getFieldControl('URL', $this->record, array('cols' => '40', 'rows' => '2', 'style' => ' width: 100% ')) ?></td>
+    </tr>
+    <tr>
+    	<td>Description</td><td><?= $this->grid->getFieldControl('DESCRIPTION', $this->record, array('cols' => '40', 'style' => ' width: 100% ')) ?></td>
+	</tr>
+</table>
+	<div style="height: 100px; width: 400px" id="<?= $this->grid->getId() ?>_picture" align="center" class="photobucket"><?= array_key_exists('URL', $this->photobucket) ? $this->photobucket['URL']:''?></div>
+</div>
+
+<table cellpadding="0" cellspacing="0">
+	<tr>
+		<? if (!$readonly) { ?>
+			<td><div dojoType="dijit.form.Button" onclick="gridDialog.submit()">Accept Change</div></td>
+		<? } ?>
+		<td><div dojoType="dijit.form.Button" onclick="gridDialog.onCancel()"><?= $readonly?'Close':'Cancel Change' ?></div></td>
+	</tr>
+</table>

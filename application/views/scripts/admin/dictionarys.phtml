@@ -1,0 +1,13 @@
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+	array(
+		 "grid" 			=> $this->components['dictionary'],
+		 'can' 				=> $this->access['dictionary'],
+		 'caption' 			=> 'DICTIONARY',
+		 'caption_singular' => "DICTIONARY",
+		 'parentPaneId'		=> "list_of_user_files",
+		 'gridParams'		=> $this->gridParams,
+	)) ?>
+</div>
+
+

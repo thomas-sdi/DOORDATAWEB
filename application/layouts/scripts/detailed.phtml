@@ -1,0 +1,50 @@
+<?
+	$id = $this->placeholder('content')->grid->getId();
+	$gridId = 'cmp_' . $id;
+	$search = $this->placeholder('content')->search;
+	$record = array_key_exists('record', $this->placeholder('content')) ?
+					$this->placeholder('content')->record : null; 
+?>
+<script><?= $gridId ?>.detailedDialog.attr('title', "<?
+	if ($search) echo 'Search';
+	else if ($record) echo 'Edit record';
+	else echo 'New record' ?>");
+</script>
+
+<h3 class="content-box-header bg-primary" style="text-align: left;">
+	<i class="glyph-icon icon-search"></i>
+	Search...
+	<div class="header-buttons-separator">
+		<a class="icon-separator" href="javascript:bratiliusDialog.hide();">
+			<i class="glyph-icon icon-remove"></i>
+		</a>
+	</div>
+</h3>
+
+<div class="content-box-wrapper" style="padding:15px; max-width: 500px; margin-left: auto; margin-right: auto;">
+	<? if ($search): ?><div class="row"><div class="col-md-12" style="text-align: right;">Empty</div></div><? endif; ?> 
+<? foreach ($this->placeholder('content')->grid->getColumns(
+				$search ? Data_Column_Grid::SEARCH : Data_Column_Grid::EDIT) as $column): ?>
+    <div class="row" style="padding-bottom: 5px;">
+        <div class="col-xs-5" style="text-align: right; padding-top: 15px;"><?= $column->getTitle() ?></div>
+        <div class="col-xs-6"><?= $this->placeholder('content')->grid->getFieldControl($column, $record, null, $search) ?></div>
+		<? if ($search && $column->getView() != Data_Column_Grid::DATE):?>
+			<div class="col-xs-1">
+				<input type="checkbox" dojoType="dijit.form.CheckBox"
+				   name="<?= $column->getId()?>_empty" id="<?= $id ?>_<?= $column->getId()?>_empty" value="1">
+			</div>
+		<? endif; ?>
+    </div>
+<? endforeach; ?>
+	<div class="row" style="padding-top: 20px;">
+		<div class="col-md-12" style="text-align: center;">
+			<div dojoType="dijit.form.Button" <?= $search ? 'class="short"' : '' ?> onclick="bratiliusDialog.executeSearch()"><?
+			echo $search ? 'Search' : 'Accept Change'?></div>
+			<? if ($search): ?>
+			<div dojoType="dijit.form.Button" class="short" onclick="bratiliusDialog.clearSearch()">Clear</div>
+	        <? endif; ?>
+			<div dojoType="dijit.form.Button" <?= $search ? 'class="short"' : '' ?> onclick="bratiliusDialog.hideSearch()"><?
+			echo $search ? 'Cancel' : 'Cancel Change'?></div>
+		</div>
+	</div>
+</div>

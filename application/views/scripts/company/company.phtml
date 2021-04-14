@@ -1,0 +1,9 @@
+<script>gridDialog.attr('title', "<?= ($this->record ? 'Edit Building Owner' : 'New Building Owner') ?>");</script>
+<table>
+<? foreach ($this->grid->getColumns(Data_Column_Grid::EDIT) as $column): ?>
+    <tr>
+        <td><?= $column->getTitle() ?></td>
+        <td><?= $this->grid->getFieldControl($column, $this->record) ?></td>
+    </tr>
+<? endforeach; ?>
+</table>

@@ -1,0 +1,120 @@
+.themeRed .dojoxGridRowOver .dojoxGridCell,
+.themeRed .dojoxGridRowSelected {
+	background-color: #d47e83;
+}
+
+.themeRed A {
+	color: #96000a;
+}
+
+.themeRed TD.navbar,
+.themeRed TD.navbarbg,
+.themeRed TD.navbarChecked {
+	border-right: 2px #7e0008 solid;
+}
+
+.themeRed .frameDiv {
+	width: 99.3%; border: 6px solid #b54c53;
+}
+
+.themeRed TD.navbarbg,
+.themeRed TD.navbar,
+.themeRed TD.navbarChecked,
+.themeRed .dijitDialogTitleBar,
+.themeRed .dijitTabInnerDiv .dijitTabContent, 
+.themeRed .dijitTabInnerDiv,
+.themeRed .dijitTab
+{
+	background: url('../../images/titleBarRed.gif') repeat-x;
+}
+
+.themeRed TD.navbar:hover,
+.themeRed TD.navbarChecked,
+.themeRed .dojoxGridHeader .dojoxGridCell,
+.themeRed .dojoxGridHeader .dojoxGridCellOver,
+.themeRed .dijitTabChecked,
+.themeRed .dijitTabChecked .dijitTabInnerDiv,
+.themeRed .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeRed .dijitTabHover, 
+.themeRed .dijitTabHover .dijitTabInnerDiv,
+.themeRed .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../../images/titleBarRed_active.gif') repeat-x;
+}
+
+.themeRed .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #7e0008 !important;
+}
+
+.themeRed .dojoxGridCell {
+	border-color: #7e0008;
+}
+
+.themeRed .dijitTab {
+	border: 1px solid #7e0008 !important;
+}
+
+.themeRed .dijitTabContainerBottom-spacer,
+.themeRed .dijitTabContainerTop-spacer,
+.themeRed .dijitSplitterH
+{
+	background: #b54c53 !important;
+}
+
+.themeRed .form_table {
+	background-image: url('../../images/pdf_bg_red.jpg');
+}
+
+/* BUTTONS */
+.themeRed .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat 0 -26px;
+}
+
+.themeRed .short .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat -141px -26px;
+}
+
+.themeRed .long .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") -220px -26px no-repeat;
+}
+
+/* CHECKBOX */
+.themeRed .dijitCheckBox,
+.themeRed .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') -16px -32px !important;
+}
+
+.themeRed .dijitCheckBoxChecked,
+.themeRed .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') 0 -32px !important;	
+}
+
+/* RADIO */
+.themeRed .dijitRadio, 
+.themeRed .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') -16px -32px !important;
+}
+
+.themeRed .dijitRadioChecked, 
+.themeRed .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') 0 -32px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+.themeRed .dijitButtonNode {
+	background: url('../../images/buttonInputRed.png') 
+}
+
+/* LOGIN DIALOG */
+.themeRed TABLE.authDialog {
+	border-color: #96000a;
+}
+
+/* INPUT CONTROL BORDERS */
+.themeRed .dijitTextBox,
+.themeRed .dijitComboBox,
+.themeRed .dijitSpinner
+.themeRed .dijitInlineEditor INPUT,
+.themeRed .dijitTextArea {
+	border: 1px solid #6a4547;
+}

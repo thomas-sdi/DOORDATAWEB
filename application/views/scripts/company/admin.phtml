@@ -1,0 +1,20 @@
+<?= 
+$this->partial( "../widgets/profile.phtml",
+	array(
+		"action"	    	=> $this->baseUrl. '/company/saveadmin',
+		"companyId"   		=> $this->companyId,
+		"companyName" 		=> 'PROFILE: ' . $this->companyName,
+		"address1"			=> $this->address1,
+		"address2"			=> $this->address2,
+		"city"	    		=> $this->city,
+		"country"			=> $this->country,
+		"state"				=> $this->state,
+		"zip"				=> $this->zip,
+		"primaryContact" 	=> $this->primaryContact,
+		"allCountries"		=> $this->allCountries,
+		"allStates"			=> $this->allStates,
+		"allEmployees" 		=> $this->allEmployees,
+		"disabled" 			=> ($this->readonly ? 'disabled' : '')
+	)
+);
+?>

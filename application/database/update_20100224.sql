@@ -1,0 +1,12 @@
+update dictionary set value_order = 1 where category = 'Operational test' and item = 'T1';
+update dictionary set value_order = 2 where category = 'Operational test' and item = 'T2';
+update dictionary set value_order = 3 where category = 'Operational test' and item = 'T3';
+update dictionary set value_order = 4 where category = 'Operational test' and item = 'T4';
+update dictionary set value_order = 5 where category = 'Operational test' and item = 'T5';
+update dictionary set value_order = 6 where category = 'Operational test' and item = 'T6';
+update dictionary set value_order = 7 where category = 'Operational test' and item = 'T7';
+update dictionary set value_order = 8 where category = 'Operational test' and item = 'T8';
+update dictionary set value_order = 9 where category = 'Operational test' and item = 'T9';
+update dictionary set value_order = 10 where category = 'Operational test' and item = 'T10';
+update dictionary set value_order = 11 where category = 'Operational test' and item = 'T11';
+update dictionary set value_order = 12 where category = 'Operational test' and item = 'T12';

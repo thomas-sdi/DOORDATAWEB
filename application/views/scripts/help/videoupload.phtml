@@ -1,0 +1,188 @@
+<div class="container">
+
+	<header class="page-header">
+
+		<h1 style="text-align: center;margin: 0;padding: 15px;">File Upload</h1>
+		<a class="icon-separator" href="#" onclick="cancelhelp()">
+			<i class="glyph-icon icon-remove cl-close"></i>
+		</a>
+	</header>
+
+	<form id="form" action="help/savehelp" method="post">
+
+		<div class="row">
+			
+
+			<div class="col-sm-12 col-md-3 col-lg-3" style="text-align: center;">
+				<label>Video File</label>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+
+				<div class="form-group">
+					<label for="file" class="sr-only">File</label>
+					<div class="input-group">
+						<input type="text" name="filevideo" class="form-control" placeholder="No file selected" readonly required="">
+						<span class="input-group-btn">
+							<div class="btn btn-default  custom-file-uploader">
+								<input type="file" name="video" onchange="this.form.filevideo.value = this.files.length ? this.files[0].name : ''" />
+								Select a file
+							</div>
+						</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3" id="loader_enable" hidden>
+				<img class="img-responsive" src="<? echo $this->baseUrl().'/public/images/loading.gif'; ?>"
+				style="width: 14%; margin-left: 35%;z-index: 1;">
+			</div>
+			
+		</div>
+		
+		<!-- <div class="row">
+			<div class="col-sm-12 col-md-3 col-lg-3" style="text-align: center;">
+				<label>Thumbnail Image</label>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+
+				<div class="form-group">
+					<label for="file" class="sr-only">File</label>
+					<div class="input-group">
+						<input type="text" name="fileimage" class="form-control" placeholder="No file selected" readonly>
+						<span class="input-group-btn">
+							<div class="btn btn-default  custom-file-uploader">
+								<input type="file" name="thumbnail" onchange="this.form.fileimage.value = this.files.length ? this.files[0].name : ''" />
+								Select a file
+							</div>
+						</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+		</div> -->
+
+		<div class="row">
+			<div class="col-sm-12 col-md-3 col-lg-3" style="text-align: center;">
+				<label>Title</label>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+
+				<div class="form-group">
+
+					<div class="input-group">
+						<input type="text" name="title" class="form-control" placeholder="Title">
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-3 col-lg-3" style="text-align: center;">
+				<label>Description</label>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+
+				<div class="form-group">
+
+					<div class="input-group">
+						<textarea class="form-control" name="description" row="4" placeholder="Description"></textarea>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+
+					<div class="input-group">
+						<input type="button" value="Submit" onclick="save()" class="btn btn-info1" id="submitBtn">
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-12 col-md-3 col-lg-3"></div>
+		</div>
+
+	</form>
+
+</div>
+<style>
+	.custom-file-uploader {
+		position: relative;
+	}
+	.custom-file-uploader input[type='file'] {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 5;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: default;
+	}
+	.cl-close {position: absolute;
+    right: 11px;
+    top: 11px;
+    font-size: 18px;}
+      .btn-info1{
+  	border-color: #7fa3c8 !important;
+    background: #7fa3c8;
+     color: #fff;
+}
+
+</style>
+<script type="text/javascript">
+
+	function save(){
+		
+		if($('input[name="filevideo"]').val().length < 4)
+			return false;
+		console.log($('#loader_enable'));	
+
+		$('#loader_enable').css('display', 'block');	
+		$('#submitBtn').css('display', 'none');
+
+		setTimeout(function(){
+
+			$.ajax ({
+				type: "post",
+				url: "help/savehelp",
+				data: new FormData($("#form")[0]),                
+				contentType: false,
+				cache: false,
+				processData: false,
+				async: false,
+				beforeSend: function() {
+					console.log("asdfasdf sdafads asdfas");
+
+				},
+				success: function(response) {
+					var data = JSON.parse(response);
+
+					var str = '<li class="video col-lg-4 col-md-4 col-sm-12 col-xs-12 rm_'+data[4]+' data-html="#video2"><video width="90%" height="290" controls><source src="'+baseUrl+'/public/help/video/'+data[0]+'" type="video/mp4"></video><h4>'+data[2]+'  <i class="fa icon-remove" style="color:red;" onclick="removeGallery('+data[4]+')"> </i></h4><p>'+data[3]+'</p></li>';
+
+					$('#lightgallery').append(str);	
+
+					bratiliusDialog.hide();
+
+					$('#loader_enable').css('display', 'none');
+					$('#submitBtn').css('display', 'block');
+				},
+				complete: function() {
+				},
+			});
+
+		},500); 
+
+	}
+
+	function cancelhelp(){
+		bratiliusDialog.hide();
+	}
+	
+</script>

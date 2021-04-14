@@ -1,0 +1,18 @@
+<b>
+	Upload your company logo here.<br/>
+	Acceptable file formats: jpg, png, gif, 100x300 pixels
+</b>
+
+<!-- Styled file upload control -->
+<div style="position: relative; margin-top: 8px;">
+	<input type="file" id='logoFilePathHidden' name="logo" style="position: relative; text-align: right; -moz-opacity: 0; filter:alpha(opacity: 0); opacity: 0;z-index: 2; width: 270px;"
+		   onchange  ="console.log('working'); dojo.byId('logoFilePath').value = dojo.byId('logoFilePathHidden').value"
+		   onmouseout="dojo.byId('logoFilePath').value = dojo.byId('logoFilePathHidden').value"/>
+	<table class="fakefile" style="position: absolute; left: 0px; top: 0px; z-index: 1">
+		<tr>
+			<td><input id='logoFilePath' type="text" dojoType="dijit.form.ValidationTextBox" disabled/></td>
+			<td><button dojoType='dijit.form.Button' label="BROWSE..." class="short"
+				        onclick="dijit.byId('logouploadForm').submit(function(){dijit.byId('logoUpload').href='<?= $this->baseUrl ?>/inspectioncompany/logoupload'})"></button></td>
+		</tr>
+	</table>
+</div>

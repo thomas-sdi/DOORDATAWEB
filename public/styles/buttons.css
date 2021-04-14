@@ -1,0 +1,33 @@
+.dijitButtonContents {
+	margin-top: 2px !important;
+	color: white !important;
+	font-weight: bold !important;
+}
+
+.dijitInline .dijitButtonNode {
+	width: 136px; height: 22px;
+    color: white !important; font-weight: bold;
+    border: none !important;
+    font-weight: bold;
+}
+
+.short .dijitInline .dijitButtonNode {
+	width: 72px !important;
+}
+
+
+.long .dijitInline .dijitButtonNode {
+	width: 195px !important;
+}
+
+.buttonRed .dijitInline .dijitButtonNode{
+	background: no-repeat url('../images/buttonRed.gif') !important;
+	width: 96px;
+	height: 28px;
+}
+
+.buttonGreen .dijitInline .dijitButtonNode{
+	background: no-repeat url('../images/buttonGreen.gif') !important;
+	width: 96px;
+	height: 28px;
+}

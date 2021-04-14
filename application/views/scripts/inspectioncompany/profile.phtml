@@ -1,0 +1,167 @@
+<?
+	$form = $this->placeholder('data')->form;
+	$logo = $form->getValue('logo_file');
+	$theme = $form->getValue('theme');
+?>
+
+<input type="hidden" name = 'id' value='<?= $form->getValue('id') ?>'/>
+
+<!-- COMPANY PROFILE -->
+<div class="row">
+	<div class="col-md-4 col-sm-12 col-xs-12" style="padding-left: 28px; padding-right: 28px;">
+		<div class="row" style="margin-top: 28px;">
+			<div class="col-md-12"><b>You can change your company address and primary contact information here:</b></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Address 1</div>
+			<div class="col-md-6"><?= $form->render('address_1')?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Address 2</div>
+			<div class="col-md-6"><?= $form->render('address_2')?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">City</div>
+			<div class="col-md-6"><?= $form->render('city')?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Country</div>
+			<div class="col-md-6">
+				<select dojoType="dijit.form.FilteringSelect" name="country" id="country">
+					<option value="" ></option>
+					<? foreach ($this->allCountries as $country): ?>
+		    		<option value="<?= $country['ID'] ?>" <?= $country['ID'] === $form->getValue('country') ? "selected" : "" ?>
+		    		><?= $country['ITEM'] ?></option>
+					<? endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">State / Province</div>
+			<div class="col-md-6">
+				<input id="state" name="state">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">ZIP / Postal Code</div>
+			<div class="col-md-6"><?= $form->render('zip')?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Primary Contact</div>
+			<div class="col-md-6">
+				<select dojoType="dijit.form.FilteringSelect" name="primary_contact">
+					<option value="" ></option>	
+					<? foreach ($this->allEmployees as $employee): ?>
+		    		<option value="<?= $employee['ID'] ?>" <?= $employee['ID'] == $form->getValue('primary_contact') ? "selected" : "" ?>
+		    			><?= array_value('FIRST_NAME', $employee) . " " . array_value('LAST_NAME', $employee) ?>
+		    		</option>
+					<? endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button dojoType="dijit.form.Button" type="button" class="short"
+					onclick="dijit.byId('inspectionCompanyProfileForm').submit()"
+				>Save</button>
+			</div>
+		</div>		
+
+	</div>
+	
+	<div class="col-md-4 col-sm-12 col-xs-12" style="padding-left: 28px; padding-right: 28px;">
+		<? if ($this->canChangeLogo): ?>
+		<div style="margin-top: 28px;">
+			<b>Upload your company logo here.</b><br/>
+			Acceptable file formats: jpg, png, gif only.<br/>
+			<!-- For optimum logo resolution keep your image size to 100px height x 300px width: -->
+	         </div>
+			<!-- Styled file upload control -->
+			<div style="position: relative;">
+				<input type="file" id='logoFilePathHidden' name="logo" style="position: absolute; text-align: right; -moz-opacity: 0; filter:alpha(opacity: 0); opacity: 0;z-index: 2; width: 270px; height: 35px;"
+					   onchange  ="dojo.byId('logoFilePath').value = dojo.byId('logoFilePathHidden').value"
+					   onmouseout="dojo.byId('logoFilePath').value = dojo.byId('logoFilePathHidden').value"/>
+				<table class="fakefile">
+					<tr>
+						<td><input id='logoFilePath' type="text" dojoType="dijit.form.ValidationTextBox" disabled/></td>
+						<td><button dojoType='dijit.form.Button' label="BROWSE..." class="short" style="margin-left: 10px;"></button></td>
+					</tr>
+					<!-- Logo -->
+					<? if ($logo): ?>
+					<tr>
+						<td>
+							<div style="width:270px;"><img id='formLogoDisplay' src="<?= $logo ?>" style="position: relative;width:100%;height:100%; object-fit: contain; left: 2px;"/></div>
+							<input type="hidden" name="removeLogo" id="formRemoveLogo" value="0"/>
+						</td>
+					</tr>
+					<tr>
+						<td height="30px">
+							<button dojoType="dijit.form.Button" type="button" class="short" onclick="dijit.byId('inspectionCompanyProfileForm').removeLogo()"
+							>Remove</button>
+						</td>
+					</tr>
+					<? endif; ?>
+				</table>
+			</div>
+
+		
+		<? endif; // if can change logo ?>
+	</div>
+	
+	<div class="col-md-4 col-sm-12 col-xs-12" style="padding-left: 28px; padding-right: 28px;">
+		<? if ($this->canChangeTheme): ?>
+			<!-- STYLE SELECTION -->
+			<div style="margin-top: 28px; ">
+				<table style="border-spacing: 10px;">
+				<tr><td colspan="3"><b>Pick your color scheme here</b></td></tr>
+				<tr>
+					<td style='width: 50px;'><input type="radio" dojoType='dijit.form.RadioButton' name="theme"
+						value="<?= $this->THEME_BLUE ?>" <?= $theme == $this->THEME_BLUE ? 'checked' : '' ?>/></td>
+					<td>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarBlue.gif'); width: 75px; height: 30px; float: left;"></span>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarBlue_active.gif'); width: 75px; height: 30px;float: left;"></span>
+					</td>
+					<td style="padding-left: 5px;">DOORDATA Blue</td>
+				</tr>
+				<tr>
+					<td style='width: 50px;'><input type="radio" dojoType='dijit.form.RadioButton' name="theme"
+						value="<?= $this->THEME_CHROME ?>" <?= $theme == $this->THEME_CHROME ? 'checked' : '' ?>/></td>
+					<td>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarChrome.gif'); width: 75px; height: 30px; float: left;"></span>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarChrome_active.gif'); width: 75px; height: 30px;float: left;"></span>
+					</td>
+					<td style="padding-left: 5px;">Black</td>
+				</tr>
+				<tr>
+					<td style='width: 50px;'><input type="radio" dojoType='dijit.form.RadioButton' name="theme"
+						value="<?= $this->THEME_RED ?>" <?= $theme == $this->THEME_RED ? 'checked' : '' ?>/></td>
+					<td>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarRed.gif'); width: 75px; height: 30px; float: left;"></span>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarRed_active.gif'); width: 75px; height: 30px;float: left;"></span>
+					</td>
+					<td style="padding-left: 5px;">Red</td>
+				</tr>
+				<tr>
+					<td style='width: 50px;'><input type="radio" dojoType='dijit.form.RadioButton' name="theme"
+						value="<?= $this->THEME_GREEN ?>" <?= $theme == $this->THEME_GREEN ? 'checked' : '' ?>/></td>
+					<td>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarGreen.gif'); width: 75px; height: 30px; float: left;"></span>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarGreen_active.gif'); width: 75px; height: 30px;float: left;"></span>
+					</td>
+					<td style="padding-left: 5px;">Green</td>
+				</tr>
+				<tr>
+					<td style='width: 50px;'><input type="radio" dojoType='dijit.form.RadioButton' name="theme"
+						value="<?= $this->THEME_BROWN ?>" <?= $theme == $this->THEME_BROWN ? 'checked' : '' ?>/></td>
+					<td>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarBrown.gif'); width: 75px; height: 30px; float: left;"></span>
+						<span style="background-image: url('<?= $this->baseUrl ?>/public/images/titleBarBrown_active.gif'); width: 75px; height: 30px;float: left;"></span>
+					</td>
+					<td style="padding-left: 5px;">Orange</td>
+				</tr>
+				
+				</table>
+			</div>
+			<? endif; ?>
+	</div>
+</div>

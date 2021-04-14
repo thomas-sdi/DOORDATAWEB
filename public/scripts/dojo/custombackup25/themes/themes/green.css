@@ -1,0 +1,150 @@
+.themeGreen .dojoxGridRowOver .dojoxGridCell,
+.themeGreen .dojoxGridRowSelected {
+	background-color: #8cb3a4;
+}
+
+.themeGreen A {
+	color: #005937;
+}
+
+.themeGreen TD.navbar,
+.themeGreen TD.navbarbg,
+.themeGreen TD.navbarChecked {
+	border-right: 2px #005937 solid;
+}
+
+.themeGreen TD.navbarbg,
+.themeGreen TD.navbar,
+.themeGreen TD.navbarChecked,
+.themeGreen .dijitDialogTitleBar,
+.themeGreen .dijitTabInnerDiv .dijitTabContent, 
+.themeGreen .dijitTabInnerDiv,
+.themeGreen .dijitTab
+{
+	background-color: #75a593;
+}
+
+.themeGreen TD.navbar:hover,
+.themeGreen TD.navbarChecked,
+.themeGreen .dojoxGridHeader .dojoxGridCell,
+.themeGreen .dojoxGridHeader .dojoxGridCellOver,
+.themeGreen .dijitTabChecked,
+.themeGreen .dijitTabChecked .dijitTabInnerDiv,
+.themeGreen .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeGreen .dijitTabHover, 
+.themeGreen .dijitTabHover .dijitTabInnerDiv,
+.themeGreen .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../images/titleBarGreen_active.gif') repeat-x;
+}
+
+.themeGreen .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #005937 !important;
+}
+
+.themeGreen .dojoxGridCell {
+	border-color: #005937;
+}
+
+.themeGreen .dijitTab {
+	border: 1px solid #75a593 !important;
+}
+
+.themeGreen .dijitTabContainerBottom-spacer,
+.themeGreen .dijitTabContainerTop-spacer,
+.themeGreen .dijitSplitterH
+{
+	background: #75a593 !important;
+}
+
+.themeGreen .form_table {
+	background-image: url('../images/pdf_bg_green.jpg');
+}
+
+/* BUTTONS */
+.themeGreen .dijitButton{
+	background-color: #75a593;
+}
+
+/* CHECKBOX */
+.themeGreen .dijitCheckBox,
+.themeGreen .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') -16px -48px !important;
+}
+
+.themeGreen .dijitCheckBoxChecked,
+.themeGreen .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') 0 -48px !important;	
+}
+
+/* RADIO */
+.themeGreen .dijitRadio, 
+.themeGreen .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') -16px -48px !important;
+}
+
+.themeGreen .dijitRadioChecked, 
+.themeGreen .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') 0 -48px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+
+
+/* LOGIN DIALOG */
+.themeGreen TABLE.authDialog {
+	border-color: #005937;
+}
+
+/* INPUT CONTROL BORDERS */
+
+.themeGreen .usertitlename {
+	color:#005937;
+}
+.themeGreen #sidebar-menu li.active {
+    border-left: 5px solid #005937;
+}
+.themeGreen .bg-primary{
+	background: #75a593;
+}
+.themeGreen #header-logo a {
+    background: #005937;
+}
+
+.themeGreen #page-header {
+	background-color: #fff;
+	border-top: 5px solid #75a593;
+    border-bottom: 5px solid #75a593;
+}
+.themeGreen #header-logo{
+	background-color: #75a593;
+}
+.themeGreen .user-profile > a{
+	background-color: #75a593;
+}
+.themeGreen .user-profile > a:hover{
+	background-color: #005937;
+}
+.themeGreen .nav > li.active > a{
+	background-color: #75a593;
+}
+.themeGreen .nav > li.active > a:focus{
+	background-color: #75a593;
+}
+.themeGreen .nav > li.active > a:hover{
+	background-color: #75a593;
+}
+
+.themeGreen .pdfFormColumn{
+	background-color: #75a593;
+}
+
+.themeGreen #page-sidebar li a:hover, 
+.themeGreen #page-sidebar li.sfHover > a.sf-with-ul, 
+.themeGreen #sidebar-menu li.active > a {
+    color: #005937;
+}
+
+.themeGreen .doorFireDataArea{
+	background-color: #75a593;
+}

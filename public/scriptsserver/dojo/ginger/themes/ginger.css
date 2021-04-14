@@ -1,0 +1,26 @@
+@import url('../../dojox/widget/Calendar/Calendar.css');
+@import url('../../dijit/themes/soria/soria.css');
+@import url('../../dojo/resources/dojo.css'); 
+@import url('../../dojox/grid/resources/soriaGrid.css');
+@import url('../../dojox/image/resources/ThumbnailPicker.css');
+@import url('buttons.css');
+@import url('form.css');
+
+BODY, HTML {
+    font-family: Arial;
+    margin:0  !important;
+	padding:0 !important;
+	border: 0 !important;
+}
+
+TABLE {
+	padding: 0;
+	margin: 0;
+	border-spacing: 0;
+}
+
+/* HTML 5 support */
+article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header,
+hgroup, keygen, meter, nav, output, progress, section, source, video {
+    display: block;
+}

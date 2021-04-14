@@ -1,0 +1,12 @@
+<?= $this->partial("../widgets/employee.phtml", array(
+			"grid"   => $this->grid,
+			"record" => $this->record,
+			"model"     => 'emp',
+			'controller' => 'inspectioncompany',
+			"user"   => $this->user,
+			"roles"  => $this->roles,
+			"roleEditDisabled" => $this->roleEditDisabled,
+			'userRole'		   => $this->userRole,
+			'companyId' => $this->companyId
+)); 
+?>

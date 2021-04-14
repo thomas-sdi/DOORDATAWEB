@@ -1,0 +1,121 @@
+.themeBlue .dojoxGridRowOver .dojoxGridCell,
+.themeBlue .dojoxGridRowSelected {
+	background-color: #567fcd;
+}
+
+.themeBlue A {
+	color: blue;
+}
+
+.themeBlue TD.navbar,
+.themeBlue TD.navbarbg,
+.themeBlue TD.navbarChecked {
+	border-right: 2px #00007d solid;
+}
+
+.themeBlue .frameDiv {
+	width: 99.3%; border: 6px solid #78A3C6;
+}
+
+.themeBlue TD.navbarbg,
+.themeBlue TD.navbar,
+.themeBlue TD.navbarChecked,
+.themeBlue .dijitDialogTitleBar,
+.themeBlue .dijitTabInnerDiv .dijitTabContent,
+.themeBlue .dijitTabInnerDiv,
+.themeBlue .dijitTab
+{
+	background: url('../../images/titleBarBlue.gif') repeat-x;
+}
+
+.themeBlue TD.navbar:hover,
+.themeBlue TD.navbarChecked,
+.themeBlue .dojoxGridHeader .dojoxGridCell,
+.themeBlue .dojoxGridHeader .dojoxGridCellOver,
+.themeBlue .dijitTabChecked,
+.themeBlue .dijitTabChecked .dijitTabInnerDiv,
+.themeBlue .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeBlue .dijitTabHover, 
+.themeBlue .dijitTabHover .dijitTabInnerDiv,
+.themeBlue .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../../images/titleBarBlue_active.gif') repeat-x;
+}
+
+.themeBlue .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #00007d !important;
+}
+
+.themeBlue .dojoxGridCell {
+	border-color: #00007d;
+}
+
+.themeBlue .dijitTab {
+	border: 1px solid #00007d !important;
+}
+
+.themeBlue .dijitTabContainerBottom-spacer,
+.themeBlue .dijitTabContainerTop-spacer,
+.themeBlue .dijitSplitterH
+{
+	background: #78A3C6 !important;
+}
+
+.themeBlue .form_table {
+	background-image: url('../../images/pdf_bg.jpg');
+}
+
+/* BUTTONS */
+.themeBlue .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat 0 0;
+}
+
+.themeBlue .short .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat -141px 0;
+}
+
+.themeBlue .long .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") -220px 0 no-repeat;
+}
+
+/* CHECKBOX */
+.themeBlue .dijitCheckBox,
+.themeBlue .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') -16px 0 !important;
+}
+
+.themeBlue .dijitCheckBoxChecked,
+.themeBlue .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') 0 0 !important;
+	
+}
+
+/* RADIO */
+.themeBlue .dijitRadio, 
+.themeBlue .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') -16px 0 !important;
+}
+
+.themeBlue .dijitRadioChecked, 
+.themeBlue .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') 0 0 !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+.themeBlue .dijitButtonNode {
+	background: url('../../images/buttonInputBlue.png') 
+}
+
+/* LOGIN DIALOG */
+.themeBlue TABLE.authDialog {
+	border-color: #00007d;
+}
+
+/* INPUT CONTROL BORDERS */
+.themeBlue .dijitTextBox,
+.themeBlue .dijitComboBox,
+.themeBlue .dijitSpinner
+.themeBlue .dijitInlineEditor INPUT,
+.themeBlue .dijitTextArea {
+	border: 1px solid #3f3f62;
+}

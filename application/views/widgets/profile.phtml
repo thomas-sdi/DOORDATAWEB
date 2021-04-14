@@ -1,0 +1,71 @@
+<?
+	$disabled = (isset($this->disabled) ? $this->disabled : ''); 
+?>        
+        
+        <div>
+        	<form id='admin_form'  action="<?= $this->action?>" method="post" dojoType="custom.forms.CompanyProfileForm"
+        		  <?= $this->state ? "state_id='".$this->state."'" : "" ?>
+        		  all_states='<?= $this->allStates ?>'
+        		  >
+        		<table>
+        			<caption><b>You can change your company address and primary contact information here:</b></caption>
+        			<tr><td>&nbsp;</td></tr>
+        			<tr>
+        				<td><input type="hidden" name="id" id="id" dojoType="dijit.form.TextBox" style="visibility:hidden" value="<?= $this->companyId ?>" <?= $disabled?> ></td><td></td>
+        			</tr>
+        			<tr>
+        				<td><b>Address 1</b></td>
+        				<td style="padding: 2px 0px 1px 0px"><input type="text" dojoType="dijit.form.ValidationTextBox" name="address_1" id="address_1" value="<?= $this->address1 ?>"<?= $disabled?> ></td>
+        			</tr>
+					<tr>
+        				<td><b>Address 2</b></td>
+        				<td style="padding: 2px 0px 1px 0px"><input type="text" dojoType="dijit.form.ValidationTextBox" name="address_2" id="address_2" value="<?= $this->address2 ?>"<?= $disabled?> ></td>
+        			</tr>
+        			<tr>
+        				<td><b>City</b></td>
+        				<td style="padding: 2px 0px 1px 0px"><input type="text" dojoType="dijit.form.ValidationTextBox" name="city" id="city" value="<?= $this->city ?>"<?= $disabled?> ></td>
+        			</tr>
+        			<tr>
+        				<td><b>Country</b></td>
+        				<td style="padding: 2px 0px 1px 0px">
+        					<select dojoType="dijit.form.FilteringSelect" id="country"
+                    				name="country" autoComplete="false" <?= $disabled?>>
+                    				<option value="" ></option>
+								<? foreach ($this->allCountries as $country): ?>
+                					<option value="<?= $country['ID'] ?>" <?= $country['ID'] === $this->country ? "selected" : "" ?>
+                						><?= $country['ITEM'] ?>
+                					</option>
+								<? endforeach; ?>
+							</select>
+        				</td>
+        			</tr>
+        			<tr><td><b>State / Province</b></td><td><input id="state" name="state"></td></tr> <!-- the field is populates in the js form -->
+        			<tr>
+        				<td><b>Zip / Postal Code</b></td>
+        				<td style="padding: 2px 0px 1px 0px"><input type="text" dojoType="dijit.form.ValidationTextBox" name="zip" id="zip" value="<?= $this->zip ?>" <?= $disabled?> ></td>
+        			</tr>
+        			<tr>
+        				<td><b>Primary Contact</b></td>
+        				<td style="padding: 2px 0px 1px 0px">
+        					<select dojoType="dijit.form.FilteringSelect" id="primary_contact"
+                    				name="primary_contact" autoComplete="false" <?= $disabled?>>
+                    				<option value="" ></option>
+								<? foreach ($this->allEmployees as $employee): ?>
+                					<option value="<?= $employee['ID'] ?>" <?= $employee['ID'] == $this->primaryContact ? "selected" : "" ?>
+                						><?= array_value('FIRST_NAME', $employee) . " " . array_value('LAST_NAME', $employee) ?>
+                					</option>
+								<? endforeach; ?>
+							</select>
+        				</td>
+        			</tr>
+        			<tr>
+        				<td colspan="2" style="padding: 2px 0px 1px 0px; text-align: right;">        					
+        					<button dojoType="dijit.form.Button" type="button" class="short"
+								onclick="dijit.byId('admin_form').submit()"
+							>Save</button>
+        					
+        				</td>
+        			</tr>
+        		</table>
+        	</form>
+        </div>

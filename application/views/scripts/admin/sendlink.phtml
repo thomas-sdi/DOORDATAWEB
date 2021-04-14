@@ -1,0 +1,31 @@
+<form id="sendlink_main_form" method="post">
+	E-mail&nbsp<input type="text" id="email" name="email" value="" dojoType="dijit.form.ValidationTextBox"><br>
+	<div id="status">&nbsp</div>
+	<button dojoType='dijit.form.Button' class="short">Send Link
+		<script type="dojo/connect" event="onClick">	
+			dojo.byId('status').innerHTML = 'Sending link...';
+			dojo.xhrPost ({
+	        	url: baseUrl + '/download/send',
+	        	handleAs: "text", 
+	        	form: "sendlink_main_form",
+	       	 	load: function(response, ioArgs) {
+					console.log(response);
+	          		var responseObj = dojo.fromJson(response);
+	            	if (responseObj.status == 'ok') {
+						dojo.byId('status').innerHTML = "&nbsp";
+						mainDialog.hide();
+					} else {
+						dojo.byId('status').innerHTML = 'Could not send link';
+					}
+					return response;
+				},
+				error: function(response, ioArgs) {  
+	           		console.log(response);
+					dojo.byId('status').innerHTML = 'Error occurred';
+					return response;  
+	       		} 
+			});
+		</script>
+	</button>	
+	<button dojoType="dijit.form.Button" class="short" onclick="mainDialog.hide()">Cancel</button>
+</form>

@@ -1,0 +1,25 @@
+<?
+    // set commonly used variables
+    $baseUrl   = Zend_Controller_Front::getInstance()->getBaseUrl() . '/' .
+                 Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    $id = $this->id;
+?>
+<!-- Data Store for the tree -->
+<div dojoType="dojo.data.ItemFileReadStore" jsId="store_<?= $id ?>"
+     url="<?= $baseUrl ?>/fetch?_model=<?= $id ?>" clearOnClose  = 'true'></div>
+     
+<!-- Data Model for the tree based on the store -->
+<div dojoType="dijit.tree.ForestStoreModel" jsId="model_<?= $id ?>" 
+     store="store_<?= $id ?>" query="{type:'top'}" childrenAttrs="children"
+     rootId="" rootLabel="User Roles"></div>
+
+<!-- Tree toolbar -->
+    <div id="toolbar_<?= $id ?>" dojoType="dijit.Toolbar">
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.refresh()'>Refresh</button>
+    </div>
+
+<!-- Tree --> 
+<div dojoType="CustomTree" id="cmp_<?= $id ?>" jsId="cmp_<?= $id ?>"
+     model="model_<?= $id ?>" query="{type: 'top'}">
+</div>

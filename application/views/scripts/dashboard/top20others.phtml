@@ -1,0 +1,16 @@
+<?php
+
+
+$data = [];
+
+foreach ($this->top20others as $key => $value) {
+	$temp = new stdClass();
+	$temp->y = (int)$value['cnt'];
+	$temp->label = '';
+	$temp->indexLabel = $value['other_value'];
+	array_push($data, $temp);
+}
+
+?>
+
+<input type="hidden" id="loadgraphdata_non_other" value='<?= json_encode($data) ?>'>

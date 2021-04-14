@@ -1,0 +1,63 @@
+<div style="width: 400px; height: 250px;">
+	<table>
+		<tr>
+			<td>Door Number</td>
+			<td><?= $this->grid->getFieldControl('NUMBER', null, null, true) ?></td>
+		</tr>
+		<tr>
+			<td>Compliant</td>
+			<td><?= $this->grid->getFieldControl('COMPLIANT', null, null, true) ?>
+			<? $cmp = current($this->grid->getColumnsByField('COMPLIANT')); ?>
+				<input id="<?= $cmp->getGrid()->getId() ?>_<?= $cmp->getId() ?>_empty" 
+				       type="radio" 
+				       dojoType='dijit.form.RadioButton'
+				       name="<?= $cmp->getId() ?>_empty" 
+				       value="on" 
+				       tabindex="0"/> Blank
+				
+			</td>
+		</tr>
+		<tr>
+			<td>Door Location</td>
+			<td><?= $this->grid->getFieldControl('LOCATION', null, null, true) ?></td>
+		</tr>
+	</table>
+	
+	<!-- Fire-Rating 1 & 2 -->
+	<div style="position: absolute; top: 100px; left: 8px; width: 117px; height: 108px;"
+		><table>
+			<caption><b>Fire-Rating</b></caption>
+			<tr>
+				<td><?= $this->grid->getFieldControl('FIRE_RATING_1', null, array('cols' => 1), true) ?></td>
+				<td><?= $this->grid->getFieldControl('FIRE_RATING_2', null, array('cols' => 1), true) ?></td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- Temp. Rise -->
+	<div style="position: absolute; top: 100px; left: 125px; width: 116px; height: 108px;"
+		><b>Temp. Rise:</b><br><?= $this->grid->getFieldControl('TEMP_RISE', null, array('cols' =>1), true) ?>
+	</div>
+	
+	<!-- Listing Agency -->
+	<div style="position: absolute; top: 100px; left: 230px; width: 194px; height: 71px;"
+		><b>Listing Agency:</b><br>
+		<?= $this->grid->getFieldControl('LISTING_AGENCY', null, array(
+			'rows' =>2, 'other' => 'LISTING_AGENCY_OTHER'), true) ?>
+	</div>
+	
+	<!-- Positive pressure -->
+	<div style="position: absolute; top: 160px; left: 230px; width: 194px; height: 37px;"
+		><b>Positive Pressure:</b><br><?= $this->grid->getFieldControl('FIRE_RATING_3', null, null, true) ?>
+		<?= $this->grid->getFieldControl('FIRE_RATING_4', null, null, true) ?>
+	</div>
+	
+	<table style="position: absolute; top: 200px; left: 0px; width: 340px; height: 20px;">
+	<tr>
+		<td align="right"><div dojoType="dijit.form.Button" class="short" onclick="gridDialogDoor.submit()">Search</div></td>
+		<td align="center"><div dojoType="dijit.form.Button" class="short" onclick="gridDialogDoor.clear()">Clear</div></td>
+		<td align="left"><div dojoType="dijit.form.Button" class="short" onclick="gridDialogDoor.onCancel()">Cancel</div></td>
+	</tr>
+	</table>
+	
+</div>

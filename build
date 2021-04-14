@@ -1,0 +1,4 @@
+#!/bin/bash
+# javascript compilation
+cd public/scripts/dojo/util/buildscripts
+./build.sh action=release cssOptimize=comments.keepLines xdDojoPath=http://ajax.googleapis.com/ajax/libs/dojo/1.6.2/dojo htmlFiles=../../../../../application/layouts/scripts/layout.phtml

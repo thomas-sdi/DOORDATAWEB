@@ -1,0 +1,41 @@
+<?
+	$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+	$data = $this->placeholder('data');
+	$form = $data->form;
+	$content = $this->layout()->content;
+?>
+<? if ($form): ?>
+<div <?= $form->render(Ginger_Form::HEADER) ?>
+	>
+	<input type='hidden' name="formId" value="<?= $form->getId() ?>"/>
+	<? if (!is_empty($form->getTitle())): ?>
+	<span style="display: none" id="frame_title"><?= $form->getTitle() ?></span>
+	<? endif; ?>
+	<? if ($form->isCustomView()): print $content; else: ?>
+	<? foreach ($form->getElements() as $column) {
+			if ($column->getInputType() == 'hidden')
+				echo $column->getFieldControl($form->getValue($column->getId()));
+		}
+	?>
+	<table>
+	<? foreach ($form->getElements() as $column): 
+		if ($column->getInputType() !== 'hidden'):
+	?>
+		<tr>
+        	<td class="field-label field-label-<?= $column->getId() ?>"><?= $column->getTitle() ?>:</td>
+        	<td class="field field-<?= $column->getId() ?>"><?= $form->render($column->getId()) ?></td>
+   	 </tr>
+	<? 
+		endif;
+	  endforeach; ?>
+	<tr>
+		<td colspan="2">
+			<?= $form->render(Ginger_Form::SUBMIT_BUTTON) ?>
+		</td>
+	</tr>
+	</table>
+	<? endif; ?>
+</div>
+<? else: ?>
+<? print $content; ?>
+<? endif; ?>

@@ -1,0 +1,35 @@
+<form dojoType="ginger.form.ValidationForm" id="loginForm" action='<?= $baseUrl?>/auth/login' method="post">
+		<table class="authDialog" style="position: relative; align: center; width: 344px; height: 218px; background: white;
+    				  border-style: solid; border-width: 4px;">
+        	<tr>
+        		<td colspan="2">
+        			<table width="100%"><tr>
+        				<td align="left">&nbsp;&nbsp;<img src="<?= $this->logoUrl ?>" style='height: 36px;'></td>
+    					<td align="left"><img src="<?= $this->baseUrl ?>/public/images/users.jpg"></td>
+        			</tr></table>
+        		</td>
+    		</tr>
+        	<tr>
+            	<td align="right"><b>User Name:</b></label></td>
+            	<td align="left"><input type = "text" dojoType = 'ginger.form.TextBox'
+            	           name = "login" id = "login_login"/></td>
+        	</tr>
+        	<tr>
+            	<td align="right"><b>Password:</b></label></td>
+            	<td align="left"><input type = "password" dojoType = 'ginger.form.TextBox'
+               	        name = "password" id = "login_password"/></td>
+        	</tr>
+        	<tr>
+            	<td colspan="2" align="center">
+                	<div dojoType=dijit.form.Button id="loginForm_submit" 
+                		 class="buttonGreen"
+                	     onclick="dijit.byId('loginForm').submit(function(){changeBody('/index/home', false, true); loginDialog.hide();})"
+                	>Sign In</div>
+                	<div dojoType=dijit.form.Button id="loginForm_cancel"
+                		 class="buttonRed"
+                	     onclick="javascript: window.location = 'http://doordatasolutions.com'"
+                	>Cancel</div>
+            	</td>
+        	</tr>
+    	</table> 
+	</form> 

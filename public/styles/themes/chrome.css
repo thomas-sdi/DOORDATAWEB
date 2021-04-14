@@ -1,0 +1,120 @@
+.themeChrome .dojoxGridRowOver .dojoxGridCell,
+.themeChrome .dojoxGridRowSelected {
+	background-color: #a9a9a9;
+}
+
+.themeChrome A {
+	color: #000000;
+}
+
+.themeChrome TD.navbar,
+.themeChrome TD.navbarbg,
+.themeChrome TD.navbarChecked {
+	border-right: 2px #000000 solid;
+}
+
+.themeChrome .frameDiv {
+	width: 99.3%; border: 6px solid #828282;
+}
+
+.themeChrome TD.navbarbg,
+.themeChrome TD.navbar,
+.themeChrome TD.navbarChecked,
+.themeChrome .dijitDialogTitleBar,
+.themeChrome .dijitTabInnerDiv .dijitTabContent, 
+.themeChrome .dijitTabInnerDiv,
+.themeChrome .dijitTab
+{
+	background: url('../../images/titleBarChrome.gif') repeat-x;
+}
+
+.themeChrome TD.navbar:hover,
+.themeChrome TD.navbarChecked,
+.themeChrome .dojoxGridHeader .dojoxGridCell,
+.themeChrome .dojoxGridHeader .dojoxGridCellOver,
+.themeChrome .dijitTabChecked,
+.themeChrome .dijitTabChecked .dijitTabInnerDiv,
+.themeChrome .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeChrome .dijitTabHover, 
+.themeChrome .dijitTabHover .dijitTabInnerDiv,
+.themeChrome .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../../images/titleBarChrome_active.gif') repeat-x;
+}
+
+.themeChrome .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #000000 !important;
+}
+
+.themeChrome .dojoxGridCell {
+	border-color: #000000;
+}
+
+.themeChrome .dijitTab {
+	border: 1px solid #000000 !important;
+}
+
+.themeChrome .dijitTabContainerBottom-spacer,
+.themeChrome .dijitTabContainerTop-spacer,
+.themeChrome .dijitSplitterH
+{
+	background: #828282 !important;
+}
+
+.themeChrome .form_table {
+	background-image: url('../../images/pdf_bg_chrome.jpg');
+}
+
+/* BUTTONS */
+.themeChrome .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat 0 -52px;
+}
+
+.themeChrome .short .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat -141px -52px;
+}
+
+.themeChrome .long .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") -220px -52px no-repeat;
+}
+
+/* CHECKBOX */
+.themeChrome .dijitCheckBox,
+.themeChrome .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') -16px -16px !important;
+}
+
+.themeChrome .dijitCheckBoxChecked,
+.themeChrome .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') 0 -16px !important;	
+}
+
+/* RADIO */
+.themeChrome .dijitRadio, 
+.themeChrome .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') -16px -16px !important;
+}
+
+.themeChrome .dijitRadioChecked, 
+.themeChrome .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') 0 -16px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+.themeChrome .dijitButtonNode {
+	background: url('../../images/buttonInputChrome.png') 
+}
+
+/* LOGIN DIALOG */
+.themeChrome TABLE.authDialog {
+	border-color: #000000;
+}
+
+/* INPUT CONTROL BORDERS */
+.themeChrome .dijitTextBox,
+.themeChrome .dijitComboBox,
+.themeChrome .dijitSpinner
+.themeChrome .dijitInlineEditor INPUT,
+.themeChrome .dijitTextArea {
+	border: 1px solid #000000;
+}

@@ -1,0 +1,75 @@
+<?
+$data = $this->placeholder('data');
+$form = $data->form;
+?>
+<?= $form->render('id') ?>
+<!-- <table width="200px" height="100%">
+	<tr><td colspan="2"><h2 style="margin-top: 0px;">Select mode of reinspection</h2></td></tr>
+	<tr>
+		<td><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="1" checked/></td>
+		<td>Everything</td>
+	</tr>
+	<tr>
+		<td><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="2"/></td>
+		<td>Non-compliant only</td>
+	</tr>
+	<tr>
+		<td><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="3"/></td>
+		<td>Non-compliant and non-inspected</td>
+	</tr>
+	<tr><td colspan="2" style='padding-top: 10px; text-align: center'>
+		<button dojoType='dijit.form.Button' label="Reinspect" class="short" onclick="reinspectForm.submit(function(){mainDialog.hide(); cmp_inspection.refresh();})"></button>
+		<button dojoType='dijit.form.Button' label="Cancel" class="short" onclick="mainDialog.hide()"></button>
+	</td></tr>	
+</table> -->
+
+
+<div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="glyph-icon icon-retweet"></i>
+		Select mode of reinspection
+		<div class="header-buttons-separator">
+
+			<a class="icon-separator" href="javascript:mainDialog.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+		</div>
+	</h3>
+
+	<div class="modal-body importpopup" >
+
+
+			
+			
+				<div class="row">
+					<div class="col-sm-12" style="padding-top: 20px;">
+							<div class="row">
+					<div class="col-sm-12" style="padding-top: 20px;">
+						<span><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="1" checked/>Everything</span>
+				    </div>
+				    <div class="col-sm-12" style="padding-top: 20px;">		
+						<span><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="2"/>Non-compliant only</span>
+					</div>
+					<div class="col-sm-12" style="padding-top: 20px;">
+						<span><input type="radio" dojoType='dijit.form.RadioButton' name="option" value="3"/>Non-compliant and non-inspected</span>
+					</div>	
+					</div>
+					
+				</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-6" style="text-align: right;">
+						<button dojoType='dijit.form.Button' label="Reinspect" class="short" onclick="reinspectForm.submit(function(){mainDialog.hide(); cmp_inspection.refresh();})"></button>	
+					</div>
+					
+					<div class="col-xs-6" style="text-align: left;">
+						<button dojoType='dijit.form.Button' label="Cancel" class="short" onclick="mainDialog.hide()"></button>
+					</div>
+				</div>
+
+
+	</div>
+</div>

@@ -1,0 +1,191 @@
+<?
+    // set commonly used variables
+    $baseUrl   = Zend_Controller_Front::getInstance()->getBaseUrl() . '/' .
+                 Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+    $id = $this->grid->getId();
+?>
+<div dojoType="dijit.layout.BorderContainer" style="width: 100%; height: 100%;" design="headline">
+    <!--  Store for grid's data -->
+    <div dojoType='ginger.GridStore'
+        jsId          = 'store_<?= $id ?>'
+        id            = 'store_<?= $id ?>'
+        idColumnIndex = 'column_<?= key($this->grid->getColumnsByField('ID')) ?>'
+        model         = '<?= $id ?>'
+        clearOnClose  = 'true'
+        url           = '<?= $baseUrl ?>/fetch?_model=<?= $id ?>'
+        saveUrl       = '<?= $baseUrl ?>/save'
+    ></div>
+
+    <!-- Grid Menu -->
+    <div dojoType='dijit.Menu' jsid='gridMenu_<?= $id ?>'
+        id='gridMenu_<?= $id ?>' style='display: none;'>
+        <div dojoType='dojox.widget.PlaceholderMenuItem' label='GridColumns'></div>
+    </div>
+     
+    <!-- Grid toolbar -->
+    <div id="toolbar_<?= $id ?>" dojoType="dijit.Toolbar" region='top'>
+        <? if ($this->can['create']||$this->can['update']|| $this->can['delete']): ?>
+        <button dojoType='dijit.form.Button'
+        		id = "<?= $id ?>_savegrid"
+                onclick = 'cmp_<?= $id ?>.save()'>Save</button>
+        <? endif; ?>
+        <? if ($this->can['create'] == true): ?>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.addNewItem()'>New</button>
+        <? endif; ?>
+        <? if ($this->can['delete'] == true): ?>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.deleteItems()'>Delete</button>
+        <? endif; ?>
+        <? if ($this->can['update'] && !$this->inline): ?>
+        	<button dojoType='dijit.form.Button'
+            	    onclick = 'cmp_<?= $id ?>.showDetailed()'>Edit</button>
+		<? endif; ?>
+		<? if (!$this->inline): ?>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.showSearch()'>Search</button>
+        <? endif; ?>
+        <? if ($this->can['create'] == true || $this->can['update'] == true || $this->can['delete'] == true): ?>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.revert()'>Revert</button>
+        <? endif; ?>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.refresh()'>Refresh</button>
+        <button dojoType='dijit.form.Button'
+                onclick = 'cmp_<?= $id ?>.fetchExcel()'>Excel</button>
+        <?= $this->placeholder('gridButtons'); $this->placeholder('gridButtons')->set(''); ?>
+    </div>
+    
+    <!-- Grid -->
+    <table dojoType='ginger.Grid'  region='center'
+	    id               = 'cmp_<?= $id ?>'
+	    jsId             = 'cmp_<?= $id ?>'
+        store            = 'store_<?= $id ?>'
+        clientSort       = 'true'
+        idColumnIndex    = 'column_<?= key($this->grid->getColumnsByField('ID')) ?>'
+        columnReordering = 'true'
+        <? if ($this->grid->getParent()): ?>
+        parent           = 'cmp_<?= $this->grid->getParent()->getId() ?>'
+        <? endif; ?>
+        <?/*headerMenu       = 'gridMenu_<?= $id ?>'> - destroy works incorrectly*/?>>
+        <thead>
+            <tr>
+    	    <?  foreach ($this->grid->getColumns() as $columnId => $column):
+    	    	    $view = $column->getView(); ?>
+                <th width        = '<?= $column->getDefaultWidth()?>%'
+                    <? if ($view == Data_Column_Grid::DATE): ?>
+                    cellType     = 'dojox.grid.cells.DateTextBox'
+                    formatter    = 'formatDate'
+                    <? elseif ($view == Data_Column_Grid::DROPDOWN): ?>
+                    cellType     = 'ginger.GridComboBox'
+                    formatter    = 'formatReference'
+                    <? elseif($view == Data_Column_Grid::CHECKBOX): ?>
+                    cellType     = 'dojox.grid.cells.CheckBox'
+                    <? elseif($view == Data_Column_Grid::MEMO): ?>
+                    cellType     = 'dojox.grid.cells.Editor'
+                    <? endif; ?>
+                    editable     = <?= $column->getEditableText() ?>
+                    widgetProps  = 'eval({maxLength: 3})'
+                    defaultValue = '<?= $column->getDefault()?>'
+                    field        = '<?= 'column_' . $columnId ?>'
+                    hidden       = <?= $column->getHidden() || !$column->getVisible(Data_Column_Grid::GRID) ? 'true' : 'false' ?>
+                ><?= $column->getTitle() ?>
+            <? endforeach; ?>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<!-- Grid Detailed Record dialog -->
+<? if (!$this->customDetailedView && !$this->inline && false): ?>
+<div dojoType="DetailedDialog" id="dialog_<?= $id ?>" jsid="dialog_<?= $id ?>"
+     title="Edit" style='display: none' grid="cmp_<?= $id ?>">
+    <table>
+    <? foreach ($this->grid->getColumns() as $columnId => $column):
+            $view = $column->getView();
+            // we don't show ID in 'Edit' dialog
+            if ($column->getField() == 'ID' && $column->getHidden()) {
+               continue;
+            }      
+    ?>
+    	<!-- Visibility attribute. Can be _edit _search -->
+        <tr><td><input type	="hidden" 
+        			   name = "<?= $id ?>_column_<?= $columnId ?>_visible" 
+        			   id 	= "<?= $id ?>_column_<?= $columnId ?>_visible" 
+        			   value= "<?= $column->getVisible(Data_Column_Grid::EDIT) ? '_edit' : ''?><?= $column->getVisible(Data_Column_Grid::SEARCH) ? '_search' : ''?>"/>
+        </td><td></td></tr>
+        
+        <tr>
+        <!-- Show Label -->
+            <td><label for="<?= $id ?>_column_<?= $columnId ?>" 
+            		   id = "<?= $id ?>_column_<?= $columnId ?>_label"><?= $column->getTitle() ?>: </label></td>
+                               
+        <!-- if field type is DATE, show "from" and "to" range - needed for Search -->
+        <? if ($view == Data_Column_Grid::DATE):?>
+			<td><table>
+				<tr><td><label style = 'display: none;' id = "<?= $id ?>_column_<?= $columnId ?>_lbl_from">From:</label></td>
+				<td><input type = "text"
+				       <?= $column->getEditable() ? '' : 'disabled' ?>
+				       style      = 'width:144px;'
+                       dojoType   = dijit.form.DateTextBox
+                       name       = "<?= $id ?>_column_<?= $columnId ?>"
+                	   id         = "<?= $id ?>_column_<?= $columnId ?>"/></td></tr>
+                <tr><td><label style = 'display: none;' id = "<?= $id ?>_column_<?= $columnId ?>_lbl_to">To:</label></td>
+				<td><input type = "text"
+				       style      = 'width:144px; display: none;'
+                       dojoType   = dijit.form.DateTextBox 
+                       name       = "<?= $id ?>_column_<?= $columnId ?>_to"
+                	   id         = "<?= $id ?>_column_<?= $columnId ?>_to"/></td></tr>
+            </table></td>
+		<? elseif ($view == Data_Column_Grid::IMAGE): ?>
+				<td>
+					<div dojoType = "Image"
+					     name     = "<?= $id ?>_column_<?= $columnId ?>" 
+                         id       = "<?= $id ?>_column_<?= $columnId ?>"></div>
+				</td>
+	    <? else: ?>
+				<td><input type="text"
+            	<? if ($view == Data_Column_Grid::MEMO): ?>    
+                	dojoType  = 'dijit.form.SimpleTextarea'
+                	rows      = 4
+                	cols      = 20
+            	<? elseif ($view == Data_Column_Grid::DROPDOWN): ?>
+               		dojoType  = 'DropDown'
+            	<? elseif ($view == Data_Column_Grid::CHECKBOX): ?>
+               		dojoType  = 'dijit.form.CheckBox'
+            	<? else: ?>
+               		dojoType  = 'dijit.form.ValidationTextBox'
+            	<? endif; ?>
+                	field     = <?= $columnId ?>
+                	grid      = "cmp_<?= $id ?>"
+                	dialog    = "dialog_<?= $id ?>"
+                	maxlength = "<?= $column->getMaxlength() ?>"
+                	required  = <?= $column->getRequired() ? 'true' : 'false' ?>
+                	<?= $column->getEditable() ? '' : 'disabled' ?>
+                   	name      = "<?= $id ?>_column_<?= $columnId ?>"
+                	id        = "<?= $id ?>_column_<?= $columnId ?>"
+            	/></td>
+        <? endif; ?>
+        </tr>
+    <? endforeach; ?>
+    </table>
+    <table>
+    	<tr>
+        	<td align="left">
+                <button style = 'visibility: hidden;' dojoType='dijit.form.Button'
+                    id = "<?= $id ?>_clear"
+                    onclick="dialog_<?= $id ?>.clear()">Clear</button></td>
+            <td align="right">
+                <button dojoType='dijit.form.Button'
+                	type="submit">OK</button></td>
+            <td align="left">
+				<button dojoType='dijit.form.Button' onClick="dialog_<?= $id ?>.hide()">Cancel</button></td>
+        </tr>
+    </table>
+</div>
+
+<? elseif ($this->customDetailedView): ?>
+<div dojoType="DetailedDialog" id="dialog_<?= $id ?>" jsid="dialog_<?= $id ?>" title="Edit"
+     style='display: none' grid="cmp_<?= $id ?>" href="<?= $this->customDetailedView ?>">
+</div>
+<? endif; ?>

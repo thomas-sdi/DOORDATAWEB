@@ -1,0 +1,67 @@
+<script type="text/javascript">  
+	dojo.require("dojo.io.iframe");  
+</script>  
+<form id="upload_form" dojoType="ginger.form.ValidationForm" method="post" enctype="multipart/form-data" style="width:280px;height:170px">
+
+	<? $data = $this->record;
+	   $userFileId = $data != null ? $data['ID'] : null ; 	
+
+	?>
+
+	<table>
+	
+		<th>
+			<td><h2><?= $data != null ? 'Edit File' : 'New File' ?><h2></td>
+		</th>
+
+
+		<tr>
+			<td>Select file</td><td><INPUT NAME="myfile" id="myfile" TYPE="file" style="width:205px"></td>
+		</tr>
+		<tr>
+			<td>Description</td><td><textarea name="description" rows="3" cols="23"><?= $data['DESCRIPTION'] ?> </textarea></td>
+		</tr>
+
+		<? if($data != null) { ?>	
+			<tr>
+				<td>Size</td><td><input type="text" disabled="" value="<?= $data['column_3'] ?>"></td>
+			</tr>
+			<tr>
+				<td>Added On</td><td><input type="text" disabled="" value="<?= $data['column_4'] ?>"></td>
+			</tr>
+
+		<? } ?>
+
+		<tr><td colspan="2"><p><div id="status" jsid="status">&nbsp</div></p></td></tr>
+
+	</table>	
+	<button id="user_file_submit" jsid="user_file_submit" dojoType='dijit.form.Button' class="short">
+		<?= $data != null ? 'Update File' : 'Add File' ?>
+
+		<script type="dojo/connect" event="onClick">	
+			dojo.io.iframe.send ({
+			url: baseUrl + '/userfile/savefile?_parent=<?= $userFileId ?>',
+			handleAs: "text", 
+			form: "upload_form",
+			load: function(response, ioArgs) {
+			console.log(response);
+			var responseObj = dojo.fromJson(response);
+			dojo.byId('status').innerHTML = responseObj.status;
+			bratiliusDialog.hide();
+			return response;
+		},
+		error: function(response) {  
+		console.log(response);
+		bratiliusDialog.hide();
+		dojo.byId('status').innerHTML = 'Error occurred';
+		return response;  
+	} 
+});
+</script>
+</button>
+<button id="user_file_cancel" jsid="user_file_cancel" dojoType='dijit.form.Button' class="short">Close
+	<script type="dojo/connect" event="onClick">	
+		bratiliusDialog.onCancel();
+	</script>
+</button>
+</form>

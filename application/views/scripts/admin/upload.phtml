@@ -1,0 +1,34 @@
+<script type="text/javascript">  
+        dojo.require("dojo.io.iframe");  
+</script>  
+<form id="main_form" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+	Select file&nbsp<input type="file" id="myfile" name="myfile"><br>
+	<div id="status">&nbsp</div>
+	<button dojoType='dijit.form.Button' class="short">Upload
+		<script type="dojo/connect" event="onClick">	
+			dojo.byId('status').innerHTML = 'Uploading file...';
+			dojo.io.iframe.send ({
+	        	url: baseUrl + '/download/upload',
+	        	handleAs: "text", 
+	        	form: "main_form",
+	       	 	load: function(response, ioArgs) {
+					console.log(response);
+	          		var responseObj = dojo.fromJson(response);
+	            	if (responseObj.status == 'ok') {
+						dojo.byId('status').innerHTML = "&nbsp";
+						mainDialog.hide();
+					} else {
+						dojo.byId('status').innerHTML = 'Could not upload file';
+					}
+					return response;
+				},
+				error: function(response, ioArgs) {  
+	           		console.log(response);
+					dojo.byId('status').innerHTML = 'Error occurred';
+					return response;  
+	       		} 
+			});
+		</script>
+	</button>	
+	<button dojoType="dijit.form.Button" class="short" onclick="mainDialog.hide()">Cancel</button>
+</form>

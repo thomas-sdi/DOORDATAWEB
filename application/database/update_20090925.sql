@@ -1,0 +1,1 @@
+alter table photobucket modify column URL text not null;

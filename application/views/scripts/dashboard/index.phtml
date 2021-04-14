@@ -1,0 +1,921 @@
+<?
+$user = Zend_Auth::getInstance()->getIdentity();
+
+// print_r(App::companyId());
+
+if($user != 'admin'): 
+	?>
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="content-box">
+				<h3 id="compliance_header" class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-thumbs-up"></i>Compliance Percentages
+				</h3>
+
+				<div class="row">
+					<div class="col-sm-4 pie-chart1" style="padding-top: 20px;border: 2px solid #ddd;">
+						
+						<div id="north_america_chart_container" jsId="north_america_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=northamerica"></div>
+						<div id="chartContainer" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+
+					</div>
+
+					<div class="col-sm-4 pie-chart2" style="padding-top: 20px; border: 2px solid #ddd;">
+
+						<div id="company_wide_chart_container" jsId="company_wide_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=companywide"></div>
+						<div id="chartContainer1" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+
+					</div>
+					<div class="col-sm-4 pie-chart3" style="padding-top: 20px; border: 2px solid #ddd;">
+						
+						<div id="inspector_chart_container" jsId="inspector_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=inspector&inspector=<?= $this->pfilter['inspectorId']?>"></div>
+						<div id="chartContainer3" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="col-sm-4 pie-chart4" style="padding-top: 20px; border: 2px solid #ddd;">
+						
+						<div id="building_owner_chart_container" jsId="building_owner_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=buildingowner&inspector=<?= $this->pfilter['inspectorId']?>&owner=<?= $this->pfilter['ownerId']?>"></div>
+						<div id="chartContainer4" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+
+					</div>
+
+					<div class="col-sm-4 pie-chart5" style="padding-top: 20px; border: 2px solid #ddd;">
+
+						<div id="building_chart_container" jsId="building_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=building&inspector=<?= $this->pfilter['inspectorId']?>&owner=<?= $this->pfilter['ownerId']?>&building=<?= $this->pfilter['buildingId']?>"></div>
+						<div id="chartContainer5" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+
+					</div>
+
+					<div class="col-sm-4 pie-chart6" style="padding-top: 20px; border: 2px solid #ddd;">
+						
+						<div id="inspection_chart_container" jsId="inspection_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=inspection&inspector=<?= $this->pfilter['inspectorId']?>&owner=<?= $this->pfilter['ownerId']?>&building=<?= $this->pfilter['buildingId']?>&inspection=<?= $this->pfilter['inspectionId']?>"></div>					
+						<div id="chartContainer6" style="height: 250px; width: 100%; margin-bottom: 25px;"></div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<div class="content-box" style="min-height: 480px;">
+				<h3 id="top20others_header" class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-flash"></i>Top 20 NonCompliant Codes
+				</h3>
+
+				<div class="content-box-wrapper non-Compliant-bar">
+
+					<div id="list_of_top_20_others" jsId="list_of_top_20_others" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/northamerica"></div>
+					<div id="Others" style="height: 400px; width: 100%; padding-top: 25px;"></div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="content-box" style="min-height: 480px;">
+				<h3 id="top20_header" class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-flash"></i>Top 20 NonCompliant Codes
+				</h3>
+
+				<div class="content-box-wrapper non-Compliant-bar">
+
+					<div id="list_of_top_non_compliant" jsId="list_of_top_non_compliant" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/top20noncompliant"></div>
+					<div id="Non-Compliant" style="height: 400px; width: 100%;  padding-top: 25px;"></div>
+				</div>
+
+			</div>
+		</div>
+
+		
+		
+		
+
+
+
+	</div>
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="content-box">
+				<h3 id="reinspections_header" class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-star-half-empty"></i>Reinspections
+				</h3>
+
+				<div class="content-box-wrapper">
+					<div class="row">
+						<div id="list_of_reinspections" jsId="list_of_reinspections" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/reinspections?perPage=10&page=1"></div>	
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+
+	<!-- <div class="col-md-6">
+		<div class="content-box">
+			<h3 id="reinspections_header" class="content-box-header bg-primary" style="text-align: left;">
+				<i class="glyph-icon icon-star-half-empty"></i>Re-inspections
+			</h3>
+
+			<div class="content-box-wrapper">
+				<div class="row">
+					<div id="list_of_reinspections" jsId="list_of_reinspections" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/reinspections"></div>	
+				</div>
+
+			</div>
+
+		</div>
+	</div> -->
+
+	<!-- <div class="col-md-4">
+		<div class="content-box">
+			<h3 id="pictures_header" class="content-box-header bg-primary" style="text-align: left;">
+				<i class="glyph-icon icon-picture-o"></i>Feedback & How To
+			</h3>
+
+			<div class="content-box-wrapper">
+				<div class="row">
+					<div class="col-md-12" style="font-weight: bold; font-size: 12pt;">Please vote on the feature requests here:</div>
+					<div class="col-md-12">
+						<div id="hubspot_voting_form"></div>	
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div> -->
+
+</div>
+
+<? endif; ?>
+
+<? if($user == 'admin'): ?>
+	<div class="row adminchart">
+
+		<div class="col-sm-4 col-md-4 pie-chart1">
+
+			<div id="north_america_chart_container" jsId="north_america_chart_container" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/percentage?level=northamerica"></div>
+			<div id="chartContainer" style="height: 480px; width: 100%; margin-bottom: 25px;"></div>
+		</div>
+
+		<div class="col-md-8">
+			<div class="content-box" style="min-height: 480px;">
+				<h3 id="top20others_header" class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-flash"></i>Top 20 NonCompliant Codes
+				</h3>
+
+				<div class="content-box-wrapper non-Compliant-bar">
+
+					<div id="list_of_top_20_others" jsId="list_of_top_20_others" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/dashboard/northamerica"></div>
+					<div id="Others" style="height: 400px; width: 100%; padding-top: 25px;"></div>
+				</div>
+
+			</div>
+		</div>
+
+		
+	</div>
+<? endif; ?>
+<style>
+	.canvasjs-chart-credit {display:none;}
+	.select-control {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		width: 50% !important;
+		z-index: 100;
+	}
+	.select-control1{
+		position: absolute;
+		top: 13%;
+		right: 15px;
+		width: 50% !important;
+		z-index: 100;	
+	}
+	#list_of_top_non_compliant .select-control1 {width: 60% !important;}
+	#north_america_chart_container .chartLabel,#company_wide_chart_container .chartLabel {display:none;}
+	#chartContainer .canvasjs-chart-tooltip {    display: none !important;}
+	.adminchart #chartContainer .canvasjs-chart-tooltip {    display: block !important;}
+</style>
+
+<script>
+	hbspt.forms.create({
+		portalId: "5033149",
+		formId: "9e391b9d-2378-4d3d-b753-22d4d7846102",
+		target: '#hubspot_voting_form'
+	});
+
+	/* Timout for non complients code */
+	runAfterElementExists_non_compliant();
+	function runAfterElementExists_non_compliant(){
+		var checker = window.setInterval(function() {
+			if ($('#loadgraphdata').length > 0) {
+				clearInterval(checker);
+				non_compliants();
+			}}, 200);
+
+	}
+
+	runAfterElementExists_northamerica();
+	function runAfterElementExists_northamerica(){
+		var checker = window.setInterval(function() {
+			if ($('#loadgraphdata2').length > 0) {
+				clearInterval(checker);
+				northamerica();
+			}}, 200);
+
+	}
+
+
+	/* Timout for non complients code */
+	// runAfterElementExists_non_other();
+	// function runAfterElementExists_non_other(){
+	// 	var checker = window.setInterval(function() {
+	// 		if (document.getElementById("loadgraphdata_non_other") != null) {
+	// 			clearInterval(checker);
+	// 			non_other();
+	// 		}}, 200);
+
+	// }
+
+	runAfterElementExists_pie_1();
+	function runAfterElementExists_pie_1(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart1 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_1();
+			}}, 200);
+	}
+
+	runAfterElementExists_pie_2();
+	function runAfterElementExists_pie_2(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart2 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_2();
+			}}, 200);
+	}
+
+	runAfterElementExists_pie_3();
+	function runAfterElementExists_pie_3(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart3 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_3();
+			}}, 200);
+	}
+
+	runAfterElementExists_pie_4();
+	function runAfterElementExists_pie_4(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart4 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_4();
+			}}, 200);
+	}
+
+	runAfterElementExists_pie_5();
+	function runAfterElementExists_pie_5(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart5 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_5();
+			}}, 200);
+	}
+
+	runAfterElementExists_pie_6();
+	function runAfterElementExists_pie_6(){
+		var checker1 = window.setInterval(function() {
+			if ($('.pie-chart6 #loadpie').length > 0) {
+				clearInterval(checker1);
+				pie_6();
+			}}, 200);
+	}
+
+
+</script>
+
+
+<script>
+
+	function non_compliants() {
+		// console.log( JSON.parse($('#loadgraphdata').val()) );
+		var graphesData = JSON.parse($('#loadgraphdata').val());
+		
+		var value = (graphesData.length > 0) ? graphesData[0].y :0; 
+		var maxY = 100 * Math.ceil( value / 100); 
+
+		var chart = new CanvasJS.Chart("Non-Compliant", {
+			animationEnabled: true,
+			title: {
+				text: "20 NonCompliant Codes",                
+				fontColor: "#000",
+				fontSize:"20",
+				padding:{bottom:10,},
+				horizontalAlign: "left"
+			},	
+
+			axisX: {
+				tickThickness: 1,
+				lineThickness: 1,
+				labelFontSize: 12,
+				labelFontColor: "#000",
+				title: "Code",
+				gridThickness: 0,
+				lineColor: "#ddd",
+				tickColor: "#ddd",
+				interval: 1,
+
+			},
+			axisY: {
+				tickThickness: 1,
+				lineThickness: 1,
+				labelFontSize: 14,
+				valueFormatString: "0",
+				maximum: maxY,
+				gridThickness: 1,
+				title: "Count",
+				lineColor: "#ddd",
+				gridColor: "#ddd",
+				tickColor: "#ddd",	                    
+			},
+			data: [{
+				indexLabelFontSize:"0",
+				toolTipContent: "<span style=\"color:#000\"><strong>Count:</strong>{y}<br><strong>Description:</strong>{indexLabel}</span>",
+				indexLabelFontColor: "white",
+				indexLabelPlacement: "outside",  
+				indexLabelOrientation: "vertical",
+				color: "#008000",
+				type: "column",
+				dataPoints: graphesData
+			}]
+		});
+
+		chart.render();
+	}
+
+	/* North America */
+	function northamerica(){
+
+		var graphesData = JSON.parse($('#loadgraphdata2').val());
+
+		var maxY = 100 * Math.ceil(graphesData[0].y / 100); 
+
+		var chart = new CanvasJS.Chart("Others", {
+			animationEnabled: true,
+			title: {
+				text: "   20 NonCompliant Codes",                
+				fontColor: "#000",
+				fontSize:"20",
+				padding:{left:10,bottom:10,},
+				horizontalAlign: "left"
+			},	
+
+			axisX: {
+				tickThickness: 1,
+				lineThickness: 1,
+				labelFontSize: 12,
+				labelFontColor: "#000",
+				title: "Code",
+				gridThickness: 0,
+				lineColor: "#ddd",
+				tickColor: "#ddd",
+				interval: 1,					
+			},
+			axisY: {
+				tickThickness: 1,
+				lineThickness: 1,
+				labelFontSize: 14,
+				valueFormatString: "0",
+				maximum: maxY,
+				gridThickness: 1,
+				//title: "Count",
+				lineColor: "#ddd",
+				gridColor: "#ddd",
+				tickColor: "#ddd",
+				labelFormatter: function(e){
+					return  "";
+				}	                    
+			},
+			data: [{
+				indexLabelFontSize:"0",
+				toolTipContent: "<span style=\"color:#000\"><? echo ($user == 'admin')? '<strong>Count:</strong>{y}<br>':'' ?><strong>Description:</strong>{indexLabel}</span>",
+				indexLabelFontColor: "white",
+				indexLabelPlacement: "outside",  
+				indexLabelOrientation: "vertical",
+				color: "#008000",
+				type: "column",
+				dataPoints: graphesData
+			}]
+		});
+
+		chart.render();
+	}
+
+
+	/* NON COMPLIANTS OTHER*/
+	// function non_other(){
+
+	// 	var graphesData = JSON.parse($('#loadgraphdata_non_other').val());
+
+	// 	var maxY = 100 * Math.ceil(graphesData[0].y / 100); 
+
+	// 	var chart = new CanvasJS.Chart("Others", {
+	// 		animationEnabled: true,
+	// 		title: {
+	// 			text: "Top 20 Others Value",                
+	// 			fontColor: "#000",
+	// 			fontSize:"20",
+	// 			horizontalAlign: "left"
+	// 		},	
+
+	// 		axisX: {
+	// 			tickThickness: 1,
+	// 			lineThickness: 1,
+	// 			labelFontSize: 14,
+	// 			labelFontColor: "#000",
+	// 			title: "Code",
+	// 			gridThickness: 0,
+	// 			lineColor: "#ddd",
+	// 			tickColor: "#ddd",
+	// 			interval: 1,					
+	// 		},
+	// 		axisY: {
+	// 			tickThickness: 1,
+	// 			lineThickness: 1,
+	// 			labelFontSize: 14,
+	// 			valueFormatString: "0",
+	// 			maximum: maxY,
+	// 			gridThickness: 1,
+	// 			title: "Count",
+	// 			lineColor: "#ddd",
+	// 			gridColor: "#ddd",
+	// 			tickColor: "#ddd",	                    
+	// 		},
+	// 		data: [{
+	// 			indexLabelFontSize:"0",
+	// 			toolTipContent: "<span style=\"color:#000\"><strong>Count:</strong>{y},<br><strong>Other Value:</strong>{indexLabel}</span>",
+	// 			indexLabelFontColor: "white",
+	// 			indexLabelPlacement: "outside",  
+	// 			indexLabelOrientation: "vertical",
+	// 			color: "#008000",
+	// 			type: "column",
+	// 			dataPoints: graphesData
+	// 		}]
+	// 	});
+
+	// 	chart.render();
+	// }
+	/*PIE CHART NORTH AMERICA */
+	function pie_1(){
+		
+		var pieData = JSON.parse($('.pie-chart1 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart1 #loadpie_color').val());
+		// var maxY = 100 * Math.ceil(graphesData[0].y / 100); 
+		console.log(pieData)
+
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: "North America",
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData,
+							}]
+						});
+		chart.render();
+
+	}
+
+
+	function pie_2 (){
+
+		var pieData = JSON.parse($('.pie-chart2 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart2 #loadpie_color').val());
+		var text = $('#chartLabel_companywide').text();
+
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer1", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: text,
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData
+							}]
+						});
+		chart.render();
+	}
+
+	function pie_3 (){
+		var pieData = JSON.parse($('.pie-chart3 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart3 #loadpie_color').val());
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer3", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: "Inspector",
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData
+							}]
+						});
+		chart.render();
+
+		LoadSelectedEvent3();
+
+	}
+
+	function pie_4 (){
+
+		var pieData = JSON.parse($('.pie-chart4 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart4 #loadpie_color').val());
+		console.log(pieData);
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer4", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: "Building Owner",
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData
+							}]
+						});
+		chart.render();
+
+		LoadSelectedEvent4();
+
+	}
+
+	function pie_5 (){
+		var pieData = JSON.parse($('.pie-chart5 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart5 #loadpie_color').val());
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer5", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: "Building",
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData
+							}]
+						});
+		chart.render();
+
+		LoadSelectedEvent5();
+	}
+
+	function pie_6 (){
+
+		var pieData = JSON.parse($('.pie-chart6 #loadpie').val());
+		var loadpie_color = JSON.parse($('.pie-chart6 #loadpie_color').val());
+		CanvasJS.addColorSet("colorShades",loadpie_color);
+		var chart = new CanvasJS.Chart("chartContainer6", {
+			animationEnabled: true,
+			colorSet: "colorShades",
+			title:{
+				text: "Inspection",
+				horizontalAlign: "left",
+				fontSize:"20",
+			},
+			data: [{
+				type: "doughnut",
+				startAngle: 60,
+								//innerRadius: 60,
+								showInLegend: false,
+								legendText: "{label}",
+								indexLabelFontSize: 14,
+								indexLabel: "{label} - #percent%",
+								toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+								dataPoints: pieData
+							}]
+						});
+		chart.render();
+		LoadSelectedEvent6();
+	}
+
+		// $.AJAX Example Request
+
+		function LoadSelectedEvent3(){
+
+			$('#inspector_choice').on('change', function(eve) {
+				eve.preventDefault(); 
+				var id = $(this).find(":selected").val()
+				console.log(id);
+				$.ajax({
+					url: baseUrl+'/dashboard/percentage?level=inspector&inspector='+id,
+					type: "GET",
+					dataType: "html",
+					beforeSend: function(){
+					},  
+					success: function(html) {
+						$('#inspector_chart_container').html(html);
+
+						runAfterElementExists_pie_3();
+
+						var params = JSON.parse($('#inspector_params').val());
+						//call to owner
+						//call to building/
+						//call to inspection
+						// callToOwner(params);
+						// callToBuilding(params);
+						// callToInspection(params);
+						callTonNonInspection(params,'inspector');
+					}
+				});
+
+			}); 
+		}
+
+		function callToOwner(params){
+			
+			// {inspectorId: "136", ownerId: "104", buildingId: "163", inspectionId: "921"}
+
+			$.ajax({
+				url: baseUrl+'/dashboard/percentage?level=buildingowner&inspector='+params.inspectorId+'&owner='+params.ownerId,
+				type: "GET",
+				dataType: "html",
+				beforeSend: function(){
+				},  
+				success: function(html) {
+					$('#building_owner_chart_container').html(html);
+
+					runAfterElementExists_pie_4();
+				}
+			});
+
+		}
+
+		function callToBuilding(params){
+
+			$.ajax({
+				url: baseUrl+'/dashboard/percentage?level=building&inspector='+params.inspectorId+'&owner='+params.ownerId+'&building='+params.buildingId,
+				type: "GET",
+				dataType: "html",
+				beforeSend: function(){
+				},  
+				success: function(html) {
+					$('#building_chart_container').html(html);
+					runAfterElementExists_pie_5();
+				}
+			});
+
+		}
+
+		function callToInspection(params){
+			$.ajax({
+				url: baseUrl+'/dashboard/percentage?level=inspection&inspector='+params.inspectorId+'&owner='+params.ownerId+'&building='+params.buildingId+'&inspection='+params.inspectionId,
+				type: "GET",
+				dataType: "html",
+				beforeSend: function(){
+				},  
+				success: function(html) {
+					$('#inspection_chart_container').html(html);
+					runAfterElementExists_pie_6();
+				}
+			});
+
+		}
+
+		
+		function callTonNonInspection(params,type){
+			console.log("===",params);
+			var str = ''
+			if(type == 'inspector')
+				str = 'inspector='+params['inspectorId'];
+			else if(type == 'owner')
+				str = 'owner='+params['ownerId'];
+			else if(type == 'building')
+				// str = 'owner='+params['ownerId']+'&building='+params['buildingId'];
+			str = 'building='+params['buildingId'];
+			else
+				// str = 'owner='+params['ownerId']+'&building='+params['buildingId']+'&inspection='+params['inspectionId'];
+			str = 'inspection='+params['inspectionId'];
+
+
+			$.ajax({
+				url: baseUrl+'/dashboard/top20noncompliant?'+str,
+				type: "GET",
+				dataType: "html",
+				beforeSend: function(){
+				},  
+				success: function(html) {
+					$('#list_of_top_non_compliant').html(html);
+					non_compliants();
+				}
+			});
+
+		}
+
+
+
+		function LoadSelectedEvent4(){
+
+
+			$('#buildingowner_choice').on('change', function(eve) {
+				eve.preventDefault(); 
+				
+				var param1 = JSON.parse($('#inspector_params').val());
+
+				var id = $(this).find(":selected").val()
+				console.log(id);
+				
+				$.ajax({
+					url: baseUrl+'/dashboard/percentage?level=buildingowner&inspector='+param1.inspectorId+'&owner='+id,
+					type: "GET",
+					dataType: "html",
+					beforeSend: function(){
+					},  
+					success: function(html) {
+						$('#building_owner_chart_container').html(html);
+
+						runAfterElementExists_pie_4();
+
+						var params = JSON.parse($('#buildingowner_params').val());
+						
+						callToBuilding(params);
+						callToInspection(params);
+						
+						callTonNonInspection(params,'owner');
+
+
+					}
+				});
+
+			}); 
+		}
+
+		function LoadSelectedEvent5(){
+
+			$('#building_choice').on('change', function(eve) {
+				eve.preventDefault(); 
+				var param1 = JSON.parse($('#buildingowner_params').val());
+
+				var id = $(this).find(":selected").val()
+				console.log(id);
+				$.ajax({
+					url: baseUrl+'/dashboard/percentage?level=building&inspector='+param1.inspectorId+'&owner='+param1.ownerId+'&building='+id,
+					type: "GET",
+					dataType: "html",
+					beforeSend: function(){
+					},  
+					success: function(html) {
+						$('#building_chart_container').html(html);
+
+						runAfterElementExists_pie_5();
+
+						var params = JSON.parse($('#building_params').val());
+						
+						callToInspection(params);
+
+						callTonNonInspection(params,'building');
+
+						
+
+					}
+				});
+
+			}); 
+		}
+
+		function LoadSelectedEvent6(){
+
+			$('#inspection_choice').on('change', function(eve) {
+				eve.preventDefault(); 
+				var param1 = JSON.parse($('#building_params').val());
+				var id = $(this).find(":selected").val()
+				console.log(id);
+				$.ajax({
+					url: baseUrl+'/dashboard/percentage?level=inspection&inspector='+param1.inspectorId+'&owner='+param1.ownerId+'&building='+param1.buildingId+'&inspection='+id,
+					type: "GET",
+					dataType: "html",
+					beforeSend: function(){
+					},  
+					success: function(html) {
+						$('#inspection_chart_container').html(html);
+
+						runAfterElementExists_pie_6();
+						
+						var params = JSON.parse($('#inspection_params').val());
+
+						callTonNonInspection(params,'inspection');
+
+					}
+				});
+
+			}); 
+
+		}
+
+	</script>
+
+	<script type="text/javascript">
+		
+
+		function selectNext(max){
+			$activePage  = $(".inlinepagenation .pagination").find('.active').text();
+			page = parseInt($activePage)+1 >= max ? max : parseInt($activePage)+1;	
+
+			selectNumber(page);
+		}
+		function selectPrevious(){
+			
+			$activePage  = $(".inlinepagenation .pagination").find('.active').text();
+			page = parseInt($activePage)-1 <= 1? 1 : parseInt($activePage)-1;
+			selectNumber(page);
+		}
+		function selectNumber(page){
+			$.ajax({
+				url: baseUrl+'/dashboard/reinspections?perPage=10&page='+page,
+				type: "GET",
+				dataType: "html",
+				beforeSend: function(){
+
+				},  
+				success: function(html) {
+					$('#list_of_reinspections').html(html);
+				}
+			});
+		}
+
+	</script>
+
+<style>
+	#inspection_chart_container .chartLabel{width:65%;}
+</style>
+
+
+
+
+
+

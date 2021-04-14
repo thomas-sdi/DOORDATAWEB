@@ -1,0 +1,1070 @@
+<?
+$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+
+$id = $this->doorGridId; 
+$door_id = $this->doorId;
+$door = $this->record;
+
+$picture1 = array_key_exists('0', $this->pictures) ? $this->pictures[0] : null;
+$picture2 = array_key_exists('1', $this->pictures) ? $this->pictures[1] : null;
+$picture3 = array_key_exists('2', $this->pictures) ? $this->pictures[2] : null;
+$picture4 = array_key_exists('3', $this->pictures) ? $this->pictures[3] : null;
+
+
+$picture1file = $picture1 ? $this->baseUrl . '/content/pictures?id=' . $picture1['PICTURE_FILE'] : '';
+$picture2file = $picture2 ? $this->baseUrl . '/content/pictures?id=' . $picture2['PICTURE_FILE'] : '';
+$picture3file = $picture3 ? $this->baseUrl . '/content/pictures?id=' . $picture3['PICTURE_FILE'] : '';
+$picture4file = $picture4 ? $this->baseUrl . '/content/pictures?id=' . $picture4['PICTURE_FILE'] : '';
+
+$picture1id   = $picture1 ? $picture1['ID'] : '';
+$picture2id   = $picture2 ? $picture2['ID'] : '';
+$picture3id   = $picture3 ? $picture3['ID'] : '';
+$picture4id   = $picture4 ? $picture4['ID'] : '';
+
+$picture1note = $picture1 ? $picture1['NOTE'] : '';
+$picture2note = $picture2 ? $picture2['NOTE'] : '';
+$picture3note = $picture3 ? $picture3['NOTE'] : '';
+$picture4note = $picture4 ? $picture4['NOTE'] : '';
+
+$audiofile = $this->audio ? $this->baseUrl . '/content/audio?id=' . $this->audio['AUDIO_FILE'] : null;
+$audioid   = $this->audio ? $this->audio['ID'] : null;
+$audionote = $this->audio ? $this->audio['NOTE'] : null;
+
+$checklistReadonly = (isset($this->grid->inspectionChecklistReadonly)) ? $this->grid->inspectionChecklistReadonly : false;
+	//$disabled = ($this->grid->isReadonly() ? 'disabled' : '');
+
+
+$doorEditable = Model_Door::retrieve()->isDoorEditable($door_id);
+
+	//$disabled = $this->grid->isReadonly() == true ? 'disabled' : '';	
+$disabled = $doorEditable == false ? 'disabled' : '';	
+
+	//if there are incompliancy codes, compliant field must be disabled
+if (count($this->codes) > 0) {
+	$compliant = false;
+} else {
+	$compliant = true;
+	if ($checklistReadonly)
+		$compliant = false;
+	if($doorEditable == false)
+		$compliant = false;
+}
+?>
+
+
+<script>
+	gridDialogDoor.setGrid('cmp_<?= $this->doorGridId ?>');
+</script>
+
+<div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="fa fa-columns"></i>
+		Door
+		<div class="header-buttons-separator">
+			
+			<? if($doorEditable == true): ?>
+				<a class="icon-separator" href="javascript:gridDialogDoor.submit();">
+					<i class="glyph-icon icon-save"></i>
+				</a>
+			<? endif; ?>
+			
+			
+			<a class="icon-separator" href="javascript:gridDialogDoor.onCancel(<?= $this->new ?>);">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+		</div>
+	</h3>
+
+	<div class="modal-body">
+
+		<div class="row">
+			<div class="col-md-7">
+				<ul class="nav nav-tabs">
+					<li class="<?= $this->showMode == 'ordinary' ? 'active' : '' ?>"><a href="#door_fire_doordata_tab" aria-controls="door_fire_doordata_tab" role="tab" data-toggle="tab"><i>Fire</i> <b>DOOR</b>DATA</a></li>
+					<li><a href="#door_pictures_tab" aria-controls="door_pictures_tab" role="tab" data-toggle="tab">PICTURES</a></li>
+					<li><a href="#door_door_detail_tab" aria-controls="door_door_detail_tab" role="tab" data-toggle="tab">DOOR DETAIL</a></li>
+					<li><a href="#door_frame_detail_tab" aria-controls="door_frame_detail_tab" role="tab" data-toggle="tab">FRAME DETAIL</a></li>
+					<li><a href="#door_hardware_tab" aria-controls="door_hardware_tab" role="tab" data-toggle="tab">HARDWARE</a></li>
+					<li class="<?= $this->showMode == 'checklist' ? 'active' : '' ?>"><a href="#door_checklist_tab" aria-controls="door_checklist_tab" role="tab" data-toggle="tab">INSPECTION CHECKLIST</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3">	
+				 <p style="margin-top:0.5em; margin-bottom:0;"><b>BUILDING NAME: </b><span><?= $this->buildingName ?></span></p>
+			</div>
+			<div class="col-md-2">
+				<?php if($doorEditable) { ?>
+					<span>
+						<b>Date</b>&nbsp;&nbsp;
+						<?= $this->grid->getFieldControl('UPDATED_AT', $door, array('editable' => false)) ?>
+					</span>
+				<?php } ?>
+			</div>				
+		</div>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			
+			
+			<input type="hidden" id="inspection_door_id" value="<?= $door_id ?>">
+			
+			<!-- ##################################################################################################### -->
+			<!-- ############################################# FIRE DOORDATA PANE #################################### -->
+			<!-- ##################################################################################################### -->
+			<div role="tabpanel" class="tab-pane <?= $this->showMode == 'ordinary' ? 'active' : '' ?>" id="door_fire_doordata_tab">
+				
+				<div style="max-width: 1200px; margin-right: auto; margin-left: auto;">
+					<div class="row pb10 pt10"  >
+						<div class="col-md-12" style="display: none;"><font size="4px"><b>DOOR</b>DATA CHECKLIST</font></div>
+					</div>
+					
+					
+					<!-- Door Number -->
+					<div class="row">
+						<div class="col-md-6 pb10"><label>Door Number</label><br><?= $this->grid->getFieldControl('NUMBER', $door, array('editable' => $doorEditable)) ?></div>
+						<div class="col-md-6 pb10"><label>Door Barcode</label><br><?= $this->grid->getFieldControl('DOOR_BARCODE', $door, array('editable' => $doorEditable)) ?></div>
+					</div>
+					<!-- Location -->
+					<div class="row pb10">
+						<div class="col-md-12"><label><b>Location</b></label><?= $this->grid->getFieldControl('LOCATION', $door, array('width' =>'100%', 'editable' => $doorEditable)) ?></div>
+					</div>
+					
+					
+					<!-- Handing -->
+					<!-- Door Style -->
+					<div class="row">
+						<div class="col-md-6 pb10 handlewidth"><label>Handing</label><br><?= $this->grid->getFieldControl('HANDING', $door, array('width' => 100, 'editable'=> $doorEditable)) ?></div>
+						<div class="col-md-6 pb10"><label>Door Style</label><br><?= $this->grid->getFieldControl('STYLE', $door, array('editable' => $doorEditable)) ?>
+						<input type="hidden" id="door_style_internal" value="<?= $door['STYLE'] ?>" />
+					</div>
+				</div>
+				
+				
+				
+				<div class="row pb10">
+					<div class="col-lg-4">
+						<!-- Door Type  -->
+						<div class="doorFireDataArea short row-eq-height1" style="padding-left: 10px;padding-right: 10px;">
+							<div class="row">
+								<div class="col-md-12" style="padding-bottom: 10px;"><b style=" font-size: 12pt; margin-left: 5px">Door Type</b></div>
+							</div>
+							
+							<? $odd_even = true;
+							$data = Model_Dictionary::retrieve()->fetchEntries(array(
+								'ID', 'ITEM', 'VALUE_ORDER', new Data_Column('CATEGORY', 'Door Type')), null, true, 'VALUE_ORDER'); ?>
+								<? foreach ($data as $foo): ?>
+									<? if ($odd_even): ?><div class="row"><? endif; ?>
+									<div class="col-md-12 door-type" style="font-weight: bold; padding-bottom: 10px;">
+										<input type="checkbox" dojoType="dijit.form.CheckBox" name="doorType_<?= $foo['ID']?>" 
+										id="doorType_<?= $foo['ID']?>" value="1"
+										<?= array_key_exists($foo['ID'], $this->types) == true ? ' checked' : ''?>
+										<?= $disabled ?>
+										/><?
+										if ($foo['ITEM'] != 'Other') echo $foo['ITEM'];
+										else echo $this->grid->getFieldControl('TYPE_OTHER', $door, array('width' =>100, 'color' => 'white'));
+										?></div>
+										<? if (!$odd_even): ?></div><? endif; ?>
+										<? $odd_even = !$odd_even; ?>
+									<? endforeach; ?>
+									<? if (!$odd_even) print('</div>'); ?>
+									
+								</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="doorFireDataArea row-eq-height1" style="padding-left: 10px;padding-right: 10px;">
+									<div class="row">
+										
+										<!-- Door Material -->
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-12"><b style="font-size: 12pt;">Door Material</b></div>
+											</div>
+											
+											<div class="row">
+												<div class="col-md-12 frame-material-ev short">
+													<?= $this->grid->getFieldControl('MATERIAL', $door, array(
+														'cols' => true, 'other' => 'MATERIAL_OTHER', 'editable' => $doorEditable)) ?>
+														<input id="door_material_internal" type="hidden" value="<?= $door['column_10_ID'] ?>" />
+													</div>
+												</div>
+											</div>
+											
+											<!-- Door Elevation -->
+											<div class="col-md-6">
+												<div class="row">
+													<div class="col-md-12"><b style="font-size: 12pt;">Door Elevation</b></div>
+												</div>
+												
+												<div class="row">
+													<div class="col-md-12 door-elevation short">
+														<?= $this->grid->getFieldControl('ELEVATION', $door, array(
+															'cols' => 2, 'other' => 'ELEVATION_OTHER', 'editable' => $doorEditable)) ?>
+															<input id="door_elevation_internal" type="hidden" value="<?= $door['column_12_ID'] ?>" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-lg-4">
+										<div class="doorFireDataArea row-eq-height1" style="padding-left: 10px;padding-right: 10px;">
+											<!-- Frame Material -->
+											<div class="row">
+												<div class="col-md-5">
+													<div class="row">
+														<div class="col-md-12"><b style="font-size: 12pt;">Frame Material</b></div>
+													</div>
+													<div class="row">
+														<div class="col-md-12 frame-material-ev short">
+															<?= $this->grid->getFieldControl('FRAME_MATERIAL', $door, array(
+																'cols' =>true, 'other' => 'FRAME_MATERIAL_OTHER', 'editable' => $doorEditable)) ?>
+																<input id="frame_material_internal" type="hidden" value="<?= $door['column_14_ID'] ?>" />
+															</div>
+														</div> 
+													</div>
+													
+													<div class="col-md-7">
+														<div class="row">
+															<div class="col-md-12"><b style="font-size: 12pt;">Frame Elev.</b></div>
+														</div>
+														<div class="row">
+															
+															<div class="col-md-12 frame-material-ev short">
+																
+																<?= $this->grid->getFieldControl('FRAME_ELEVATION', $door, array(
+																	'cols' =>true, 'other' => 'FRAME_ELEVATION_OTHER', 'editable' => $doorEditable)) ?>
+																	<input id="frame_elevation_internal" type="hidden" value="<?= $door['column_16_ID'] ?>" />
+																</div>
+															</div> 
+														</div>
+													</div>							
+												</div>
+											</div>
+										</div>
+										
+										
+										
+										<div class="row pb10">
+											
+											<!-- Fire-Rating 1 & 2 -->
+											<div class="col-sm-2">
+												<table style="width: 100%">
+													<caption><b>Fire Rating</b></caption>
+													<tr>
+														<td>
+															<?= $this->grid->getFieldControl('FIRE_RATING_1', $door, array('cols' =>true, 'editable' => $doorEditable)) ?>
+															<input type="hidden" id="fire_rating_minutes_internal" value="<?= $door['FIRE_RATING_1_ID'] ?>" />
+														</td>
+														<td><? $fr2 = $this->grid->getColumn('FIRE_RATING_2'); ?><br>
+															<br><br>
+															<span id="<?= $fr2->getGrid()->getId() ?>_<?= $fr2->getId() ?>" dojoType="ginger.RadioGroup">
+																<table cellpadding="0" cellspacing="0"><tr><td valign="top">
+																	<table cellpadding="0" cellspacing="0">
+																		<? $i = 0;
+																		foreach ($this->fireRating2All as $item):
+																			if ($i == 4) {?> </table></td><td valign="top"><table cellpadding="0" cellspacing="0"> <?}
+																				?>
+																			<tr><td>
+																				<input type="radio" dojoType='dijit.form.RadioButton'
+																				name="<?= $fr2->getId() ?>" <?= $disabled ?>
+																				id="<?= $fr2->getGrid()->getId() . "_" . $fr2->getId() . "_" .$i  ?>"
+																				<?= $item['ID'] == $this->fireRating2 ? "checked" : "" ?>
+																				value = "<?= $item['ID'] ?>"
+																				
+																				/>
+																				<label id="label_<?= $fr2->getGrid()->getId() ?>_<?=$fr2->getId() ?>_<?= $i ?>" 
+																					for="<?= $fr2->getGrid()->getId() ?>_<?=$fr2->getId() ?>_<?= $i ?>"><?= $item['ITEM'] ?></label>   
+																				</td></tr>
+																				<?$i +=1;
+																			endforeach;
+																			?>
+																			<input type="hidden" id="fire_rating_code_internal" value="<?= $door['FIRE_RATING_1_ID'] ?>" />
+																		</table>
+																		
+																	</td></tr>
+																</table>
+															</span>
+														</td>
+													</tr>
+												</table>
+											</div>
+											
+											<!-- Temp. Rise -->
+											<div class="col-sm-2 pb10">
+												<label><b>Temp. Rise</b></label><br><?= $this->grid->getFieldControl('TEMP_RISE', $door, array('cols' =>true, 'editable' => $doorEditable)) ?>
+												<input type="hidden" id="temp_rise_internal" value="<?= $door['TEMP_RISE_ID'] ?>" />
+											</div>
+											
+											<!-- Listing Agency -->
+											<!-- Positive pressure -->
+											<div class="col-sm-3 pb10 short listing-agent">
+												<label><b>Listing Agency</b></label><br>
+												<?= $this->grid->getFieldControl('LISTING_AGENCY', $door, array(
+													'cols' => 3, 'other' => 'LISTING_AGENCY_OTHER', 'editable' => $doorEditable)) ?>
+													<input type="hidden" id="listing_agency_internal" value="<?= $door['column_28_ID'] ?>" /><br>
+													<b>Positive Pressure</b><br>
+													<?= $this->grid->getFieldControl('FIRE_RATING_3', $door, array('editable' => $doorEditable)) ?><input type="hidden" id="pressure_1_internal" value="<?= $door['column_20_ID'] ?>" />
+													<?= $this->grid->getFieldControl('FIRE_RATING_4', $door, array('editable' => $doorEditable)) ?><input type="hidden" id="pressure_2_internal" value="<?= $door['column_21_ID'] ?>" />
+												</div>
+												
+												<div class="col-sm-5 Barcode-set">
+													
+													<!-- Barcode -->
+													<!-- Gauge -->
+													<div class="row">
+														<div class="col-md-10">
+															<b>Barcode</b><br><?= $this->grid->getFieldControl('BARCODE', $door, array('width' =>'100%', 'editable' => $doorEditable)) ?>
+														</div>
+														<div class="col-md-2">
+															<b>GAUGE</b><br><?= $this->grid->getFieldControl('GAUGE', $door, array('width' =>45, 'editable' => $doorEditable)) ?>
+														</div>
+													</div>
+													
+													<!-- Door manufacturer -->
+													<div class="row">
+														<div class="col-md-12">
+															<b>Door Manufacturer</b><br><?= $this->grid->getFieldControl('MANUFACTURER',$door, array('width' =>300, 'editable' => $doorEditable)) ?>
+														</div>
+													</div>
+													
+													<!-- Model number -->
+													<div class="row">
+														<div class="col-md-12">
+															<b>Model Number</b><br><?= $this->grid->getFieldControl('MODEL', $door, array('width' =>300, 'editable' => $doorEditable)) ?>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<!-- Additional remarks -->
+											<div class="row pb10">
+												<div class="col-md-12">
+													<label><b>Additional Remarks</b></label><br>&nbsp;&nbsp;<?= $this->grid->getFieldControl('REMARKS', $door, array('width' =>'100%', 'editable' => $doorEditable)) ?>
+												</div>
+											</div>
+											
+											<!-- Disclaimer -->
+											<div class="row">
+												<div class="col-xs-11" style="font-size: 8pt; text-align: right">
+													<br><br>
+													COPYRIGHT 2009-<?= date('Y') ?> DOORDATA Solutions, Inc., ALL RIGHTS RESERVED.<br>
+													Use of this inspection form without the express written consent of DOORDATA Solutions, Inc. is strictly forbidden.
+												</div>
+												<div class="col-xs-1" style="text-align: left;">
+													<img style="width: 30px; height: 60px;" src="<?= $this->baseUrl ?>/public/images/form5.gif">
+												</div>
+											</div>
+											
+										</div>
+									</div><!-- FireDoorData Pane End -->
+									
+									
+									<!-- ##################################################################################################### -->
+									<!-- ############################################# PICTURES PANE ######################################### -->
+									<!-- ##################################################################################################### -->
+									<div role="tabpanel" class="tab-pane" id="door_pictures_tab">
+										
+										<div class="row pb10 pt10" >
+											<div class="col-md-12" style="display: none;"><font size="4px"><b>PICTURES</b></font></div>
+										</div>
+										
+										
+										
+										<div class="row">
+											<div class="col-md-12">
+												<?= $this->partial("../widgets/doorHeader.phtml", array("gridId" => $id)) ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												<form id="door_main_form_1" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+													<input type="hidden" name="door_id" value="<?= $door_id ?>"/>
+													<input type="hidden" name="picture_id" id="picture_1_id" value="<?= $picture1id ?>"/>
+													<input type="hidden" name="picture_order" value="1"/> 
+													<table style="border: none; height: 100%;">
+														<tr>
+															<td align="center" valign="top" height="220">
+																<b>Picture 1</b><br>
+																<img id="picture_1" name="picture_1" style="max-height: 200px; max-width: 90%;" src="<?= $picture1file ?>"/>
+															</td>
+														</tr>
+														<tr><td align="center"><div id="picture1_status">&nbsp</div></td></tr>
+														<tr style="display: none;">
+															<td align="center" valign="bottom"><b>Notes:</b><br>
+																<textarea id="picture_1_notes" class="pictureNotes" name="picture_notes" rows="3" cols="30" <?= $disabled ?> ><?= $picture1note ?></textarea></td>
+															</tr>
+															<tr><td align="center">
+																<input name="picture_file" type="file" <?= $disabled ?> /></td></tr>
+																<tr><td align="center">	
+																	<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.savePicture(1)" <?= $disabled ?>>Import</button>
+																	<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.rotatePicture(1)" <?= $disabled ?>>Rotate</button>
+																	<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.deletePicture(1)" <?= $disabled ?>>Clear</button>
+																</td></tr>
+															</table>
+														</form>
+													</div>
+													
+													<div class="col-md-3">
+														<form id="door_main_form_2" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+															<input type="hidden" name="picture_id" id="picture_2_id" value="<?= $picture2id ?>"/>
+															<input type="hidden" name="door_id" value="<?= $door_id ?>"/>
+															<input type="hidden" name="picture_order" value="2"/> 
+															<table border="0" height="100%">
+																<tr><td align="center" valign="top" height="220">
+																	<b>Picture 2</b><br>
+																	<img id="picture_2" style="max-height: 200px; height: 100%;" src="<?= $picture2file ?>"/>
+																</td></tr>
+																<tr><td align="center"><div id="picture2_status">&nbsp</div></td></tr>
+																<tr style="display: none;">
+																	<td align="center" valign="bottom">
+																		<b>Notes:</b><br>
+																		<textarea id="picture_2_notes" class="pictureNotes" name="picture_notes" rows="3" cols="30" <?= $disabled ?>><?= $picture2note ?></textarea>
+																	</td>
+																</tr>
+																<tr><td align="center">
+																	<input name="picture_file" type="file" <?= $disabled ?>/></td></tr>
+																	<tr><td align="center">	
+																		<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.savePicture(2)" <?= $disabled ?>>Import</button>
+																		<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.rotatePicture(2)" <?= $disabled ?>>Rotate</button>
+																		<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.deletePicture(2)" <?= $disabled ?>>Clear</button>
+																	</td></tr>
+																</table>
+															</form>
+														</div>	
+														
+														<div class="col-md-3">
+															<form id="door_main_form_3" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+																<input type="hidden" name="picture_id" id="picture_3_id" value="<?= $picture3id ?>"/>
+																<input type="hidden" name="door_id" value="<?= $door_id ?>"/>
+																<input type="hidden" name="picture_order" value="3"/> 
+																<table border="0" height="100%">
+																	<tr><td align="center" valign="top" height="220">
+																		<b>Picture 3</b><br>
+																		<img id="picture_3" style="max-height: 200px; height: 100%;" src="<?= $picture3file ?>"/>
+																	</td></tr>
+																	<tr><td align="center"><div id="picture3_status">&nbsp</div></td></tr>
+																	<tr style="display: none;">
+																		<td align="center" valign="bottom">
+																			<b>Notes:</b><br>
+																			<textarea id="picture_3_notes" class="pictureNotes" name="picture_notes" rows="3" cols="30" <?= $disabled ?>><?= $picture3note ?></textarea>
+																		</td>
+																	</tr>
+																	<tr><td align="center">
+																		<input name="picture_file" type="file" <?= $disabled ?>/></td></tr>
+																		<tr><td align="center">	
+																			<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.savePicture(3)" <?= $disabled ?>>Import</button>
+																			<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.rotatePicture(3)" <?= $disabled ?>>Rotate</button>
+																			<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.deletePicture(3)" <?= $disabled ?>>Clear</button>
+																		</td></tr>
+																	</table>
+																</form>
+															</div>
+															
+															<div class="col-md-3">
+																<form id="door_main_form_4" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+																	<input type="hidden" name="picture_id" id="picture_4_id" value="<?= $picture4id ?>"/>
+																	<input type="hidden" name="door_id" value="<?= $door_id ?>"/>
+																	<input type="hidden" name="picture_order" value="4"/> 
+																	<table border="0" height="100%">
+																		<tr><td align="center" valign="top" height="220">
+																			<b>Picture 4</b><br>
+																			<img id="picture_4" style="max-height: 200px; height: 100%;" src="<?= $picture4file ?>"/>
+																		</td></tr>
+																		<tr><td align="center"><div id="picture4_status">&nbsp</div></td></tr>
+																		<tr style="display: none;">
+																			<td align="center" valign="bottom">
+																				<b>Notes:</b><br>
+																				<textarea id="picture_4_notes" class="pictureNotes" name="picture_notes" rows="3" cols="30" <?= $disabled ?>><?= $picture4note ?></textarea>
+																			</td>
+																		</tr>
+																		<tr><td align="center">
+																			<input name="picture_file" type="file" <?= $disabled ?>/></td></tr>
+																			<tr><td align="center">	
+																				<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.savePicture(4)" <?= $disabled ?>>Import</button>
+																				<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.rotatePicture(4)" <?= $disabled ?>>Rotate</button>
+																				<button dojoType='dijit.form.Button' class="short" onclick="gridDialogDoor.deletePicture(4)" <?= $disabled ?>>Clear</button>
+																			</td></tr>
+																		</table>
+																	</form>
+																</div>
+															</div>
+															
+															<div class="row">
+																<div class="col-md-12"><label id="status" jsid="status"></label></div>
+															</div>
+
+															
+														</div>
+														
+														<!-- ##################################################################################################### -->
+														<!-- ######################################## DOOR DETAIL PANE ########################################### -->
+														<!-- ##################################################################################################### -->
+														<div role="tabpanel" class="tab-pane" id="door_door_detail_tab">
+															<!-- CAPTION -->
+															<div class="row pb10 pt10" >
+																<div class="col-md-12" style="display: none;"><font size="4px"><b>DOOR DETAIL</b> CHECKLIST</font></div>
+															</div>
+															
+															
+															<div class="row">
+																<div class="col-md-12">
+																	<?= $this->partial("../widgets/doorHeader.phtml", array("gridId" => $id)) ?>
+																</div>
+															</div>
+															
+															<!-- Active Door-->
+															<div class="row short" style="max-width: 725px; margin-right: auto;">
+																<h4><font size="4px">Active Door</font></h4>
+																<div class="col-md-4" style="padding-top: 20px;">
+																	<div style="width: 228px; height: 451px;background-image: url(<?= $this->baseUrl ?>/public/images/page6_col1.gif); background-repeat: no-repeat;">
+																		<?= $this->grid->getFieldControl('HINGE_HEIGHT',    $door, array('left' => 20, 'top' => 31, 'width' => 80, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_THICKNESS', $door, array('left' => 37, 'top' => 31, 'width' => 80, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_HEIGHT1',   $door, array('left' => -130, 'top' => 68, 'width' => 20, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_FRACTION1', $door, array('left' => 70, 'top' => 46, 'width' => 70, 'editable' => $doorEditable)) ?>    
+																		<?= $this->grid->getFieldControl('HINGE_HEIGHT2',   $door, array('left' => -35, 'top' => 135, 'width' => 25, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_FRACTION2', $door, array('left' => -32, 'top' => 135, 'width' =>80, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_HEIGHT3',   $door, array('left' => -150, 'top' => 226, 'width' => 25, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_FRACTION3', $door, array('left' => 75, 'top' => 204, 'width' => 80, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_HEIGHT4',   $door, array('left' => -42, 'top' => 294, 'width' => 25, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_FRACTION4', $door, array('left' => -40, 'top' => 294, 'width' => 80, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_BACKSET',   $door, array('left' => 45, 'top' => 350, 'width' => 80, 'editable' => $doorEditable)) ?>
+																	</div>
+																</div>
+																
+																<div class="col-md-4" style="padding-top: 20px;">
+																	<div style="width: 176px; height: 451px;background-image: url(<?= $this->baseUrl ?>/public/images/page6_col2.gif); background-repeat: no-repeat;">
+																		<?= $this->grid->getFieldControl('HINGE_MANUFACTURER',         $door, array('left' => 3, 'top' => 27, 'width' => 165, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('HINGE_MANUFACTURER_NO',      $door, array('left' => 35, 'top' => 76, 'width' => 130, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('TOP_TO_CENTERLINE',          $door, array('left' => 35, 'top' => 185, 'width' => 50, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('TOP_TO_CENTERLINE_FRACTION', $door, array('left' => 35, 'top' => 185, 'width' => 78, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('LOCK_BACKSET',               $door, array('left' => 60, 'top' => 218, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('FRAME_BOTTOM_TO_CENTER',     $door, array('left' => -35, 'top' => 295, 'width' => 51, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('STRIKE_HEIGHT',              $door, array('left' => 60, 'top' => 320, 'width' => 90, 'editable' => $doorEditable)) ?>  
+																	</div>
+																</div>
+																
+																<div class="col-md-4" style="padding-top: 20px;">
+																	<div style="width: 301px; height: 251px;background-image: url(<?= $this->baseUrl ?>/public/images/page6_col3.gif); background-repeat: no-repeat;">
+																		<?= $this->grid->getFieldControl('PREFIT_DOOR_SIZE_X', $door, array('left' => 5, 'top' => 30, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('PREFIT_FRACTION_X',  $door, array('left' => 5, 'top' => 30, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('PREFIT_DOOR_SIZE_Y', $door, array('left' => 15, 'top' => 30, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('PREFIT_FRACTION_Y',  $door, array('left' => 15, 'top' => 30, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		
+																		<?= $this->grid->getFieldControl('FRAME_OPENING_SIZE_X',     $door, array('left' => -254, 'top' => 96, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('FRAME_OPENING_FRACTION_X', $door, array('left' => 40, 'top' =>75, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('FRAME_OPENING_SIZE_Y',     $door, array('left' => 50, 'top' =>75, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('FRAME_OPENING_FRACTION_Y', $door, array('left' => 50, 'top' =>75, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		
+																		<?= $this->grid->getFieldControl('LITE_CUTOUT_SIZE_X',     $door, array('left' => -220, 'top' => 144, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('LITE_CUTOUT_FRACTION_X', $door, array('left' => 40, 'top' => 122, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('LITE_CUTOUT_SIZE_Y',     $door, array('left' => 50, 'top' => 122, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('LITE_CUTOUT_FRACTION_Y', $door, array('left' => 50, 'top' => 122, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		
+																		<?= $this->grid->getFieldControl('LOCKSTILE_SIZE',         $door, array('left' => -220, 'top' => 171, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('LOCKSTILE_FRACTION',     $door, array('left' => 40, 'top' => 150, 'width' => 90, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('TOPRAIL_SIZE',           $door, array('left' => 50, 'top' => 150, 'width' => 30, 'editable' => $doorEditable)) ?>
+																		<?= $this->grid->getFieldControl('TOPRAIL_FRACTION',       $door, array('left' => 50, 'top' => 150, 'width' => 90, 'editable' => $doorEditable)) ?> 
+																	</div>
+																</div>
+															</div>
+															
+															
+															<!-- Disclaimer -->
+															<div class="row">
+																<div class="col-xs-11" style="font-size: 8pt; text-align: right">
+																	<br><br><br>
+																	COPYRIGHT 2009-<?= date('Y') ?> DOORDATA Solutions, Inc., ALL RIGHTS RESERVED.<br>
+																	Use of this inspection form without the express written consent of DOORDATA Solutions, Inc. is strictly forbidden.
+																</div>
+																<div class="col-xs-1" style="text-align: left;">
+																	<img style="width: 27px; height: 75px; display: none;" src="<?= $this->baseUrl ?>/public/images/form5a.gif">
+																</div>
+															</div>
+
+														</div>
+														
+														
+														<!-- ##################################################################################################### -->
+														<!-- ######################################## FRAME DETAIL PANE ########################################## -->
+														<!-- ##################################################################################################### -->
+														<div role="tabpanel" class="tab-pane" id="door_frame_detail_tab">
+															<!-- CAPTION -->
+															<div class="row pb10 pt10">
+																<div class="col-md-12" style="display: none;"><font size="4px"><b>FRAME DETAIL</b> CHECKLIST</font></div>
+															</div>
+															
+															<div class="row">
+																<div class="col-md-12">
+																	<?= $this->partial("../widgets/doorHeader.phtml", array("gridId" => $id)) ?>
+																</div>
+															</div>
+															
+															<!-- MAIN AREA -->
+															
+															<div class="row" style="max-width: 1200px; margin-right: auto;">
+																<div class="col-md-3" style="min-width:263px;">
+																	<img src="<?= $this->baseUrl ?>/public/images/page7_short.jpg">
+																</div>
+																
+																<div class="col-md-4" style="padding-left: 20px;">
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">A</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Top Width</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('A', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('A_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">B</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Middle Width</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('B', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('B_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">C</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Bottom Width</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('C', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('C_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">D</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Left Height</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('D', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('D_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">E</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Right Height</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('E', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('E_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">F</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Top Hinge</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('F', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('F_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">G</div></div>
+																		<div class="col-xs-3"><div class="fdCell">2nd Hinge</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('G', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('G_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">H</div></div>
+																		<div class="col-xs-3"><div class="fdCell">3rd Hinge</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('H', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('H_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">I</div></div>
+																		<div class="col-xs-3"><div class="fdCell">4rd Hinge</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('I', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('I_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">J</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Hinge Height</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('J', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('J_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">K</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Hinge Backset</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('K', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('K_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																</div>
+																
+																<div class="col-md-4" style="padding-left: 20px;">
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">L</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Strike C.L.</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('L', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('L_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">M</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Strike Height</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('M', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('M_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">N</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Jamb Depth</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('N', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('N_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">O</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Door Rabbet</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('O', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('O_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">P</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Frame Trim</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('P', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('P_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">Q</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Face Width</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('Q', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('Q_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">R</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Still Face</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('R', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('R_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">S</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Header Face</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('S', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('S_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">T</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Soffit</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('T', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('T_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">U</div></div>
+																		<div class="col-xs-3"><div class="fdCell">Stop Height</div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('U', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('U_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																	
+																	<div class="row fdRow">
+																		<div class="col-xs-1"><div class="fdCell">V</div></div>
+																		<div class="col-xs-3"><div class="fdCell"></div></div>
+																		<div class="col-xs-3"><?= $this->grid->getFieldControl('V', 			$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																		<div class="col-xs-5"><?= $this->grid->getFieldControl('V_FRACTION', 	$door, array('width' => '100%', 'editable' => $doorEditable)) ?></div>
+																	</div>
+																</div>
+																
+															</div>
+															
+															<!-- Disclaimer -->
+															<div class="row">
+																<div class="col-xs-11" style="font-size: 8pt; text-align: right">
+																	<br><br>
+																	COPYRIGHT 2009-<?= date('Y') ?> DOORDATA Solutions, Inc., ALL RIGHTS RESERVED.<br>
+																	Use of this inspection form without the express written consent of DOORDATA Solutions, Inc. is strictly forbidden.
+																</div>
+																<div class="col-xs-1" style="text-align: left;">
+																	<img style="width: 30px; height: 60px;" src="<?= $this->baseUrl ?>/public/images/form5b.gif">
+																</div>
+															</div>
+														</div><!-- end of frame detail pane -->
+														
+														
+														<!-- ##################################################################################################### -->
+														<!-- ######################################## HARDWARE PANE ############################################## -->
+														<!-- ##################################################################################################### -->
+														<div role="tabpanel" class="tab-pane" id="door_hardware_tab">
+															
+															
+															<!-- CAPTION -->
+															<div class="row pb10 pt10">
+																<div class="col-md-12" style="display: none;"><font size="4px"><b>FRAME DETAIL</b> CHECKLIST</font></div>
+															</div>
+															
+															<div class="row">
+																<div class="col-md-12" >
+																	<?= $this->partial("../widgets/doorHeader.phtml", array("gridId" => $id)) ?>
+																</div>
+															</div>
+															
+															<div class="row short" style="text-align: center;">
+																<div class="col-md-12 pb10">
+																	Hardware Set:<br>
+																	<?= $this->grid->getFieldControl('HARDWARE_SET', $door, array('width'=>300, 'style' => 'text-align: center', 'editable' => $doorEditable)); ?>
+																</div>
+																<div class="col-md-12 pb10">
+																	Hardware Group:<br>
+																	<?= $this->grid->getFieldControl('HARDWARE_GROUP', $door, array('width'=>220, 'style' => 'text-align: center', 'editable' => $doorEditable)) ?>
+																</div>
+															</div>
+															
+															<div class="row">
+																<div class="col-md-12">
+																	
+																	<div id="list_of_door_hardware" jsId="list_of_door_hardware" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspection/hardware?doorId=<?= $door_id ?>">
+																	</div>
+
+
+																</div>
+															</div>
+
+															<!-- Disclaimer -->
+															<div class="row">
+																<div class="col-xs-11" style="font-size: 8pt; text-align: right">
+																	<br><br>
+																	COPYRIGHT 2009-<?= date('Y') ?> DOORDATA Solutions, Inc., ALL RIGHTS RESERVED.<br>
+																	Use of this inspection form without the express written consent of DOORDATA Solutions, Inc. is strictly forbidden.
+																</div>
+																<div class="col-xs-1" style="text-align: left;">
+																	<img style="width: 16px; height: 50px;  src="<?= $this->baseUrl ?>/public/images/form5c.gif">
+																</div>
+															</div>
+
+														</div>
+
+
+														<!-- ##################################################################################################### -->
+														<!-- ######################################## INSPECTION CHECKLIST PANE ################################## -->
+														<!-- ##################################################################################################### -->
+														<div role="tabpanel" class="tab-pane <?= $this->showMode == 'checklist' ? 'active' : '' ?>" id="door_checklist_tab">
+
+															<!-- CAPTION -->
+															<div class="row pb10 pt10">
+																<div class="col-md-10"><font size="4px"  style="display: none;">INSPECTION CHECKLIST <b><?= date('Y') ?></b></font></div>
+
+
+
+
+															</div>		
+
+
+															<div class="row" style="position: relative;">
+																<div class="col-md-12">
+																	<?= $this->partial("../widgets/doorHeader.phtml", array("gridId" => $id)) ?>
+																</div>
+																<?php if($doorEditable){ ?>
+																	<div class="col-md-2 re-review">
+																		<!-- Compliant -->
+																		<div class="col-md-6" style="padding: 0;"><b>Compliant</b></div>
+																		<div class="col-md-6 doorcomplaint"><?= $this->grid->getFieldControl('COMPLIANT', $door, array(/*'editable' => $compliant*/ 'editable' => $compliant)) ?></div>
+																	</div>
+																<?php } ?>
+
+															</div>
+
+															<div class="row">
+																<div class="col-md-8">
+																	<b>Remarks: </b>
+																	<span style="text-decoration: underline;"><div dojoType="ginger.Text" disabled separator=", " dependsOn="['<?= $id ?>_REMARKS']"></div></span>
+																</div>
+																<div class="col-md-4" style="display:none;">
+																	<!-- BUILDING NAME -->
+																	<b>BUILDING NAME: &nbsp;&nbsp;</b><span style="text-decoration: underline;"><?= $this->buildingName ?></span>
+																</div>
+															</div>
+
+															<div class="row short">
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>FRAME</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Frame', "codes" => $this->codes, "other" => $this->other, 
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+
+																		<div class="col-md-12" style="padding-top: 20px;"><b>DOOR</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Door', "codes" => $this->codes, "other" => $this->other, "end" => 7,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																		<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+
+																		<div class="col-md-12 RECOMEND_Frame RECOMEND_Door">
+
+																			<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Door',"code_id" => $this->codes,"door_id" => $door_id, "other" => $this->other, "end" => 7,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+
+																	</div>
+																</div>
+
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>DOOR (cont.)</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Door', "cat_Type"=>"DoorCont", "codes" => $this->codes, "other" => $this->other, "start" => 7,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+
+																		<div class="col-md-12" style="padding-top: 20px;"><b>OPERATIONAL TEST</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Operational Test', "cat_Type"=>"Operational", "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																	</div>
+																	<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+																	<div class="col-md-12 RECOMEND_DoorCont RECOMEND_Operational">
+
+																		<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Operational Test',"code_id" => $this->codes,"door_id" => $door_id, "other" => $this->other,
+																		"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																	</div>
+																</div>
+
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>HINGES/PIVOTS</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Hinges/Pivots', "cat_Type"=>"Hinges", "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+
+																		<div class="col-md-12" style="padding-top: 20px;"><b>DOOR BOLTS</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Door Bolts',"cat_Type"=>"Bolts", "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																		<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+																		<div class="col-md-12 RECOMEND_Hinges RECOMEND_Bolts">
+																			<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Door Bolts',"door_id" => $door_id,"code_id" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+																	</div>
+																</div>
+
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>LOCKS</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Locks', "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+
+																		<div class="col-md-12" style="padding-top: 20px;"><b>FIRE EXIT HARDWARE</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Fire Exit Hardware',"cat_Type"=>"Fire", "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																		<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+																		<div class="col-md-12 RECOMEND_Locks RECOMEND_Fire">
+																			<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Locks',"code_id" => $this->codes,"door_id" => $door_id, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+																	</div>
+																</div>
+
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>DOOR CLOSERS</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Door Closers', "cat_Type"=>"Closers", "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																		<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+																		<div class="col-md-12 RECOMEND_Closers">
+																			<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Door Closers',"code_id" => $this->codes,"door_id" => $door_id, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+																	</div>
+																</div>
+
+																<div class="col-sm-2">
+																	<div class="row">
+																		<div class="col-md-12" style="padding-top: 20px;"><b>MISCELLANEOUS</b></div>
+																		<div class="col-md-12">
+																			<?= $this->partial("inspection/checklist.phtml", array("category" => 'Miscellaneous', "codes" => $this->codes, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+																		</div>
+																		<div class="col-md-12" style="padding-top: 20px;"><b>RECOMMEDED</b></div>
+																		<div class="col-md-12 RECOMEND_Miscellaneous">
+																			<?= $this->partial("inspection/recomendation.phtml", array("category" => 'Miscellaneous',"code_id" => $this->codes,"door_id" => $door_id, "other" => $this->other,
+																			"readonly" => $checklistReadonly, 'doorEditable' => $doorEditable)) ?>
+
+																		</div>
+																	</div>
+																</div>
+
+															</div>
+
+
+
+															<!-- Disclaimer -->
+															<div class="row">
+																<div class="col-xs-12" style="text-align: right;">
+																	<img src="<?= $this->baseUrl ?>/public/images/form4.gif">
+																</div>
+															</div>
+
+														</div><!-- Inspection Checklist Pane End -->
+													</div><!-- Tab content End -->
+												</div>
+
+												<div class="modal-footer" style="text-align: center;">
+													<!-- BUTTONS -->
+													<?= $this->partial("../widgets/doorButtons.phtml", array('new' => $this->new, 'model' => 'inspection_door', 'doorEditable' => $doorEditable)) ?>
+
+												</div>
+											</div>
+											<style>
+												.doorcomplaint label {
+													padding: 0 !important;
+												}
+											</style>
+											<script type="text/javascript">
+
+												function recomendedCode(code_id,category,item) {
+													console.log("asdfasdf==="+code_id);
+													var defaultText = $("#RECOMEND_"+code_id).val();
+
+													console.log("defaultText==="+defaultText);
+													console.log("defaultText==="+category);
+
+													var str = '<span style="display: block;" id="RECOMENDATION_BLOCK_'+code_id+'">'+item+' <input type="text" style="display: inline-block;width: 75%;" value="'+defaultText+'" id="RECOMENDATION_'+code_id+'"><input type="hidden" value="'+item+'" id="R_ITEM_'+code_id+'"> </span>';
+													var code = dojo.byId('CODE_'+code_id);
+													if (code.checked == true){
+														$("#RECOMENDATION_BLOCK_"+code_id).remove();
+														$(".RECOMEND_"+category).append(str);
+													}else{
+														$("#RECOMENDATION_BLOCK_"+code_id).remove();
+													}
+
+												}
+
+											</script>
+
+											<script type="text/javascript">
+
+												function addNewRow() {
+
+													var str = '<tr><td class="col-checkbox"><input type="checkbox" name=""></td><td class="col-qty"><input type="text" id="qty"></td><td class="col-item"><input type="text" id="item"></td><td class="col-product"><input type="text" id="product"></td><td class="col-mfg"><input type="text" id="mfg"></td><td class="col-finish"><input type="text" id="finish"></td></tr>';
+
+													$(".hardware-body").append(str);
+
+												}
+
+												function removeSelectedRow() {
+													$(".hardware-body").find('tr').each(function () {
+														var row = $(this);
+														if (row.find('input[type="checkbox"]').is(':checked') ) {
+															row.remove();
+														}
+													});
+												}
+
+											</script>

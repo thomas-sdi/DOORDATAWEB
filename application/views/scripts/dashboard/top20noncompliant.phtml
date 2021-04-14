@@ -1,0 +1,31 @@
+<?php
+
+
+$data = [];
+
+foreach ($this->top20noncompliant as $key => $value) {
+	$temp = new stdClass();
+	$temp->y = (int)$value['code_frequency'];
+	$temp->label = $value['item'];
+	$temp->indexLabel = $value['description'];
+
+	array_push($data, $temp);
+}
+
+?>
+
+
+<p class="form-control select-control1" id="buildingowner_choice" name="buildingowner_choice" style="border: transparent;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 5px;
+    box-shadow: none;
+    color:#008000;
+    ">
+	<?= $this->levelLabel ?>
+</p>
+
+
+
+
+<input type="hidden" id="loadgraphdata" value='<?= json_encode($data) ?>'>

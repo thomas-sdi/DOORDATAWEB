@@ -1,0 +1,15 @@
+<!-- inspection companies grid grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+	<?= $this->partial("../widgets/bratiliusgrid.phtml", array(
+		"grid" 				=> $this->components['inspection_company'],
+		'can' 				=> $this->access['inspection_company'],
+		'caption' 			=> 'INSPECTION COMPANIES',
+		"caption_singular" 	=> "INSPECTION COMPANY",
+		'detailedView' 		=> "/inspectioncompany/detailview",
+		"imageNew"			=> $this->baseUrl . "/public/images/Inspection Companies.png",
+		'parentPaneId'		=> "list_of_providers",
+		'gridParams'		=> $this->gridParams,
+		'childGridIds'		=> array('cmp_emp'),
+		'formActionUrl' 	=> $this->baseUrl . '/inspectioncompany/save?_model=inspection_company'
+	)) ?>
+</div>

@@ -1,0 +1,67 @@
+
+<div class="col-md-12" style="padding-left: 0; padding-right: 0;">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="width:25%">Building </th>
+					<th>Address</th>
+					<th>Building Owner</th>
+					<th>Last Inspection</th>
+					<th>Reinspection</th>
+				</tr>
+			</thead>
+			<tbody>
+				<? for ($i = 0; $i<count($this->reinspections); $i++):
+					if ($i == 20) break; //we only need top 20         ?>	
+					<tr>
+						<td>
+							<a href="javascript:changeBody('/building/inspections?_parent=<?= $this->reinspections[$i]['building_id'] ?>')">
+								<?= $this->reinspections[$i]['building_name'] ?>
+							</a>
+						</td>
+						<td>
+
+							<?= $this->reinspections[$i]['address']  ?><br>
+							<?= $this->reinspections[$i]['city'] ?>
+							<? if($this->reinspections[$i]['city'] != '') echo ','; ?>
+							<?= $this->reinspections[$i]['state'] ?>
+						</td>
+
+						<td>
+							<a href="javascript:changeBody('/company/owner?_parent=<?= $this->reinspections[$i]['owner_id'] ?>')">
+								<?= $this->reinspections[$i]['owner_name'] ?>
+							</a>
+						</td>
+						<td style="text-align: center;">
+							<?  $date = new Zend_Date($this->reinspections[$i]['latest_inspection_date'], 'yyyy-MM-dd'); ?>
+							<?= $date->toString('MM/dd/YYYY') ?>
+						</td>
+
+						<td style="text-align: center;">
+							<?  $date = new Zend_Date($this->reinspections[$i]['reinspect'], 'yyyy-MM-dd'); 
+							 if($this->reinspections[$i]['reinspect'] != '' ) echo $date->toString('MM/dd/YYYY') ?>
+						</td>
+					</tr>
+				<? endfor; ?>
+			</tbody>
+		</table>
+
+		<div dojoattachpoint="domNode" id="cmp_inspection_paginator" class="inlinepagenation1" widgetid="cmp_inspection_paginator" style="text-align: center;">
+			<div class="bratiliusPaginator">
+				<span tabindex="0" class="page first" onClick="selectNumber(1)"> &lt;&lt;</span>
+				<span tabindex="0" class="page previous" onClick="selectPrevious()"> &lt;</span>
+
+				<span class="pagination" dojoattachpoint="containerNode">
+					<? for ($i=$this->startNo; $i <= $this->endNo ; $i++): ?>	
+						<span dojoattachpoint="domNode" style="display: inline;" class="page <? if($this->currentPage == $i) echo 'active'; ?>" onClick="selectNumber(<?= $i ?>)" widgetid="ginger_GridPaginatorPage_17"><?= $i ?></span>
+					<? endfor; ?>
+				</span>
+
+				<span tabindex="0" class="page next" onClick="selectNext(<?= $this->totalPages ?>)"style="display: inline;"> &gt;</span>
+				<span tabindex="0" class="page last" onClick="selectNumber(<?= $this->totalPages ?>)"> &gt;&gt;</span>
+			</div>
+		</div>
+
+	</div>
+</div>

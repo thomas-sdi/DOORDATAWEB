@@ -1,0 +1,13 @@
+<!-- Grid -->
+<?= $this->partial("../widgets/bratiliusgrid.phtml", array(
+	"grid"         		=> $this->grid,
+	'caption'      		=> 'EMPLOYEES: ' . $this->companyName,
+	"caption_singular" 	=> 'EMPLOYEE',
+	'detailedView' 		=> "/company/employee",
+	"imageNew"	 		=> $this->baseUrl . "/public/images/New Employees.png",
+	'parentPaneId'		=> "owner_list_of_employees",
+	'gridParams'			=> $this->gridParams,
+	'formActionUrl' 		=> $this->baseUrl . '/company/save?_model=company_employees'
+	
+));
+?>

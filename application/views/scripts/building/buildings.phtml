@@ -1,0 +1,15 @@
+<!-- building grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+	array(
+		 "grid" 			=> $this->components['building'],
+		 'can' 				=> $this->access['building'],
+		 'caption' 			=> 'BUILDINGS',
+		 'caption_singular' => "BUILDING",
+		 'detailedView' 	=> "/building/detailview",
+		 "imageNew"			=> $this->baseUrl . "/public/images/New Building.png",
+		 'parentPaneId'		=> "list_of_buildings",
+		 'gridParams'		=> $this->gridParams,
+		 'formActionUrl' => $this->baseUrl . '/building/save?_model=building'
+	)) ?>
+</div>

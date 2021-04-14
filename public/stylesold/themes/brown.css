@@ -1,0 +1,134 @@
+.themeBrown .dojoxGridRowOver .dojoxGridCell,
+.themeBrown .dojoxGridRowSelected {
+	background-color: #d3b54c;
+}
+
+.themeBrown A {
+	color: #6d5a17;
+}
+
+.themeBrown TD.navbar,
+.themeBrown TD.navbarbg,
+.themeBrown TD.navbarChecked {
+	border-right: 2px #d2b348 solid;
+}
+
+.themeBrown .frameDiv {
+	width: 99.3%; border: 6px solid #fadb6f;
+}
+
+.themeBrown TD.navbarbg,
+.themeBrown TD.navbar,
+.themeBrown TD.navbarChecked,
+.themeBrown .dijitDialogTitleBar,
+.themeBrown .dijitTabInnerDiv .dijitTabContent, 
+.themeBrown .dijitTabInnerDiv,
+.themeBrown .dijitTab
+{
+	background: url('../../images/titleBarBrown.gif') repeat-x;
+}
+
+.themeBrown TD.navbar:hover,
+.themeBrown TD.navbarChecked,
+.themeBrown .dojoxGridHeader .dojoxGridCell,
+.themeBrown .dojoxGridHeader .dojoxGridCellOver,
+.themeBrown .dijitTabChecked,
+.themeBrown .dijitTabChecked .dijitTabInnerDiv,
+.themeBrown .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeBrown .dijitTabHover, 
+.themeBrown .dijitTabHover .dijitTabInnerDiv,
+.themeBrown .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../../images/titleBarBrown_active.gif') repeat-x;
+}
+
+.themeBrown .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #d2b348 !important;
+}
+
+.themeBrown .dojoxGridCell {
+	border-color: #d2b348;
+}
+
+.themeBrown .dijitTab {
+	border: 1px solid #fadb6f !important;
+}
+
+.themeBrown .dijitTabChecked .tabLabel,
+.themeBrown .dijitTabChecked:hover .tabLabel {
+	color: #6d5a17 !important;
+}
+
+.themeBrown TD.navbarChecked,
+.themeBrown TD.navbar:hover {
+	color: #6d5a17 !important;
+}
+
+.themeBrown .dojoxGridHeader .dojoxGridCell .dojoxGridSortNode {
+	color: #6d5a17 !important;
+}
+
+.themeBrown .dijitTabContainerBottom-spacer,
+.themeBrown .dijitTabContainerTop-spacer,
+.themeBrown .dijitSplitterH
+{
+	background: #fadb6f !important;
+}
+
+.themeBrown .form_table {
+	background-image: url('../../images/pdf_bg_brown.jpg');
+}
+
+/* BUTTONS */
+.themeBrown .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat 0 -104px;
+}
+
+.themeBrown .short .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") no-repeat -141px -104px;
+}
+
+.themeBrown .long .dijitInline .dijitButtonNode {
+	background: url("../../images/buttons.gif") -220px -104px no-repeat;
+}
+
+/* CHECKBOX */
+.themeBrown .dijitCheckBox,
+.themeBrown .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') -16px -64px !important;
+}
+
+.themeBrown .dijitCheckBoxChecked,
+.themeBrown .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../../images/spriteCheckbox.gif') 0 -64px !important;	
+}
+
+/* RADIO */
+.themeBrown .dijitRadio, 
+.themeBrown .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') -16px -64px !important;
+}
+
+.themeBrown .dijitRadioChecked, 
+.themeBrown .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../../images/spriteRadio.png') 0 -64px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+.themeBrown .dijitButtonNode {
+	background: url('../../images/buttonInputBrown.png') 
+}
+
+/* LOGIN DIALOG */
+.themeBrown TABLE.authDialog {
+	border-color: #d2b348;
+}
+
+/* INPUT CONTROL BORDERS */
+.themeBrown .dijitTextBox,
+.themeBrown .dijitComboBox,
+.themeBrown .dijitSpinner
+.themeBrown .dijitInlineEditor INPUT,
+.themeBrown .dijitTextArea {
+	border: 1px solid #d2b348;
+}

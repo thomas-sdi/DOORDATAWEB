@@ -1,0 +1,104 @@
+/**
+ * This will only apply to the mobile version of the pages	
+ * */
+
+.soria .dijitDialog {
+	background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.dijitDialog {
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+	top: 0;
+	left: 0;
+	display: block;
+	overflow: auto;
+}
+
+#login-form-container {
+	width: 100%;
+	height: auto;
+	min-height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background: none repeat scroll left top #B93D01;
+	color: white;
+}
+
+
+.forgot {
+	font-size: 1em;
+	top: 30px;
+	left: 0px;
+}
+
+.header-logo {
+	position: relative;
+	top: 1em;
+	center: 50px;
+}
+
+.header-logo-mobile {
+	position: relative;
+	top: 1em;
+	text-align: left;
+}
+
+.dijitDialogTitleBar{
+	height: 3em;
+}
+
+#main-container {
+	width: 100%;
+}
+
+.soria .dijitMenu, .soria .dijitMenuBar {
+	background-color: #FE7105;
+	/*height: 3em;*/
+	position: relative;
+	top: 15px;
+	margin-right: 1em;
+	float: right;
+	border: transparent;
+}
+
+.soria .dijitMenuPassive .dijitMenuItemHover, .soria .dijitMenuItemSelected {
+	background-color: #B93D01;
+}
+
+.soria .dijitMenuItem TD {
+	color: #FFFFFF;
+}
+
+.soria .dijitMenuExpand {
+	height: 3em;
+	background-image: none !important;
+}
+
+#frameDiv {
+	padding: 0;
+}
+
+.profileBox {
+	width: 100%;
+}
+
+.profileBox TD {
+	text-align: left;
+}
+
+.loginBox {
+	width: 100%;
+	position: relative;
+	top: 50px;
+}
+
+.loginBox TD {
+	text-align: left;
+}
+
+.soria .dijitTabContainerTop-dijitContentPane, .soria .dijitTabContainerLeft-dijitContentPane, .soria .dijitTabContainerBottom-dijitContentPane, .soria .dijitTabContainerRight-dijitContentPane, .soria .dijitAccordionContainer-dijitContentPane{
+	padding: 5px 0 0 0;
+}

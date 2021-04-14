@@ -1,0 +1,345 @@
+<script>
+	dojo.addOnLoad(function(){
+		console.log('Report location is <?= $this->report ?>');
+		console.log('Report generated: <?= $this->reportGenerated ?>');
+		console.log('Report retrieved: <?= $this->reportRetrieved ?>');
+		<? if ($this->reportRetrieved): ?> 
+			dojo.byId('report_location').value = '<?= $this->report ?>'; 
+			dojo.byId('previous_report').innerHTML = '<a href="<?= $this->report ?>" target=_self>See previous report</a>';
+			dojo.byId('gen_again').setAttribute('style', 'visibility: hidden');
+			<? elseif ($this->reportGenerated): ?>
+				dojo.byId('report_location').value = '<?= $this->report ?>'; 
+				dojo.byId('gen_pdf').setAttribute('label', 'Generate PDF');
+				dojo.byId('gen_again').setAttribute('style', 'visibility: hidden');
+				dojo.byId('previous_report').innerHTML = '<a href="<?= $this->report ?>" target="_blank">See previous report</a>';
+				<? else: ?> 
+					dojo.byId('report_location').value = ''; 
+					dojo.byId('gen_pdf').setAttribute('label', 'Generate PDF');
+					dojo.byId('previous_report').innerHTML = ''; 
+					dojo.byId('gen_again').setAttribute('style', 'visibility: hidden');
+				<? endif;?>
+			});
+		</script>
+
+		<form id="forms" dojoType="custom.PDFExportForm">
+			<div class="content-box">
+
+				<h3 class="content-box-header bg-primary" style="text-align: left;">
+					<i class="glyph-icon icon-print"></i>
+					Create PDF
+					<div class="header-buttons-separator">
+						<a class="icon-separator" href="javascript:mainDialog.hide();">
+							<i class="glyph-icon icon-remove"></i>
+						</a>
+					</div>
+				</h3>
+
+				<div class="modal-body">
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#legacy_tab" aria-controls="legacy_tab" role="tab" data-toggle="tab">Legacy</a></li>
+						<li><a href="#doordata_report_tab" aria-controls="doordata_report_tab" role="tab" data-toggle="tab">DOORDATA</a></li>
+					</ul>
+
+					<!-- Tab container starts -->
+					<div class="tab-content">
+
+						<!-- Legacy Report Tab Start -->
+						<div role="tabpanel" class="tab-pane active" id="legacy_tab">
+
+							<div class="content-box">
+
+								<div class="row" style="height: 20px;"></div>
+
+								<div class="row" style="padding-left:1%;
+								padding-right:1%">
+
+								<div class="col-sm-1 col-md-hidden"></div>
+								<div class="col-md-3 col-sm-5 col-xs-6 popupsmall">
+									<!-- Form 1 -->
+									<div class="pdfFormColumn row-eq-height">
+										<div class="row">
+											<div class="col-md-12 form_header">Form 1:</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-6">Copies:</div>
+											<div class="col-xs-6"><input name="form1_copies" type="text" size="4" maxlength="4" value="1" readonly></div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="col-md-3 col-sm-5 col-xs-6 popupsmall">
+									<!-- Form 2 -->
+									<div class="pdfFormColumn row-eq-height">
+										<div class="row">
+											<div class="col-md-12 form_header">Form 2:</div>
+										</div>
+
+										<div class="row pdfFormDetailRow">
+											<div class="col-xs-6">Copies:</div>
+											<div class="col-xs-6"><input name="form2_copies" type="text" size="4" maxlength="4" value="1"></div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-12">
+												<input name="form2_non_compliant" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Noncompliant Only
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-1 col-md-hidden"></div>
+								<div class="col-sm-1 col-md-hidden clearboth"></div>
+								<div class="col-md-3  col-sm-5 col-xs-6 popupsmall">
+									<!-- Form 3 -->
+									<div class="pdfFormColumn row-eq-height">
+										<div class="row">
+											<div class="col-md-12 form_header">Form 3:</div>
+										</div>
+										
+										<div class="row pdfFormDetailRow">
+											<div class="col-xs-6">Copies:</div>
+											<div class="col-xs-6"><input name="form3_copies" type="text" size="4" maxlength="4" value="1"></div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input name="form3_non_compliant" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Noncompliant Only
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form3_with_pictures" type="checkbox" value="1">With Pictures
+											</div>
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form3_door_detail" type="checkbox" value="1">Door Details
+											</div>
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form3_frame_detail" type="checkbox" value="1">Frame Details
+											</div>
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form3_hardware" type="checkbox" value="1">Hardware Sets
+											</div>
+											<div class="col-md-12">
+												<input name="form3_inspection_dates" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Remove Date & Timestamps
+											</div>
+
+											<div class="col-md-12">
+												<input name="form3_recommendation" dojoType='dijit.form.CheckBox' type="checkbox" value="1" >Include Recommandations
+											</div>
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form3_definitions" type="checkbox" value="1" checked>Include Definitions
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+
+								<div class="col-md-3 col-sm-5 col-xs-6 popupsmall">
+									<!-- Form 4 -->
+									<div class="pdfFormColumn row-eq-height">
+										<div class="row">
+											<div class="col-md-12 form_header"> Form 4:</div>
+										</div>
+										
+										<div class="row pdfFormDetailRow">
+											<div class="col-xs-6">Copies:</div>
+											<div class="col-xs-6"><input name="form4_copies" type="text" size="4" maxlength="4" value="0"></div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input name="form4_non_compliant" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Noncompliant Only
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form4_with_pictures" type="checkbox" value="1">With Pictures
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form4_door_detail" type="checkbox" value="1">Door Details
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input dojoType='dijit.form.CheckBox' name="form4_frame_detail" type="checkbox" value="1">Frame Details
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<input name="form4_hardware" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Hardware Sets
+											</div>
+								<!-- <div class="col-md-12">
+									<input dojoType='dijit.form.CheckBox' name="form4_definitions" type="checkbox" value="1" checked>Include Definitions Include Inspection Dates
+								</div> -->
+								<div class="col-md-12">
+									<input name="form4_inspection_dates" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Remove Date & Timestamps
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<input name="form4_recommendation" dojoType='dijit.form.CheckBox' type="checkbox" value="1" >Include Recommandations
+								</div>
+							</div>
+
+							
+						</div>
+					</div>
+					<div class="col-md-hidden col-sm-1"></div>
+				</div>
+
+
+			</div>
+
+		</div> <!-- Legacy tab ended -->
+
+		<!-- DoorData Report Tab Start -->
+		<div role="tabpanel" class="tab-pane" id="doordata_report_tab">
+
+			<div class="content-box">
+
+				<div class="row" style="height: 20px;"></div>
+
+				<div class="row" style="padding-left: 1%;
+				padding-right: 1%;">
+
+				<div class="col-sm-1  col-md-hidden"></div>
+				<div class="col-md-3 col-sm-5 col-xs-6 popupsmall">
+					<!-- Summary Page -->
+					<div class="pdfFormColumn row-eq-height">
+						<div class="row">
+							<div class="col-md-12 form_header">Summary Page</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6">Copies:</div>
+							<div class="col-xs-6"><input name="summary_copies" type="text" size="4" maxlength="4" value="1"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3  col-sm-5 col-xs-6 popupsmall">
+					<!-- Fire Door Report -->
+					<div class="pdfFormColumn row-eq-height">
+						<div class="row">
+							<div class="col-md-12 form_header">Fire Door Report</div>
+						</div>
+
+						<div class="row pdfFormDetailRow">
+							<div class="col-xs-6">Copies:</div>
+							<div class="col-xs-6"><input name="fire_door_copies" type="text" size="4" maxlength="4" value="1"></div>
+						</div>
+
+
+
+						<div class="row">
+							<div class="col-md-12">
+								<input name="fire_door_non_compliant" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Noncompliant Only
+							</div>
+							<div class="col-md-12">
+								<input name="fire_door_pictures" dojoType='dijit.form.CheckBox' type="checkbox" value="1">With Pictures
+							</div>							
+							<div class="col-md-12">
+								<input name="fire_door_door_detail" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Door Details
+							</div>
+							<div class="col-md-12">
+								<input name="fire_door_frame_detail" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Frame Details
+							</div>
+							<div class="col-md-12">
+								<input name="fire_door_hardware" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Hardware Sets
+							</div>
+							<div class="col-md-12">
+								<input name="fire_inspection_dates" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Remove Date & Timestamps
+							</div>
+							<div class="col-md-12">
+								<input name="fire_recommendations" dojoType='dijit.form.CheckBox' type="checkbox" value="1">Include Recommendations
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-1 col-xs-1 col-md-hidden"></div>
+				<div class="col-md-3 hidden-sm hidden-xs pdfFormColumn" style="visibility: hidden">
+				</div>
+				<div class="col-md-3 hidden-xs hidden-sm pdfFormColumn" style="visibility: hidden"></div>	
+
+				<div class="col-md-2 pdfFormColumn" style="display: none;">
+					<!-- Egress Door Report -->
+
+					<div class="row">
+						<div class="col-md-12 form_header">Egress Door Report</div>
+					</div>
+
+					<div class="row pdfFormDetailRow">
+						<div class="col-xs-12" style="text-align: center;">Coming Soon</div>
+					</div>
+				</div>
+
+				<div class="col-md-2 pdfFormColumn" style="display: none;">
+					<!-- Automatic Door Report -->
+
+					<div class="row">
+						<div class="col-md-12 form_header">Automatic Door Report</div>
+					</div>
+
+					<div class="row pdfFormDetailRow">
+						<div class="col-xs-12" style="text-align: center;">Coming Soon</div>
+					</div>
+				</div>
+
+				<div class="col-md-2 pdfFormColumn" style="display: none;">
+					<!-- Overhead Door Report -->
+
+					<div class="row">
+						<div class="col-md-12 form_header">Overhead Door Report</div>
+					</div>
+
+					<div class="row pdfFormDetailRow">
+						<div class="col-xs-12" style="text-align: center;">Coming Soon</div>
+					</div>
+				</div>
+
+
+			</div>
+
+
+		</div>
+	</div>
+
+</div><!-- tab container ended -->
+
+<div class="row">
+	<div class="col-md-12"><p><label id="status">&nbsp;</label></p></div>
+</div>
+
+<div class="row">
+	<div class="col-md-12" id="btns" style="text-align: right;">
+		<span id="gen_again" style="visibility: hidden">
+			<button dojoType='dijit.form.Button' id="btn_gen_again" jsid="btn_gen_again" label="Generate again" type="button"></button>
+		</span>
+		<button id="gen_pdf" jsid="gen_pdf" dojoType='dijit.form.Button' label="Generate PDF" type="button"></button>
+		<button dojoType='dijit.form.Button' id="btn_close" jsid="btn_close" label="Close" type="button"></button>
+		<span id='previous_report'></span>
+	</div>
+</div>
+
+</div>
+</div>
+
+<input name="inspection_id" id="inspection_id" type="hidden" value="<?= $this->inspectionId ?>"/>
+<input id="report_location" type="hidden" value=<?= $this->report ?>/>
+<input type="hidden" id="reportFormat" name="reportFormat" value="Legacy">
+<input type="hidden" id="localtimezone" name="localtimezone" value="">
+
+</form>
+
+<script type="text/javascript">
+	document.getElementById("localtimezone").value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>	

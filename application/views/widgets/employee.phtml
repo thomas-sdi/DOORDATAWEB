@@ -1,0 +1,182 @@
+<? $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+
+$session = new Zend_Session_Namespace('default');
+if($this->companyId == -1 || $this->companyId == ''){
+	$this->companyId = $session->companyId;
+}
+
+if($this->record['ID'] != '' && $this->record['ID'] != null){
+	$path = $baseUrl.'/'.$this->controller.'/save?_model='.$this->model.'&id='.$this->record['ID']; 	
+}else{
+	// $path = $baseUrl.'/'.$this->controller.'/save'; 	
+	//
+	$path = $baseUrl.'/'.$this->controller.'/save?_model='.$this->model; 	
+
+}
+
+?>
+
+<? $companyIdPresent = false; ?>
+
+<div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="glyph-icon icon-user"></i>
+		Employee
+		<div class="header-buttons-separator">
+			<a class="icon-separator" href="javascript:bratiliusDialog.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+		</div>
+	</h3>
+
+	<div class="modal-body">
+		<? if ($this->user['LOGIN_ID'] != null && $this->user['LOGIN_ID'] != ''): ?>
+			<form dojoType="ginger.form.ValidationForm" jsId="<?= $this->model ?>Form" action="<?= $path ?>" class="form-horizontal" enctype="multipart/form-data">
+
+				<? else: ?>
+					<form dojoType="ginger.form.ValidationForm" jsId="<?= $this->model ?>Form" 
+						action="<?= $path ?>" class="form-horizontal">
+					<? endif; ?>
+					
+
+					<table style="margin-left: auto; margin-right: auto;">
+						<!-- First show all employee columns -->
+						<? foreach ($this->grid->getColumns(Data_Column_Grid::EDIT) as $column): ?>
+							<? if ($column->getId() == 'COMPANY_ID') $companyIdPresent = true; ?>
+							<tr>
+								<td><?= $column->getTitle() ?></td>
+								<td><?= $this->grid->getFieldControl($column, $this->record) ?></td>
+							</tr>
+						<? endforeach; ?>
+						<!-- Now show user-specific fields -->
+						<tr>
+							<td>Login name</td>
+							<td><input type="text" dojoType = 'dijit.form.ValidationTextBox' name="LOGIN"
+								value="<?= $this->record['ID'] ? $this->user['LOGIN'] : '' ?>"/></td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center" bgcolor="#CCCCFF">
+									<i>Password generation</i>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div type="radio" dojotype="dijit.form.RadioButton" name="passwordType" id="manualPassword" 
+									value="manual" checked>
+									<script type="dojo/connect" event="onClick">
+										dijit.byId("new_password").attr("disabled", false);
+										dijit.byId("new_password2").attr("disabled", false);
+									</script>
+								</div>
+								<label for "manualPassword">Manually</label>
+							</td>
+							<td>
+								<div dojotype="dijit.form.RadioButton" name="passwordType" id="autoPassword" value="auto">
+									<script type="dojo/connect" event="onClick">
+										dijit.byId("new_password").attr("disabled", true);
+										dijit.byId("new_password2").attr("disabled", true);
+									</script>			
+								</div>
+								<label for "autoPassword">Generate and send by email</label>
+							</td>
+						</tr>
+						<tr>
+							<td>New password</td>
+							<td><input type="password" dojoType = 'dijit.form.ValidationTextBox' name="new_password"
+								id="new_password"/></td>
+							</tr>	
+							<tr>
+								<td>Repeat password</td>
+								<td><input type="password" dojoType = 'dijit.form.ValidationTextBox' name="new_password2"
+									id="new_password2"/></td>
+								</tr>
+								<tr><td bgcolor="#CCCCFF" colspan="2">&nbsp;</td></tr>	
+								<tr>
+									<td>Role:</td>
+									<td>
+										<? foreach ($this->roles as $role): ?>    		
+											<input type="radio" dojoType='dijit.form.RadioButton' <?= $this->roleEditDisabled ? 'disabled' : '' ?>
+											name="role" value="<?= $role['ID'] ?>"
+											<?= ($this->userRole == $role['ID'] ? 'checked' : '') ?>
+											/><?= $role['NAME'] ?><br/>
+										<? endforeach; ?>
+
+									</td>
+								</tr>	
+								<tr>
+									<td bgcolor="#CCCCFF" colspan="2">
+										<? if ($this->user['LOGIN_ID'] != null && $this->user['LOGIN_ID'] != ''): ?>
+											Profile Picture <? endif; ?>
+										</td>
+									</tr>
+									<tr>
+
+										<td>
+											<? if ($this->user['LOGIN_ID'] != null && $this->user['LOGIN_ID'] != ''): ?>
+												<input type="file" name="myfile" id="myfile" onchange="loadFile(event)">
+												<input type="button" id="clearImg" onclick="ClearImg(event)" value="Clear" style="margin-top: 10px;padding: 1px 7px;">
+
+											<? endif; ?>
+										</td>
+
+										<td>
+											<? if ($this->user['LOGIN_ID'] != null && $this->user['LOGIN_ID'] != ''): ?>
+												
+												<?php 
+												$path = "public/logos/profile/".$this->user['LOGIN_ID'].".png";
+												if(file_exists($path)){ ?>
+													<img id="output" height="100px" src="public/logos/profile/<?= $this->user['LOGIN_ID']; ?>.png?t=<?= time(); ?>" alt="No profile image"/>
+
+												<?php }else{ ?>
+													<img id="output" height="100px" src="public/images/1.png" alt="No profile image"/>
+												<?php } ?>
+
+											<? endif; ?>
+
+										</td>
+
+										<td>
+											<? if ($companyIdPresent == false): ?>
+												<input type="hidden" name="COMPANY_ID" value="<?= $this->companyId ?>">
+											<? endif; ?>
+
+											<? if (true): ?>
+												<input type="hidden" name="USER_ID" value="<?= $this->user['LOGIN_ID']; ?>">
+											<? endif; ?>
+
+											<input type="hidden" id="imgRemove" name="imgRemove" value="">
+
+										</td>
+
+									</tr>
+
+								</table>
+
+							</form>	
+						</div>
+
+						<div class="modal-footer" style="text-align: center;">
+							<div dojoType="dijit.form.Button" class="short" 
+							onclick="<?= $this->model ?>Form.submit(function() {bratiliusDialog.hide();})">Accept Change</div>
+							<div dojoType="dijit.form.Button" class="short"
+							onclick="bratiliusDialog.hide();">Cancel Change</div>
+
+						</div>
+
+					</div>
+
+					<script>
+						var loadFile = function(event) {
+							var output = document.getElementById('output');
+							output.src = URL.createObjectURL(event.target.files[0]);
+
+							$('#imgRemove').val('');	
+						};
+
+						function ClearImg(e){
+							$('#output').attr('src','public/images/1.png')
+							$('#imgRemove').val('1');
+						}
+
+					</script>

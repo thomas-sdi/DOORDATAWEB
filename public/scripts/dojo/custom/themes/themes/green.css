@@ -1,0 +1,194 @@
+.themeGreen .dojoxGridRowOver .dojoxGridCell,
+.themeGreen .dojoxGridRowSelected {
+	background-color: #8cb3a4;
+}
+
+.themeGreen A {
+	color: #578726;
+}
+
+.themeGreen TD.navbar,
+.themeGreen TD.navbarbg,
+.themeGreen TD.navbarChecked {
+	border-right: 2px #578726 solid;
+}
+
+.themeGreen TD.navbarbg,
+.themeGreen TD.navbar,
+.themeGreen TD.navbarChecked,
+.themeGreen .dijitDialogTitleBar,
+.themeGreen .dijitTabInnerDiv .dijitTabContent, 
+.themeGreen .dijitTabInnerDiv,
+.themeGreen .dijitTab
+{
+	background-color: #578726d1;
+}
+
+.themeGreen TD.navbar:hover,
+.themeGreen TD.navbarChecked,
+.themeGreen .dojoxGridHeader .dojoxGridCell,
+.themeGreen .dojoxGridHeader .dojoxGridCellOver,
+.themeGreen .dijitTabChecked,
+.themeGreen .dijitTabChecked .dijitTabInnerDiv,
+.themeGreen .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeGreen .dijitTabHover, 
+.themeGreen .dijitTabHover .dijitTabInnerDiv,
+.themeGreen .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../images/titleBarGreen_active.gif') repeat-x;
+}
+
+.themeGreen .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #578726 !important;
+}
+
+.themeGreen .dojoxGridCell {
+	border-color: #578726;
+}
+
+.themeGreen .dijitTab {
+	border: 1px solid #578726d1 !important;
+}
+
+.themeGreen .dijitTabContainerBottom-spacer,
+.themeGreen .dijitTabContainerTop-spacer,
+.themeGreen .dijitSplitterH
+{
+	background: #578726d1 !important;
+}
+
+.themeGreen .form_table {
+	background-image: url('../images/pdf_bg_green.jpg');
+}
+
+/* BUTTONS */
+.themeGreen .dijitButton{
+	background-color: #578726d1;
+}
+
+/* CHECKBOX */
+.themeGreen .dijitCheckBox,
+.themeGreen .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') -16px -48px !important;
+}
+
+.themeGreen .dijitCheckBoxChecked,
+.themeGreen .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') 0 -48px !important;	
+}
+
+/* RADIO */
+.themeGreen .dijitRadio, 
+.themeGreen .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') -16px -48px !important;
+}
+
+.themeGreen .dijitRadioChecked, 
+.themeGreen .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') 0 -48px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+
+
+/* LOGIN DIALOG */
+.themeGreen TABLE.authDialog {
+	border-color: #578726;
+}
+
+/* INPUT CONTROL BORDERS */
+
+.themeGreen .usertitlename {
+	color:#578726;
+}
+.themeGreen #sidebar-menu li.active {
+    border-left: 5px solid #578726;
+}
+.themeGreen .bg-primary{
+	background: #578726d1;
+}
+.themeGreen #header-logo a {
+    background: #578726;
+}
+
+.themeGreen #page-header {
+	background-color: #fff;
+	border-top: 5px solid #578726d1;
+    border-bottom: 5px solid #578726d1;
+}
+.themeGreen #header-logo{
+	background-color: #578726d1;
+}
+.themeGreen .user-profile > a{
+	background-color: #578726d1;
+/*    border-right: 5px solid #578726d1;*/
+}
+.themeGreen .user-profile > a:hover{
+	background-color: #578726;
+}
+.themeGreen .nav > li.active > a{
+	background-color: #578726d1;
+}
+.themeGreen .nav > li.active > a:focus{
+	background-color: #578726d1;
+}
+.themeGreen .nav > li.active > a:hover{
+	background-color: #578726d1;
+}
+
+.themeGreen .pdfFormColumn{
+	background-color: #578726d1;
+}
+
+.themeGreen #page-sidebar li a:hover, 
+.themeGreen #page-sidebar li.sfHover > a.sf-with-ul, 
+.themeGreen #sidebar-menu li.active > a {
+    color: #578726;
+}
+
+.themeGreen .doorFireDataArea{
+	background-color: #578726d1;
+}
+
+
+.themeGreen .bratiliusPaginator .active{
+    background-color: #578726d1;
+    border-color: #578726d1;
+	color: #ffffff;
+}
+
+.themeGreen .table-hover tr:hover td {
+    background: #759c4d8a;
+}
+.themeGreen .selectedRow{
+	background-color: #759c4d8a!important;
+}
+.themeGreen .selectedRow:hover{
+	background-color: #759c4d8a !important;
+}
+
+.themeGreen .main-header #header-right  a.signoutbtn:hover {
+    background: #759c4d8a;
+    color:#000 !important;
+     }
+.themeGreen .hover-blue-alt:hover, .label-blue-alt {
+    background: #759c4d8a;
+   color:#000;
+   } 
+.themeGreen .mobileusername {
+    color: #578726;
+}       
+.themeGreen .searchtable::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #578726;
+}
+.themeGreen .searchtable::-moz-placeholder { /* Firefox 19+ */
+  color: #578726;
+}
+.themeGreen .searchtable:-ms-input-placeholder { /* IE 10+ */
+  color: #578726;
+}
+.themeGreen .searchtable:-moz-placeholder { /* Firefox 18- */
+  color: #578726;
+} 
+.themeGreen .searchtable {color: #578726;} 
+.themeGreen .table-maindiv > a{color:#578726 !important;}     

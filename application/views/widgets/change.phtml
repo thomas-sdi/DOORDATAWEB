@@ -1,0 +1,37 @@
+<? $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl(); ?>
+
+<div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="fa fa-edit"></i>
+		Inspection History Item
+		<div class="header-buttons-separator">
+			<a class="icon-separator" href="javascript:bratiliusDialog.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+	</div>
+	</h3>
+
+	<div class="modal-body">
+		<form dojoType="ginger.form.ValidationForm" jsId="<?= $this->model ?>Form" 
+			  action="<?= $baseUrl ?>/<?= $this->controller ?>/save?_model=<?= $this->model ?>&id=<?= $this->record['ID'] ?>" class="form-horizontal">
+			<? foreach ($this->grid->getColumns(Data_Column_Grid::EDIT) as $column): ?>
+				<div class="row">
+			    	<div class="col-md-6"><?= $column->getTitle() ?></div>
+			    	<div class="col-md-6">
+			    		<?= $this->grid->getFieldControl($column, $this->record); ?>
+			    	</div>
+			    </div>
+			<? endforeach; ?>
+			
+		</form>
+	</div>
+	
+	<div class="modal-footer" style="text-align: center;">
+		<div dojoType="dijit.form.Button" class="short" 
+				     onclick="<?= $this->model ?>Form.submit(function() {bratiliusDialog.hide();})">Accept Change</div>
+		<div dojoType="dijit.form.Button" class="short"
+		             onclick="bratiliusDialog.hide();">Cancel Change</div>
+		
+	</div>
+</div>

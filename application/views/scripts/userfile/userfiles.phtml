@@ -1,0 +1,17 @@
+<!-- user files grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+	array(
+		 "grid" 			=> $this->components['user_file'],
+		 "can" 				=> $this->access['user_file'],
+		 "caption"      	=> 'USER FILES',
+		 "caption_singular" => "FILE",
+		 "detailedView"		=> "/userfile/userfile",
+		 "imageNew"	 		=> $this->baseUrl . "/public/images/New User File.png",
+		 "parentPaneId"		=> "list_of_user_files",
+		 "gridParams"		=> $this->gridParams,
+		 'formActionUrl' => $this->baseUrl . '/userfile/save?_model=user_file'
+
+	)) ?>
+</div>
+

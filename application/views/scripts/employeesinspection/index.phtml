@@ -1,0 +1,19 @@
+<h1>Employees</h1>
+
+<!-- Toolbar -->
+<table>
+	<tr>
+		<td><div dojoType="ginger.ImageButton" onclick="cmp_emp.addNewItem()"
+    			 image="<?= $this->baseUrl ?>/public/images/icon_adduser.png" title="NEW EMPLOYEE"></div></td>
+   		<td><div dojoType="ginger.ImageButton" onclick="cmp_emp.showSearch()"
+    	 		 image="<?= $this->baseUrl ?>/public/images/icon_search.png" title="SEARCH EMPLOYEES"></div></td>
+		<td><div dojoType="ginger.ImageButton" onclick="cmp_emp.fetchExcel()"
+    	 		 image="<?= $this->baseUrl ?>/public/images/icon_excel.png" title="EXPORT TO EXCEL"></div></td>
+	</tr>
+</table>   
+
+<!-- inspection company employees grid -->
+
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+                   array("grid" => $this->components['emp'], 'can' => $this->access['emp'])
+                  ) ?>

@@ -1,0 +1,86 @@
+<?
+$row = $this->hardwareRows;
+
+$doorEditable = Model_Door::retrieve()->isDoorEditable($this->doorId);
+
+?>
+
+<div class="hardware-sty">
+	<?php if($doorEditable) { ?> 
+		<a class="icon-separator" href="#" onClick="addNewRow()">
+			<i class="glyph-icon icon-plus"></i>
+		</a>
+	<?php } ?>
+
+	<a class="icon-separator" href="#" onClick="removeSelectedRow()" hidden>
+		<i class="glyph-icon icon-remove"></i>
+	</a>
+
+	<a class="icon-separator" href="<?php echo App::baseUrl() ?>/door/exceldoor?door_id=<?= $this->doorId ?>" target='_blank'>
+		<i class="glyph-icon fa-file-excel-o"></i>
+	</a>
+
+</div>
+
+<div >
+	<div class="table-responsive">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-responsive table-hover" id="cmp_hardware_table">
+			<thead>
+				<tr>
+					<th style="cursor: pointer;"></th>
+					<th style="cursor: pointer; width:45px;">Qty</th>
+					<th style="cursor: pointer; width: 175px;">Item</th>
+					<th style="cursor: pointer;">Product</th>
+					<th style="cursor: pointer; width:55px;">Mfg</th>
+					<th style="cursor: pointer; width:45px;">Finish</th>
+					<th style="cursor: pointer;"></th>
+				</tr>
+			</thead>
+			<tbody class="hardware-body" id="hardware-body">
+				
+				<? foreach ($row as $key => $value) : ?>
+					<tr>
+						<td class="col-checkbox"><input type="checkbox" class="checkbox_<?=$key;?>" <?= ($value['VERIFY'])? "checked":""; ?> onChange=check_uncheck(event)></td>
+						<td class="col-qty"><input type="text" id="qty"  maxlength="4"  style="width:45px;" value="<?= $value['QTY'] ?>"></td>
+						<td class="col-item"><input type="text" id="item" maxlength="30" value="<?= htmlspecialchars($value['ITEM'], ENT_QUOTES, 'UTF-8'); ?>" style="width: 265px;"></td>
+						<td class="col-product"><input type="text" id="product" style="width: 100%;" maxlength="100" value="<?= htmlspecialchars($value['PRODUCT'], ENT_QUOTES, 'UTF-8');?>" >
+						</td>
+						<td class="col-mfg" ><input type="text" id="mfg"  maxlength="4" style="width:45px;" value="<?= $value['MFG'] ?>"></td>
+						<td class="col-finish" ><input type="text" id="finish" style="width:55px;" maxlength="5" value="<?= $value['FINISH'] ?>"></td>
+						<td class="col-remove" ><?php if($doorEditable) { ?> <button  id="remove" onclick="removeSelectedRow($(this))">X</button><?php } ?>
+					</td>
+
+				</tr>
+			<? endforeach; ?>
+
+		</tbody>
+	</table>
+</div>
+</div>
+<style>
+	.hardware-sty{ padding: 10px 0px;}
+	.hardware-sty .icon-separator {
+		border-right: rgba(255, 255, 255, .21) solid 1px;
+		background: rgba(255, 255, 255, .2);
+		padding: 14px;
+	}
+	.hardware-sty .glyph-icon {font-size: 18px;
+		color: #fff;
+	} 
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

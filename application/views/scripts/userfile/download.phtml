@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Data Import web-service</title>
+<script type="text/javascript">  
+        dojo.require("dojo.io.iframe");  
+</script>  
+</head>
+<body>
+	<form id="main_form" dojoType="dijit.form.Form" method="post" enctype="multipart/form-data">
+		Select type: <select id="service_type" name="service_type">
+			<option value="0">AVAWare</option>
+			<option value="1">Comsense</option>
+			<option value="2">PROTECH</option>
+			<option value="3">SpecWorks</option>
+			<option value="4">Other</option>
+		</select><br><br>
+		Select file: &nbsp&nbsp<INPUT NAME="myfile" id="myfile" TYPE="file">
+		<input id="inspection_id" name="inspection_id" type="hidden" value="<?= $this->inspectionId ?>"/> 
+		<p><label id="status">&nbsp</label></p>
+		<button id="import" jsid="import" dojoType='dijit.form.Button' class="short">Import
+			<script type="dojo/connect" event="onClick">	
+
+				dojo.byId('status').innerHTML = 'Importing data...';
+				dojo.io.iframe.send ({
+		        	url: baseUrl + '/dataimport/',
+		        	handleAs: "html", 
+		        	form: "main_form",
+		       	 	load: function(response) {
+		          		var responseObj = dojo.fromJson(response);
+		            	if (responseObj.status == 'succeeded') {
+							dojo.byId('status').innerHTML = 'Data was successfully imported.';
+						} else if (responseObj.code == "400") {
+							if (responseObj.error.length > 150) { 
+								dojo.byId('status').innerHTML = responseObj.error.substring(0, 150) + "...";
+							} else {
+								dojo.byId('status').innerHTML = responseObj.error;
+							}
+						} else {
+							dojo.byId('status').innerHTML = "Server error occcured!";
+						}
+						return response;
+					},
+	 				error: function(response) {  
+	               		var responseObj = dojo.fromJson(response);
+						console.error("HTTP status code: ", ioArgs.xhr.status);  
+	               		if (responseObj.error.length > 150) { 
+							dojo.byId('status').innerHTML = responseObj.error.substring(0, 150) + "...";
+						} else {
+							dojo.byId('status').innerHTML = responseObj.error;
+						}
+	               		return response;  
+	           		} 
+				});
+			</script>
+		</button>	
+	</form>
+</body>
+</html>

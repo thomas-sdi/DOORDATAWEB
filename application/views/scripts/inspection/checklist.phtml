@@ -1,0 +1,38 @@
+<table style="width: 100%;">
+	<?
+	$count = 0; 
+	//how many rows were already shown
+	//Zend_Registry::get("logger")->info("count for " . $this->category . ": " . $count); 
+	foreach (Model_Dictionary::retrieve()->fetchEntries(
+		array('ID', 'ITEM','CATEGORY','DESCRIPTION','RECOMENDATION', new Data_Column('CATEGORY', $this->category)),
+		null, true, 'VALUE_ORDER') as $foo): 
+		if (($this->start == null || $count >= $this->start) && ($this->end == null || $count < $this->end)) {?>
+			<tr>
+				<td>
+					<input type="checkbox" dojoType="dijit.form.CheckBox" onclick="gridDialogDoor.checkCompliant(); recomendedCode(`<?= $foo['ID']?>`,`<?= isset($this->cat_Type)? $this->cat_Type : $foo['CATEGORY'] ?>`,`<?= $foo['ITEM']?>`); "
+					name="CODE_<?= $foo['ID']?>" id="CODE_<?= $foo['ID']?>" value="1"
+					<?= (array_key_exists($foo['ID'], $this->codes) ? 'checked' : '') ?>
+					<?= '' //($this->readonly == true ? 'disabled' : '') ?>
+					<?= ($this->doorEditable == false ? 'disabled' : '') ?>
+					/>
+					<input type="hidden" id="RECOMEND_<?= $foo['ID']?>" value="<?= $foo['RECOMENDATION']?>">
+				</td>
+				<td>&nbsp;<? echo $foo['ITEM']?>&nbsp;</td>
+				<td>
+					<?if ($foo['DESCRIPTION'] == 'Other'){//print here the textbox to type other value ?>
+						<input type="text" dojotype="custom.ValidationTextBox" name="CODE_<?= $foo['ID']?>_OTHER"
+						id="CODE_<?= $foo['ID']?>_OTHER" style="width: 100%;" 
+						<?= array_key_exists($foo['ID'], $this->other)? ''/*'disabled'*/ : '' ?>
+						value="<?= array_key_exists($foo['ID'], $this->other)? $this->other[$foo['ID']] : '' ?>" 
+						maxlength = "50"
+						<?= ($this->readonly == true ? 'disabled' : '') ?>
+						/>
+					<? }
+					else echo $foo['DESCRIPTION'];
+					?>
+				</td>	
+			</tr>
+		<? 	} 
+		$count = $count + 1;
+	endforeach; ?>
+</table>

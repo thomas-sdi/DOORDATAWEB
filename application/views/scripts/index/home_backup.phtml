@@ -1,0 +1,64 @@
+<div dojoType="dijit.layout.BorderContainer" gutters="false" design="headline" 
+	style="width: 100%; height: 99%;" >
+<!-- header -->
+<script>
+	function selectTab(id, href) {
+		for (var i = 0; i < <?= count($this->tabs) ?>; i++) {
+			var tab = dojo.byId('navbar_' + i);
+			if (i == id) tab.className = 'active';
+			else tab.className = '';
+		}
+		changeBody(href);
+	};
+	
+	// set the theme
+	dojo.addClass(dojo.body(), '<?= $this->companyTheme ?>');
+	dojo.cookie('theme', '<?= $this->companyThemeId ?>');
+	dojo.cookie('companyLogo', '<?= $this->companyLogoUrl ?>');
+		
+</script>
+<div dojoType='dijit.layout.ContentPane' region='top' style="width: 100%; overflow: hidden;">
+	<!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-left" href="#"><img id="companyLogoHeader" style="height: 50px;" src="<?= $this->companyLogoUrl ?>"/></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            	<? 
+            	$i = 0; 
+            	foreach ($this->tabs as $title => $href):
+	    			list($p1, $sctl) = preg_split("[/?]", $this->firstTab);
+	    			list($p1, $shref) = preg_split("[/?]", $href);
+	    			?>		
+	        		<li id="navbar_<?= $i ?>" class="<?= ($this->firstTab == $href) ||  ($sctl != '' && $sctl == $shref) ? 'active' : '' ?>">
+	        			<a href="javascript:selectTab(<?= $i ?>, '<?= $href ?>');"><?= $title == 'My Company' ? '<i>Online</i> <b>DOOR</b>DATA' : $title ?></a>
+	        		</li>
+	    			<? $i++; 
+	    		endforeach; ?>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="<?= $this->baseUrl ?>/auth/logout/"><?= $this->userName ?>, Log Out</span></a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+	
+
+</div>
+<!-- Main content -->
+<div dojoType="dojox.layout.ContentPane" region="center" class='frameDiv jumbotron'
+ 	href="<?= $this->baseUrl . $this->firstTab ?>" align="left"
+ 	id="frameDiv" jsid="frameDiv">
+</div>
+<div dojoType="dojox.layout.ContentPane" region="bottom" style="margin-top: 5px"
+	>&copy; 2009-<?= date('Y') ?> <?= $this->customBranding ? 'Powered By ' : '' ?>DOORDATA Solutions. All rights reserved. Phone: 877-521-DATA
+</div>
+</div>

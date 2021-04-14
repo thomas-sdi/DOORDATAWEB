@@ -1,0 +1,11 @@
+<?= $this->partial("../widgets/primarycontact.phtml", array(
+			"grid"   => $this->grid,
+			"record" => $this->record,
+			"id"     => 'building',
+			"model"  => 'building',
+			'controller' => 'building',
+			'title'		=> 'Building',
+			'icon'		=> 'icon-building',
+			"allEmployees" => $this->allEmployees,
+			"primaryContact" => $this->primaryContact)
+); ?>

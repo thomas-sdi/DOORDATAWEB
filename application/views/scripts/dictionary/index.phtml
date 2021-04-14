@@ -1,0 +1,11 @@
+<?= $this->partial(
+	"../widgets/bratiliusgrid.phtml", 
+	array("grid" => $this->components['dictionary'], 
+		  "can" => $this->access['dictionary'],
+		  "caption" => "RECORDS",
+	      "caption_singular" => "RECORD",
+	      "gridParams"		=> $this->gridParams,
+	      "parentPaneId"	=> "list_of_user_files",
+	      
+		 )
+) ?>

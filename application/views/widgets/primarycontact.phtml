@@ -1,0 +1,82 @@
+<? $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl(); 
+
+if($this->record['ID'] != '' && $this->record['ID'] != null){
+	$path = $baseUrl.'/'.$this->controller.'/save?_model='.$this->model.'&id='.$this->record['ID']; 	
+}else{
+	// $path = $baseUrl.'/'.$this->controller.'/save'; 	
+	//
+	$path = $baseUrl.'/'.$this->controller.'/save?_model='.$this->model; 	
+}
+//gridDialogDoor
+?>
+
+<div class="content-box">
+
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="glyph-icon <?= $this->icon ?>"></i>
+		<?= $this->title ?>
+		<div class="header-buttons-separator">
+			<a class="icon-separator" href="javascript:bratiliusDialog.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+		</div>
+	</h3>
+
+
+	<div class="modal-body">
+		<form dojoType="ginger.form.ValidationForm" jsId="<?= $this->model ?>Form" 
+			action="<?= $path ?>" class="form-horizontal">
+
+			<!-- <input type="hidden" id="TYPE" name="TYPE" value="Company Type"/>  -->
+			<input type="hidden" id="TYPE" name="TYPE" value="<?= $this->type ?>"/> 
+			<!-- <input type="hidden" id="TYPE_id" name="TYPE_id" value="<?= $this->type ?>"/> -->
+
+			<? $allEmployees = $this->allEmployees? $this->allEmployees : array() ?>
+			
+			<div class="row">
+				<!-- <div class="col-sm-3"></div> -->
+				<div class="col-sm-12">
+					<!-- <div class="row"> -->		
+						<? foreach ($this->grid->getColumns(Data_Column_Grid::EDIT) as $column):  ?>
+							
+							<div class="col-sm-6 odd-eventype" style="padding-top: 20px;">
+								<label><?= $column->getTitle() ?></label>
+								<div style="padding: 2px 0px 1px 0px;">
+									<?= $this->grid->getFieldControl($column, $this->record); ?>
+								</div>
+							</div>
+
+						<? endforeach; ?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 odd-eventype contentcheck" style="padding-top: 20px;">
+						<? if ($this->extraContent): ?>
+							<?= $this->extraContent ?>
+						<? endif; ?>
+					</div>
+				</div>
+
+				<!-- <div class="col-sm-3"></div> -->
+				<!-- </div> -->
+				<? if ($this->model == 'company_buildings' && $this->companyId > 0): ?>
+					<input type="hidden" name="OWNER" value="Building Owner"/> 
+					<input type="hidden" name="OWNER_id" value="<?= $this->companyId ?>"/>
+				<? endif; ?>
+
+			</form>
+		</div>
+
+		<div class="modal-footer" style="text-align: center;">
+			<div class="row">
+				<div class="col-xs-6" style="text-align: right;">
+					<div dojoType="dijit.form.Button" class="short" 
+					onclick="<?= $this->model ?>Form.submit(function() {bratiliusDialog.hide();})">Accept Change</div></div>
+
+					<div class="col-xs-6" style="text-align: left;">
+						<div dojoType="dijit.form.Button" class="short"
+						onclick="bratiliusDialog.hide();">Cancel Change</div>
+					</div>
+				</div>
+			</div>
+		</div>

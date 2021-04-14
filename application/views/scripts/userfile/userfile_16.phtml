@@ -1,0 +1,43 @@
+<script type="text/javascript">  
+	dojo.require("dojo.io.iframe");  
+</script>  
+<form id="upload_form" dojoType="ginger.form.ValidationForm" method="post" enctype="multipart/form-data"
+	  style="width:280px;height:170px">
+	<table>
+		<tr>
+			<td>Select file</td><td><INPUT NAME="myfile" id="myfile" TYPE="file" style="width:205px"></td>
+		</tr>
+		<tr>
+			<td>Description</td><td><textarea name="description" rows="3" cols="23"></textarea></td>
+		</tr>
+		<tr><td colspan="2"><p><div id="status" jsid="status">&nbsp</div></p></td></tr>
+	</table>	
+	<button id="user_file_submit" jsid="user_file_submit" dojoType='dijit.form.Button' class="short">Add File
+		<script type="dojo/connect" event="onClick">	
+			dojo.io.iframe.send ({
+			url: baseUrl + '/userfile/savefile',
+			handleAs: "text", 
+			form: "upload_form",
+			load: function(response, ioArgs) {
+			console.log(response);
+			var responseObj = dojo.fromJson(response);
+			dojo.byId('status').innerHTML = responseObj.status;
+			cmp_user_file.revert();
+			gridDialog.hide();
+			return response;
+			},
+			error: function(response) {  
+			console.log(response);
+			dojo.byId('status').innerHTML = 'Error occurred';
+			cmp_user_file.revert();
+			return response;  
+			} 
+			});
+		</script>
+	</button>
+	<button id="user_file_cancel" jsid="user_file_cancel" dojoType='dijit.form.Button' class="short">Close
+		<script type="dojo/connect" event="onClick">	
+			gridDialog.onCancel();
+		</script>
+	</button>
+</form>

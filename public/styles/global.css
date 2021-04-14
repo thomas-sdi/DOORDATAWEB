@@ -1,0 +1,236 @@
+@import url("buttons.css");
+@import url("door.css");
+
+@import url("themes/blue.css");
+@import url("themes/chrome.css");
+@import url("themes/red.css");
+@import url("themes/green.css");
+@import url("themes/brown.css");
+
+html {
+	overflow: auto;
+}
+
+input[type='checkbox'],input.checkbox {
+	margin: 0 0 0 0 !important;
+	padding: 0 0 0 0 !important;
+}
+
+.underline {
+	border: 1px solid black;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	color:blue;
+}
+
+.dojoxGridCellOver, .dojoxGridRowOver,
+.dojoxGridRowOver .dojoxGridCell {
+	color: black !important;
+}
+
+TD.navbar, TD.navbarChecked {
+    text-align: center;
+    cursor: pointer;
+	font-size: 10pt;
+    font-weight: bold;
+	color: white;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.dijitValidationIcon {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+TD.navbar:hover, TD.navbarChecked {
+	border-bottom-color: transparent !important;
+}
+
+TD.navbarActive {
+    text-align: center;
+	border-bottom-color: transparent !important;
+}
+
+.themeRed TD.navbarActive {
+	background: url('../images/navbarActive.gif') repeat-x;
+}
+
+A.navbar {
+    font-size: 10pt;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.toolbar {
+    cursor: pointer;
+}
+
+.dijitSplitterH {
+	height: 6px !important;
+}
+
+.dijitTabContainerTop-tabs {
+	padding-top: 10px;
+	background: white !important;
+}
+
+.dijitBorderContainerNoGutter-child .dijitContentPane  {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.dijitDialogTitleBar {
+	color: white !important;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.dijitDialogCloseIcon {
+	background: url(../images/closeButton.png) no-repeat right top !important;
+    height: 19px !important;
+    width: 19px !important;
+}
+
+.dijitDialogCloseIcon-hover {
+	background: url(../images/closeButtonHover.png) no-repeat right top !important;
+}
+
+.dojoxGridHeader .dojoxGridCell {
+	padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.dojoxGridCell {
+	border-left-color: transparent !important;
+	border-top-color: transparent !important;
+	border-width: 1px;
+	border-style: solid !important;
+}
+
+.dojoxGridHeader .dojoxGridCell .dojoxGridSortNode { 
+	color: white !important;
+	height: 17px !important;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+.dijitTabInnerDiv .dijitTabContent, .dijitTabInnerDiv, .dijitTab {
+	padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.tabLabel {color: white !important;}
+
+.dijitTabContainer {
+	background: white !important;
+}
+
+.dijitBorderContainer-child {
+	border: none !important;
+}
+
+.dijitBorderContainer {
+	padding: 0px !important;
+}
+
+BODY, HTML, .mainDiv {
+    font-family: Arial;
+    margin:0  !important;
+	padding:0 !important;
+	border: 0 !important;
+	height:100% !important;
+	width:100% !important; 
+}
+
+H1 {
+	font-weight:   bold;
+	font-size:     18pt;
+	margin-top:    10px;
+	margin-bottom: 10px;
+}
+
+.warning {
+	background-color: #fffc77 !important;
+}
+
+.error {
+    background-color: #f89a98 !important;
+}
+
+.unsaved {
+    background-color: #a4ffa8 !important;
+}
+
+.dijitError {
+    border-color: #ca0000  !important;
+    background-color:#f89a98  !important;
+}
+.dijitErrorFocused {
+    background-color: #eb3d3d !important;
+}
+
+.dijitError .dijitValidationIcon {
+    background: transparent url('../images/error.png') no-repeat center center !important;
+}
+
+.dijitWarning {
+    background-color: #fffc77 !important;
+    background-image: none !important; 
+}
+.dijitWarningFocused {
+    background-color: #ffff00 !important;
+    background-image:none !important;
+}
+
+/* Validation errors  */
+.dijitWarning .dijitValidationIcon {
+	width: 16px;
+	visibility: visible;
+    background: transparent url('../images/warning.png') no-repeat center center !important;
+}
+
+.saveButtonWarning {
+    color: #ff0000 !important;
+    text-decoration: blink !important;
+}
+
+.form_table {
+    vertical-align: top;
+    height: 333px; width: 173px;
+    border: none;
+}
+
+.form_table tr {
+    height: 22px; 
+}
+
+.form_table td {
+	padding-left: 10px;
+	font-size: 11pt;
+}
+
+.form_header {
+    font-size: 14pt !important;
+    font-weight: bold;
+    color: white;
+    vertical-align: top; 
+	padding-top: 10px;
+    height: 30px;
+    text-align: center;
+}
+
+.photobucket IMG{
+	max-width: 410px;
+}
+
+.dijitTextBoxDisabled,
+.dijitComboBoxDisabled,
+.dijitSpinnerDisabled,
+.dijitTextAreaDisabled {
+    color: black !important;
+}
+
+.custom .dijitTextArea {
+	border: none;
+}

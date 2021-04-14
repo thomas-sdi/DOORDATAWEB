@@ -1,0 +1,22 @@
+<!-- doors grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+	array(
+		"grid"  	=> $this->components['company_history'], 
+		"can"   	=> $this->access['company_history'],
+		'caption' 	 		=> 'HISTORY',
+		"caption_singular" 	=> "HISTORY",
+		'dialog'       		=> 'gridDialogDoor',
+		"detailedView" 		=> "/company/change",
+		//'searchView'	 	=> $this->baseUrl . "/company/doorsearch",
+		//"imageNew"	 		=> $this->baseUrl . "/public/images/New Door.png",
+		'parentPaneId'		=> "company_list_of_doors_history",
+		'gridParams'		=> $this->gridParams,
+		'superGridId'		=> 'cmp_company_inspections'
+		
+	))
+?>
+</div>
+
+
+

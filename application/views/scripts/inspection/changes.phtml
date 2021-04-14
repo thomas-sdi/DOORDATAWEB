@@ -1,0 +1,13 @@
+<!-- inspection history grid -->
+<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+	array(
+		"grid"  	=> $this->components['inspection_inspects'], 
+		"can"   	=> $this->access['inspection_inspects'],
+		"caption" 	=> "HISTORY",
+		"icons" 	=> array("search"=>true, "excel"=>true),
+		'parentPaneId'		=> "list_of_changes",
+		'gridParams'		=> $this->gridParams,
+		'formActionUrl' => $this->baseUrl . '/inspection/save?_model=inspection_inspects',
+		"detailedView"	=> "/inspection/change",
+	));
+?>

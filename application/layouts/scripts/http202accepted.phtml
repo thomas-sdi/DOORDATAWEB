@@ -1,0 +1,4 @@
+<?
+    header("HTTP/1.0 202 Accepted");
+    header('Location: ' . $this->placeholder('location'));
+    echo $this->placeholder('data');

@@ -1,0 +1,83 @@
+<div dojoType="" style="width: 100%; height: 100%;" design="headline" gutters="false">
+    <div dojoType='' region='top' style="height: 20%">
+        <h4>Please be careful when changing anything in this section. Values here influence on the whole system behavior.</h4>
+        <button dojoType="dijit.form.Button" class="long" onclick="javascript: openDialog('/admin/sendlink')">Send client download link
+        </button>
+        <button dojoType="dijit.form.Button" class="long" onclick="javascript: openDialog('/admin/upload')">Upload DOORDATA client
+        </button>
+    </div>
+   <!--  <div dojoType="ginger.TabContainer" region="center" style="background-color: white">
+        <div dojoType="dijit.layout.ContentPane" title="Dictionaries" href="<?= App::baseUrl() ?>/dictionary"></div> -->
+
+
+        <!--  <div dojoType="dijit.layout.ContentPane" title="Users & Groups" href="<?= $this->baseUrl ?>/auth"></div> -->
+  <!--   </div> -->
+
+    <div class="content-box" style="margin-top: 25px;">
+    <h3 id="buildings" class="content-box-header bg-primary" style="text-align: left;">
+        <i class="glyph-icon icon-file-o"></i>
+       Dictionaries
+        <div class="header-buttons-separator">
+            <!-- <a class="icon-separator" href="javascript:bratiliusDialog.showSearch();">
+                <i class="glyph-icon icon-search"></i>
+            </a>
+             -->
+
+                <a class="icon-separator" href="<?php echo App::baseUrl() ?>/dictionary/excelexport?gridId=dictionary" target='_blank'>
+                <i class="glyph-icon fa-file-excel-o"></i>
+               </a>
+
+             <div class="table-maindiv">
+             <input type="text" class="searchtable"  name="search-inspection" id="search_inspection" placeholder="Search for Dictionary">
+            <a href="#" class="" style="color:#7da3c7;" id="searchInspectionBtn"><i class="glyph-icon icon-search"></i></a> 
+              </div>
+
+            <? /*
+            <a class="icon-separator" href="javascript:cmp_user_file.showNewDialog();">
+                <i class="glyph-icon icon-plus"></i>
+            </a>
+             * 
+             */ ?>
+        </div>
+    </h3>
+    
+    <div class="content-box-wrapper">
+        <div class="row">
+            <div id="list_of_user_files" jsId="list_of_user_files" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/admin/dictionarys"></div>
+        </div>
+    </div>
+    
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#searchInspectionBtn").click(function(e){
+            searchInspection(); 
+        });
+
+        $('#search_inspection').on('keypress', function(e) {           
+            var code = e.keyCode || e.which;
+            if(code==13){
+                searchInspection();  
+            }
+        });
+    });
+
+
+    function searchInspection(){
+        var search = $("#search_inspection").val();
+        bratiliusDialog.setGrid("cmp_dictionary");
+        var elements = {
+            "PARENT_ID":"*"+search+"*",
+            "CATEGORY":"*"+search+"*",
+            "ITEM":"*"+search+"*",
+            "DESCRIPTION":"*"+search+"*"
+        }
+        bratiliusDialog.executeSearch(elements)
+    }
+
+</script>

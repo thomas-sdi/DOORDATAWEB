@@ -1,0 +1,101 @@
+<? $id = $this->gridId; ?>
+<!-- CALCULABLE FIELDS -->
+
+<div class="row pb10">
+	<div class="col-md-12">
+		<div class="row" style="padding-top:10px;padding-bottom: 10px;">
+			<div class="col-md-2"><b>Door Number</b></div>
+			<div class="col-md-1"><b>Handing</b></div>
+			<div class="col-md-3"><b>Door Barcode</b></div>
+			<div class="col-md-4"><b>Fire-Rating</b></div>
+			<div class="col-md-2"></div>
+		</div>
+		
+		<div class="row" style="color: #3ca1ff; border-bottom: none; padding-bottom: 10px;">
+			<div class="col-md-2"><div dojoType="ginger.Text" dependsOn="['<?= $id ?>_NUMBER']" disabled style="font-size:14px; line-break: anywhere;"></div></div>
+			<div class="col-md-1">
+
+				<div dojoType="ginger.Text" dependsOn="['<?= $id ?>_HANDING']" style="width: 100px;font-size:14px;line-break: anywhere;"
+					disabled></div>
+
+				</div>
+				<div class="col-md-3">
+					<div dojoType="ginger.Text" dependsOn="['<?= $id ?>_DOOR_BARCODE']" style="font-size:14px; line-break: anywhere;"></div>	
+
+				</div>
+				<div class="col-md-4" id="fireRating_header">
+					<div  style="font-size:14px;" dojoType="ginger.Text" disabled separator=", "
+					dependsOn="[
+					'<?= $id ?>_FIRE_RATING_1', 
+					'<?= $id ?>_FIRE_RATING_2', 
+					'<?= $id ?>_TEMP_RISE',
+					'<?= $id ?>_FIRE_RATING_3', 
+					'<?= $id ?>_FIRE_RATING_4',
+					'<?= $id ?>_FIRE_RATING_5'
+					]"  >
+
+				</div>
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+
+		</div>
+
+			<div class="row" style="padding-top:10px;padding-bottom: 10px;">
+
+			<div class="col-md-6"><b>Door Location</b></div>
+			<div class="col-md-6"><b>Remarks</b></div>
+		</div>
+
+		<div class="row" style="color: #3ca1ff; border-bottom: 1px solid black; padding-bottom: 10px;">
+		
+			<div class="col-md-6">
+				<div dojoType="ginger.Text" dependsOn="['<?= $id ?>_LOCATION']" style="font-size:14px; line-break: anywhere;"></div>
+			</div>
+			<div class="col-md-6">
+              <div dojoType="ginger.Text" disabled separator=", " dependsOn="['<?= $id ?>_REMARKS']" style="font-size:14px; line-break: anywhere;"></div>
+            </div> 
+		</div>
+
+	</div>
+</div>
+
+
+<!-- 
+	//'<?= $id ?>_LISTING_AGENCY',
+//'<?= $id ?>_LISTING_AGENCY_OTHER'
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var listing = $('span[widgetid="inspection_door_LISTING_AGENCY"]').find('input');
+		var ginger_Text_13 = $("#ginger_Text_13").text();
+		var label='';
+		console.log(listing);
+		if(listing[0].checked ==true){
+			console.log(listing[0].id)
+			label = $("#label_"+listing[0].id).text();
+			ginger_Text_13 = ginger_Text_13+','+label;
+		}
+		else if(listing[1].checked ==true)
+		{
+			console.log(listing[1].id)
+			label = $("#label_"+listing[1].id).text();
+			ginger_Text_13 = ginger_Text_13+','+label;
+		}
+		else if(listing[2].checked ==true)
+		{
+			console.log(listing[2].id)
+			label = $("#label_"+listing[2].id).text();
+			ginger_Text_13 = ginger_Text_13+','+label;
+		}
+		else if(listing[3].checked ==true){
+			console.log(listing[3].id)
+			label = $("#inspection_door_LISTING_AGENCY_OTHER").value();
+			ginger_Text_13 = ginger_Text_13+','+label;
+		}
+		else {}
+			$("#ginger_Text_13,#ginger_Text_23,#ginger_Text_18,#ginger_Text_8,#ginger_Text_3").text(ginger_Text_13);
+
+	});
+</script> -->

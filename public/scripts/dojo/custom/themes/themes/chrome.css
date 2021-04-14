@@ -1,0 +1,192 @@
+.themeChrome .dojoxGridRowOver .dojoxGridCell,
+.themeChrome .dojoxGridRowSelected {
+	background-color: #a9a9a9;
+}
+
+.themeChrome A {
+	color: #000000;
+}
+
+.themeChrome TD.navbar,
+.themeChrome TD.navbarbg,
+.themeChrome TD.navbarChecked {
+	border-right: 2px #000000 solid;
+}
+
+.themeChrome TD.navbarbg,
+.themeChrome TD.navbar,
+.themeChrome TD.navbarChecked,
+.themeChrome .dijitDialogTitleBar,
+.themeChrome .dijitTabInnerDiv .dijitTabContent, 
+.themeChrome .dijitTabInnerDiv,
+.themeChrome .dijitTab
+{
+	background: url('../images/titleBarChrome.gif') repeat-x;
+}
+
+.themeChrome TD.navbar:hover,
+.themeChrome TD.navbarChecked,
+.themeChrome .dojoxGridHeader .dojoxGridCell,
+.themeChrome .dojoxGridHeader .dojoxGridCellOver,
+.themeChrome .dijitTabChecked,
+.themeChrome .dijitTabChecked .dijitTabInnerDiv,
+.themeChrome .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeChrome .dijitTabHover, 
+.themeChrome .dijitTabHover .dijitTabInnerDiv,
+.themeChrome .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background-color: #828282;
+}
+
+.themeChrome .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #000000 !important;
+}
+
+.themeChrome .dojoxGridCell {
+	border-color: #000000;
+}
+
+.themeChrome .dijitTab {
+	border: 1px solid #000000 !important;
+}
+
+.themeChrome .dijitTabContainerBottom-spacer,
+.themeChrome .dijitTabContainerTop-spacer,
+.themeChrome .dijitSplitterH
+{
+	background: #828282 !important;
+}
+
+.themeChrome .form_table {
+	background-image: url('../images/pdf_bg_chrome.jpg');
+}
+
+/* BUTTONS */
+.themeChrome .dijitButton{
+	background-color: #828282;
+}
+
+/* CHECKBOX */
+.themeChrome .dijitCheckBox,
+.themeChrome .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') -16px -16px !important;
+}
+
+.themeChrome .dijitCheckBoxChecked,
+.themeChrome .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') 0 -16px !important;	
+}
+
+/* RADIO */
+.themeChrome .dijitRadio, 
+.themeChrome .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') -16px -16px !important;
+}
+
+.themeChrome .dijitRadioChecked, 
+.themeChrome .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') 0 -16px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+
+/* LOGIN DIALOG */
+.themeChrome TABLE.authDialog {
+	border-color: #000000;
+}
+
+/* INPUT CONTROL BORDERS */
+
+.themeChrome .usertitlename {
+	color:#000000;
+}
+.themeChrome #sidebar-menu li.active {
+    border-left: 5px solid #000000;
+}
+
+.themeChrome .bg-primary{
+	background: #828282;
+}
+.themeChrome #header-logo a {
+    background: #afadad;
+}
+
+.themeChrome #page-header {
+	background-color: #fff;
+	border-top: 5px solid #828282;
+    border-bottom: 5px solid #828282;
+}
+.themeChrome #header-logo{
+	background-color: #828282;
+}
+.themeChrome .user-profile > a{
+	background-color: #828282;
+   /* border-right: 5px solid #828282;*/
+}
+.themeChrome .user-profile > a:hover{
+	background-color: #afadad;
+}
+.themeChrome .nav > li.active > a{
+	background-color: #828282;
+}
+.themeChrome .nav > li.active > a:focus{
+	background-color: #828282;
+}
+.themeChrome .nav > li.active > a:hover{
+	background-color: #828282;
+}
+
+
+.themeChrome .pdfFormColumn{
+	background-color: #828282;
+}
+
+.themeChrome #page-sidebar li a:hover, 
+.themeChrome #page-sidebar li.sfHover > a.sf-with-ul, 
+.themeChrome #sidebar-menu li.active > a {
+    color: #000000;
+}
+
+.themeChrome .doorFireDataArea{
+	background-color: #828282;
+}
+
+.themeChrome .bratiliusPaginator .active{
+      background-color: #828282;
+    border-color: #828282;
+	color: #ffffff;
+}
+.themeChrome .table-hover tr:hover td {
+    background:#afadae6b;
+}
+.themeChrome .selectedRow{
+	background-color: #afadae6b!important;
+}
+.themeChrome .selectedRow:hover{
+	background-color: #afadae6b !important;
+}
+.themeChrome .main-header #header-right  a.signoutbtn:hover {
+    background: #afadae6b;
+    color:#000 !important;
+     }
+.themeChrome .hover-blue-alt:hover, .label-blue-alt {
+    background: #afadae6b;
+    color:#000;
+} 
+.themeChrome .mobileusername {
+	color:#000000;
+}
+.themeChrome .searchtable::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #000000;
+}
+.themeChrome .searchtable::-moz-placeholder { /* Firefox 19+ */
+  color: #000000;
+}
+.themeChrome .searchtable:-ms-input-placeholder { /* IE 10+ */
+  color: #000000;
+}
+.themeChrome .searchtable:-moz-placeholder { /* Firefox 18- */
+  color: #000000;
+} 
+.themeChrome .searchtable {color: #000000;} 
+.themeChrome .table-maindiv > a{color:#000000 !important;}     

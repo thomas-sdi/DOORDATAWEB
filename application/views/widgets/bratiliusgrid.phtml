@@ -1,0 +1,198 @@
+<?php
+
+$id = $this->grid->getId();
+$rows = $this->grid->fetchPage($this->gridParams);
+
+$pageCount = $rows->getPages()->pageCount;
+$rowCount = $rows->getPages()->totalItemCount;
+// print_r("selected=== ".$id);
+?>
+
+<div dojoType="<?php echo $this->customGrid ? $this->customGrid : 'custom.widgets.BratiliusGrid' ?>" id="cmp_<?php echo $this->grid->getId() ?>"
+	jsId="cmp_<?php echo $this->grid->getId() ?>" detailedView = "<?php echo $this->detailedView ?>" parentPaneId='<?php echo $this->parentPaneId ?>'
+	formActionUrl = "<?php echo $this->formActionUrl ?>" childGridIds="[<?= $this->childGridIds ? "'" . implode("','", $this->childGridIds) . "'" : '' ?>]" superGridId="<?= $this->superGridId ?>">
+
+	<?php if ($this->grid->getUsePaginator()): ?>
+		<div dojoType="custom.widgets.BratiliusGridPaginatorList"
+		style="text-align:center;"
+
+		pageCount="<?php echo $pageCount?>"  grid="cmp_<?php echo $id ?>" curPageIndex="<?php echo nvl($this->gridParams['page'], '0') ?>" 
+		rowsPerPage="<?php echo nvl($this->gridParams['rowsPerPage'], '20') ?>" ></div>	
+
+	<?php endif; ?>
+
+
+	<div class="table-responsive">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-responsive table-hover" id="cmp_<?php echo $this->grid->getId() ?>_table">
+
+			<thead>
+				<tr>
+					<th style="cursor: pointer;"></th>
+					<?php if ($this->gridParams['selectAll']): ?>
+						<th style="cursor: pointer;"><input type="checkbox" dojoType="dijit.form.CheckBox" id="cmp_<?php echo $this->grid->getId() ?>_select_all"/></th>
+					<?php endif; ?>
+					<?php  foreach ($this->grid->getColumns() as $columnId => $column): 
+						$view = $column->getView();
+						if ($column->getVisible(Data_Column_Grid::GRID)): ?>
+					<?php // figure out the new sort direction, if this column is already being sorted 
+					//Zend_Registry::get('logger')->info('Column: ' . $columnId . ' sortBy: ' . $this->gridParams['sortBy'] . ', direction: ' . $this->gridParams['sortDirection']);
+					$newSortDirection = $columnId == $this->gridParams['sortBy'] ? ($this->gridParams['sortDirection'] ? 0: 1) : 1; 
+					$sortClass = ($columnId === $this->gridParams['sortBy']) ? ($this->gridParams['sortDirection'] ? 'icon-unsorted' : 'icon-unsorted') : 'icon-unsorted'; ?>
+
+					<? if($columnId == 'PRIMARY_CONTACT_PHONE'): ?>
+
+						<th class ="col-header-phone"  style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+
+						<? continue; elseif($columnId == 'STATE'):?>
+						<th class ="col-header-state" style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+						<? continue; elseif($columnId == 'ZIP'):?>
+						<th class ="col-header-zip" style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+						<? continue; elseif($columnId == 'INSPECTOR_NAME'):?>
+						<th class ="col-header-inspector" style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+						<? continue; elseif($columnId == 'company'):?>
+						<th class ="col-header-company" style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+						<? continue; else: ?>
+
+						<th style="cursor: pointer; text-align: center; ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.sortByColumn('<?php echo $column->getId() ?>', <?php echo $newSortDirection ?>)">
+							<?php echo $column->getTitle() ?> <i class="glyph-icon <?php echo $sortClass ?>"></i>
+						</th>
+						<? continue; endif; ?>	
+
+
+					<?php endif;	
+				endforeach; ?>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+			$i = 1;
+			$idex = 1;
+			$cpage = (nvl($this->gridParams['page'], '0') * nvl($this->gridParams['rowsPerPage'], '10'));
+			foreach ($rows as $row): //App::log(var_export($row,true));?>
+				<tr  id="cmp_<?php echo $this->grid->getId() ?>_row_<?= $row['ID'] ?>" onclick="cmp_<?php echo $this->grid->getId() ?>.selectRow(<?= $row['ID'] ?>);" class="<?php echo ($i == 1) ? 'odd gradeA' : 'even gradeA'?>">
+					<td style="text-align: center;"><?php 
+
+					echo $cpage + $idex; 
+					$idex =$idex + 1; 
+					?>
+
+
+				</td>
+				<?php if ($this->gridParams['selectAll']): ?>
+					<td><input type="checkbox" dojoType="dijit.form.CheckBox" id="cmp_<?php echo $this->grid->getId() ?>_<?php echo $row['ID'] ?>"/></td>
+				<?php endif; ?>
+				<?php 
+				foreach ($this->grid->getColumns() as $columnId => $column): 
+				if (!$column->getVisible(Data_Column_Grid::GRID)): continue; endif; //if column is not visible, do not print the cell;
+				
+				
+				if($columnId == 'INSPECTOR_NAME'):
+					if ($column->isCalculated()): ?><td class="col-inspector" style="text-align:left !important; "><?php echo $column->calculate($row) ?></td><?php	continue; endif; 
+				//if this is a calculated column, call the calculation as defined in the grid
+				else:
+					if ($column->isCalculated()): ?><td><?php echo $column->calculate($row) ?></td><?php	continue; endif;
+				endif;
+
+
+				//otherwise just print the contents in the appropriate place in the table
+				foreach ($row as $cellId => $cell):
+					if ($columnId == $cellId): ?>
+						<? if ($column->getLink()): ?>
+							<td><a href="javascript:changeBody('<?= $column->getLink() ?>?_parent=<?= $row['ID'] ?>');"><?= $cell ?></a></td>
+							<? continue; elseif($cellId == 'PRIMARY_CONTACT_PHONE'): ?>
+							<td class="col-phone"><?= $cell ?></td>
+							<? continue; elseif($cellId == 'ZIP'): ?>
+							<td class="col-zip"><?= $cell ?></td>
+							<? continue; elseif($cellId == 'company'): ?>
+							<td class="col-inpcompany"><?= $cell ?></td>
+							<? continue;?>
+						<? elseif ($column->getType() == 'date'):
+							if ( trim($cell) == '1900-01-01' || trim($cell) == '' || is_null($cell) || trim($cell) == '0000-00-00' ) { echo '<td></td>'; continue; }
+
+							$date = new Zend_Date($cell, 'yyyy-MM-dd'); ?>
+							<td><?= $date->toString('MM/dd/YYYY') ?></td>
+
+							<? continue; elseif($cell == 'Incomplete'): ?>
+							<td><?= $cell = "<span class='incomplete btn'>".$cell."</span>" ?></td>
+							<? continue; elseif($cell == 'Assigned'): ?>
+							<td><?= $cell = "<span class='assigned btn'>".$cell."</span>" ?></td>
+							<? continue; elseif($cell == 'Completed'): ?>
+							<td><?= $cell = "<span class='completed btn'>".$cell."</span>" ?></td>
+							<? continue; elseif($cell == 'New'): ?>
+							<td><?= $cell = "<span class='new btn'>".$cell."</span>" ?></td>
+							<? continue; elseif($cellId == 'STATE'): ?>
+							<td class="col-state_provision"><?= $cell ?></td>
+							<? continue; else: ?>
+							<td><?= $cell   ?></td>
+							<? continue; endif; ?>
+						<?php endif;
+					endforeach;
+				endforeach; ?>
+			</tr>
+			<?php 	 
+                $i = ($i == 1) ? 2 : 1; //this is for odd and even rows styling
+            endforeach; ?>
+        </tbody>
+    </table>
+</div>
+</div>
+
+<?php if ($this->gridParams['selectAll']): ?>
+	<div style="text-align: left;">
+		<div dojoType="dijit.form.Button" class="short" onclick="cmp_<?php echo $this->grid->getId() ?>.deleteItems();"><?php echo trans('Delete') ?></div>
+	</div>
+<?php endif; ?>
+
+<?php if ($this->grid->getUsePaginator()): ?>
+
+
+	<p class="showpaginationvalue"> Showing <?php echo (nvl($this->gridParams['rowsPerPage'], '10') * $this->gridParams['page'] + 1 ); ?> to <?php echo (nvl($this->gridParams['rowsPerPage'], '10') * $this->gridParams['page'] + nvl($this->gridParams['rowsPerPage'], '10')); ?> of <?php echo $rowCount; ?> records </p>
+
+	
+
+<?php endif; ?>
+
+
+<?php if ($this->grid->getUsePaginator()): ?>
+
+	<div dojoType="custom.widgets.BratiliusGridPaginator" class="inlinepagenation" id="cmp_<?php echo $id ?>_paginator" jsid="cmp_<?php echo $id ?>_paginator"
+		style="text-align:center;"
+
+		pageCount="<?php echo $pageCount?>"  grid="cmp_<?php echo $id ?>" curPageIndex="<?php echo nvl($this->gridParams['page'], '0') ?>" rowsPerPage="<?php echo nvl($this->gridParams['rowsPerPage'], '10') ?>" ></div>	
+
+	<?php endif; ?>
+
+	<?php if ( isset($this->gridParams['filter']) && isset($this->gridParams['filter']['_parent']) && $this->gridParams['filter']['_parent'] != -1 ): ?>
+
+	<input type="text" value="<?= $this->gridParams['filter']['_parent']; ?>" id="root_parentId" hidden>
+
+<?php endif; ?>
+
+<?php if ( isset($this->gridParams['filter']) && isset($this->gridParams['filter']['_super']) && $this->gridParams['filter']['_super'] != -1 ): ?>
+
+<input type="text" value="<?= $this->gridParams['filter']['_super']; ?>" id="parentId" hidden>
+
+<?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+

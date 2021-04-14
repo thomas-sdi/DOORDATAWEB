@@ -1,0 +1,1 @@
+mysqldump --add-drop-table --no-data --user=<user> --password=<password> <database> > "schema.sql"

@@ -1,0 +1,1 @@
+update dictionary set ITEM='Mobile DOORDATA v2.2', DESCRIPTION = '521001' where ID = 1367;

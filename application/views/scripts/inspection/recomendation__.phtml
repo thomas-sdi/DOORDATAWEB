@@ -1,0 +1,48 @@
+<?
+$count = 0; 
+//how many rows were already shown
+//Zend_Registry::get("logger")->info("count for " . $this->category . ": " . $count); 
+
+$db = Zend_Registry::getInstance()->dbAdapter;
+$sql = "select DOOR_ID, CODE_ID,ITEM,RECOMENDATION from recomendation where DOOR_ID=".$this->door_id." order by id asc";
+$rows = $db->fetchAll($sql);
+
+$sql2 = "select dc.DOOR_ID, dc.CODE_ID,d.ITEM,d.RECOMENDATION from door_code dc left join dictionary d on dc.code_id = d.id where dc.DOOR_ID=".$this->door_id;
+
+$rows2 = $db->fetchAll($sql2);
+
+$result = array_replace($rows2, $rows);
+
+foreach ($result as $foo): 
+	?>
+	<? if ($this->category == 'Door' && $foo['CODE_ID'] <= 23) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?>
+
+	<? if ($this->category == 'Operational Test' && $foo['CODE_ID'] >= 24 && $foo['CODE_ID'] <= 47 ) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?> 
+
+	<? if ($this->category == 'Door Bolts' && $foo['CODE_ID'] >= 48 && $foo['CODE_ID'] <= 69) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?> 
+
+	<? if ($this->category == 'Locks' && $foo['CODE_ID'] >= 70 && $foo['CODE_ID'] <= 97) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?> 
+
+	<? if ($this->category == 'Door Closers' && $foo['CODE_ID'] >= 98 && $foo['CODE_ID'] <= 115) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?> 
+
+	<? if ($this->category == 'Miscellaneous' && $foo['CODE_ID'] >= 116 && $foo['CODE_ID'] <= 134) { ?>
+
+		<span style="display: block;" id="RECOMENDATION_BLOCK_<?= $foo['CODE_ID']?>"><?= $foo['ITEM']?> <input type="text" style="display: inline-block;width: 75%;" value="<?= $foo['RECOMENDATION']?>" id="RECOMENDATION_<?= $foo['CODE_ID']?>"><input type="hidden" value="<?= $foo['ITEM']?>" id="R_ITEM_<?= $foo['CODE_ID']?>"> </span>
+	<? 	} ?> 
+
+<? endforeach; ?>

@@ -1,0 +1,101 @@
+<?php
+// print_r($this->percentage);
+
+$data = [];
+$colorCode=[];
+
+
+if($this->level == "northamerica" || $this->level == "companywide" || $this->level == "inspector"){
+
+	foreach ($this->percentage as $key => $value) {
+		$temp = new stdClass();
+		$temp->y = (int)$value['door_count'];
+		if($value['compliant'] == 135){
+			$temp->label = 'Compliant';
+			array_push($data, $temp);
+			array_push($colorCode, "#008000");
+		}
+		if($value['compliant'] == 136){
+			$temp->label = 'Noncompliant';
+			array_push($data, $temp);
+			array_push($colorCode, "#FF0000");
+		}
+	}
+
+}
+
+if($this->level == "buildingowner" || $this->level == "building" || $this->level == "inspection"){
+
+
+	foreach ($this->percentage as $key => $value) {
+
+		$temp = new stdClass();
+		$temp->y = (int)$value['door_count'];
+		if($value['compliant'] == 135){
+			$temp->label = 'Compliant';
+			array_push($data, $temp);
+			array_push($colorCode, "#008000");
+		}else if($value['compliant'] == 136){
+			$temp->label = 'Noncompliant';
+			array_push($data, $temp);
+			array_push($colorCode, "#FF0000");
+		}else{
+			$temp->label = 'Not Inspected';
+			array_push($data, $temp);
+			array_push($colorCode, "#e1ad01");
+		}
+	}
+
+}
+
+
+
+
+
+
+
+// foreach ($this->percentage as $key => $value) {
+
+// 	$temp = new stdClass();
+// 	$temp->y = (int)$value['door_count'];
+
+// 	if($value['compliant'] == 135){
+// 		$temp->label = 'Compliant';
+// 		$data[1] = $temp;
+// 	}else if($value['compliant'] == 136){
+// 		$temp->label = 'NonCompliant';
+// 		$data[2] = $temp;
+// 	}else{
+// 		if($this->level == "buildingowner" || $this->level == "building" || $this->level == "inspection"){
+// 			$temp->label = 'Not Inspected';
+// 			$data[0] = $temp;
+// 		}
+
+// 	}
+
+// 	// array_push($data, $temp);
+// }
+
+?>
+
+<input type="hidden" id="loadpie" value='<?= json_encode($data) ?>'>
+<input type="hidden" id="loadpie_color" value='<?= json_encode($colorCode) ?>'>
+
+<input type="hidden" id="<?= $this->level ?>_params" value='<?= json_encode($this->filterParams) ?>'>
+
+<? if ($this->multi == false): ?>
+	<div class="chartLabel" id="chartLabel_<?= $this->level ?>"><?= $this->levelLabel ?></div>
+	<? else: ?>
+		<div class="chartLabel">
+			<select class="form-control" id="<?= $this->level ?>_choice" name="<?= $this->level ?>_choice">
+				<? for($i = 0; $i < count($this->options); $i++): ?>
+					<option value="<?= $this->options[$i]['id'] ?>" <?= $this->options[$i]['id'] == $this->selectedOption ? 'selected' : '' ?>>
+						<? echo ($this->options[$i]['name'] !=null)? $this->options[$i]['name']: $this->options[$i]['alterName'] ?>
+					</option>
+				<? endfor; ?>
+			</select>
+		</div>
+	<? endif; ?>
+
+
+

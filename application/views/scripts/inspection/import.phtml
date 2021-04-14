@@ -1,0 +1,81 @@
+<div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="glyph-icon icon-arrow-right"></i>
+		Import
+		<div class="header-buttons-separator">
+
+			<a class="icon-separator" href="javascript:mainDialog.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+		</div>
+	</h3>
+
+	<div class="modal-body importpopup" >
+
+
+			<form id="main_form" jsid="inspectionImportForm" dojoType="custom.forms.InspectionImportForm" method="post" enctype="multipart/form-data">
+			
+				<div class="row">
+					<div class="col-sm-12" style="padding-top: 20px;">
+						<select id="service_type" name="service_type" dojoType="dijit.form.FilteringSelect">
+							<option value="4">Select Import</option>
+							<option value="7"><b>DOOR</b>DATA</option>
+							<option value="2">PRO-TECH</option>
+							<option value="0">AVAware</option>
+							<option value="1">Comsense</option>
+							<option value="5">Software for Hardware</option>
+						</select>
+					</div>
+					<div class="col-sm-12" style="padding-top: 20px;">
+						<div class="custom-file mb-3">
+						<INPUT NAME="myfile" id="myfile" TYPE="file" class="custom-file-input">
+						<input id="inspection_id" name="inspection_id" type="hidden" value="<?= $this->inspectionId ?>"/>
+						  <label class="custom-file-label" for="myfile">Choose file</label>
+						</div>
+                       
+
+					</div>
+				</div>
+				
+				<div class="row" style="padding-top: 10px;">
+					<div class="col-xs-12">
+						<div id="fire_rated_div"><input id="fire_rated" name="fire_rated" type="checkbox" dojoType="dijit.form.CheckBox" value="1">&nbsp&nbsp Fire Rated Only</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<div id="overwrite_duplicates_div"><input id="overwrite_duplicates" name="overwrite_duplicates" type="checkbox" dojoType="dijit.form.CheckBox" value="1">&nbsp&nbsp Overwrite Duplicates</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<p><label id="status">&nbsp</label></p>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-6" style="text-align: right;">
+						<button id="import" jsid="import" dojoType='dijit.form.Button' label="Import" class="short" onClick="inspectionImportForm.importInspection()">Import</button>	
+					</div>
+					
+					<div class="col-xs-6" style="text-align: left;">
+						<button dojoType='dijit.form.Button' class="short" onClick="mainDialog.hide();">Cancel</button>
+					</div>
+				</div>
+
+
+			</form>
+		
+	</div>
+</div>
+
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>

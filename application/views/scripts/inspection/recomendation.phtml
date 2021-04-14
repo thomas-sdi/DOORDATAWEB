@@ -1,0 +1,21 @@
+<?
+
+$db = Zend_Registry::getInstance()->dbAdapter;
+$sql = "select DOOR_ID,RECOMENDATION from recomendation where DOOR_ID=".$this->door_id;
+$rows = $db->fetchRow($sql);
+
+$data = isset($rows['RECOMENDATION']) ? $rows['RECOMENDATION']:'';	
+
+if(!isset($rows['RECOMENDATION'])){
+
+	$sql2 = "select dc.DOOR_ID, dc.CODE_ID,d.ITEM,d.RECOMENDATION from door_code dc left join dictionary d on dc.code_id = d.id where dc.DOOR_ID=".$this->door_id;
+	$rows2 = $db->fetchAll($sql2);
+
+	foreach ($rows2 as $key => $value) {
+		$data .= $value['ITEM'].'-'.$value['RECOMENDATION'].', ';	
+	}
+}
+
+?>
+<textarea class="recomended_text" id="recomend_text" rows="4" cols="10"><?= $data ?></textarea>
+

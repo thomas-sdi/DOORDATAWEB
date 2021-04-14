@@ -1,0 +1,9 @@
+.dijitRadio,
+.dijitRadioIcon	{
+	background-image: url('images/spriteRadio.png') !important; /* checkbox sprite image */
+}
+
+.dijitCheckBox,
+.dijitCheckBoxIcon {		/* inside a toggle button */
+	background-image: url('images/spriteCheckbox.gif') !important;
+}

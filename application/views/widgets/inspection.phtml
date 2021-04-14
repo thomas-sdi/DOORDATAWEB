@@ -1,0 +1,373 @@
+<?
+$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+
+$inspectionId = array_value('ID', $this->record);
+    	$inspectionStatus = $this->record['status_ID']; //a digit
+    	
+    	$acl  = Zend_Registry::get('_acl');
+    	$user = Zend_Auth::getInstance()->getIdentity();
+
+    	$editable = false;
+
+		if (!$inspectionId) $editable = true; //this is a new inspection, it can be edited
+		
+		if ($acl->inheritsRole($user, 'Building Owner Employees')) {
+			switch ($inspectionStatus){
+				case Model_Inspection::PENDING: 
+	    			//this is a New inspection, you can do everything except of unlock since the inspection is not locked
+				$editable = true;
+				break;
+				case Model_Inspection::INCOMPLETED: 
+	    			//this is incompleted inspection, you can do everything except of unlock (inspection is not locked)
+				$editable = true;
+				break;
+				default: break;
+			}
+		}
+		elseif ($acl->inheritsRole($user, 'Web Users')) {
+			switch ($inspectionStatus){
+				case Model_Inspection::PENDING: 
+	    			//this is a New inspection, you can do everything except of unlock since the inspection is not locked
+				$editable = true;
+				break;
+				case Model_Inspection::INCOMPLETED: 
+	    			//this is incompleted inspection, you can do everything except of unlock (inspection is not locked)
+				$editable = true;
+				break;
+				default: break;
+			}
+		}
+		else {
+			switch ($inspectionStatus){
+				case Model_Inspection::PENDING: 
+	    			//this is a New inspection, you can do everything except of unlock since the inspection is not locked
+				$editable = true;
+				break;
+				case Model_Inspection::INCOMPLETED: 
+	    			//this is incompleted inspection, you can do everything except of unlock (inspection is not locked)
+				$editable = true;
+				break;
+				default: break;
+			}
+		}
+
+
+		?>
+		<div class="content-box">
+
+			<h3 class="content-box-header bg-primary" style="text-align: left;">
+				<i class="fa fa-edit"></i>
+				Inspection
+				<div class="header-buttons-separator">
+					<a class="icon-separator" href="javascript:bratiliusDialog.hide();">
+						<i class="glyph-icon icon-remove"></i>
+					</a>
+				</div>
+			</h3>
+
+			<div class="modal-body">
+
+				<form dojoType="ginger.form.ValidationForm" jsId="<?= $this->model ?>Form" id="<?= $this->model ?>Form" 
+					action="<?= $baseUrl ?>/<?= $this->controller ?>/save?_model=<?= $this->model ?>&id=<?= $this->record['ID'] ?>" class="form-horizontal">
+
+					<div class="row"><div class="col-md-12"><h2>INSPECTION SUMMARY</h2></div></div>
+
+					<div class="row">
+
+						<!-- INSPECTION HEADER -->
+						<div class="col-md-6">
+
+							<div class="row">
+								<div class="col-sm-12 form-template">
+									<label>FORM TEMPLATE</label><br>
+									<?= $this->grid->getFieldControl('TEMPLATE_ID', $this->record, array('editable' => $editable)) ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<label>BUILDING NAME</label><br>
+									<?= $this->grid->getFieldControl('BUILDING', $this->record, array('editable' => $editable)) ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<label>STATUS</label><br>
+									<?= $this->grid->getFieldControl('STATUS', $this->record, array('editable' => $editable)) ?>
+								</div>
+							</div>
+						</div>
+
+						<!-- INSPECTION COMPANY DETAILS -->
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-sm-4">
+									<label>Start Date</label><br/><?= $this->grid->getFieldControl('INSPECTION_DATE', $this->record, array('editable' => $editable)) ?>
+								</div>
+								<div class="col-sm-4">
+									<label>Completed Date</label><br/><?= $this->grid->getFieldControl('INSPECTION_COMPLETE_DATE', $this->record, array('editable' => $editable)) ?>
+								</div>
+								<div class="col-sm-4">
+									<label>Reinspect Date</label><br/><?= $this->grid->getFieldControl('REINSPECT_DATE', $this->record, array('editable' => $editable)) ?>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<label>Inspection company: </label><br/><?= $this->grid->getFieldControl('COMPANY_ID', $this->record) ?>
+									<? 
+
+									if ($this->grid->getColumn('COMPANY_ID')->getEditable() == false): ?>
+										<input type="hidden" name="company" value="<?= $this->record['company_ID'] ?>">
+								<? endif; ?>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<label>Inspector: </label><br/><?= $this->grid->getFieldControl('INSPECTOR_ID', $this->record, array('parentColumn' => 'column_2', 'editable' => $editable)) ?>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- INSPECTION SUMMARY -->
+				<div class="row">
+					<div class="col-md-12">
+						<h4>SUMMARY</h4><br><?= $this->grid->getFieldControl('SUMMARY', $this->record, array('cols' => '78', 'rows' => '9', 'Maxlength' => '1400', 'editable' => $editable)) ?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12"><h4>SIGNATURES</h4></div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- <div class="dijit dijitInlineTable dijitLeft gingerImage" id="inspection_column_12" dojoattachpoint="domNode,containerNode" style="width: 200px;" widgetid="inspection_column_12"> -->
+									<div class="dijit dijitInlineTable dijitLeft gingerImage" id="inspection_column_12">
+
+										<div class="imagePreview" style="">
+
+											<?= $this->grid->getFieldControl('SIGNATURE_INSPECTOR', $this->record, null, array('width' => '200px', 'height'=>'50px')) ?>
+
+										</div>
+
+										<? if($editable){ ?>
+											<div class="" style="float:left;margin-left:20px">
+												<input type="file" name="signature" id="column_12_file" value="">
+											</div>
+										<? } ?>
+										<div class="label" style="float:left;margin-left:20px"></div>
+
+									</div>
+								</div>
+								<div class="col-md-12">Signature of Inspector </div>
+								<div class="col-md-12" id="sid"  style="margin-left: 0%;">
+									<?php 
+									if($this->record['SIGNATURE_INSPECTOR_DATE'] != null && $this->record['SIGNATURE_INSPECTOR_DATE'] != '')
+										echo $this->record['SIGNATURE_INSPECTOR_DATE'];
+									?> 
+								</div>
+
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<!-- <div class="dijit dijitInlineTable dijitLeft gingerImage" id="inspection_column_13" dojoattachpoint="domNode,containerNode" style="width: 200px;" widgetid="inspection_column_13"> -->
+										<div class="dijit dijitInlineTable dijitLeft gingerImage" id="inspection_column_13">
+
+											<div class="imagePreview" style="">
+												<?= $this->grid->getFieldControl('SIGNATURE_BUILDING', $this->record, null, array('width' => '200px', 'height'=>'50px')) ?>
+											</div>
+
+											<? if($editable){ ?>
+												<div class="" style="float:left;margin-left:20px">
+													<input type="file" name="signature" id="column_13_file" value="">
+												</div>
+											<? } ?>
+											<div class="label" style="float:left;margin-left:20px"></div>
+
+										</div>
+									</div>
+
+									<div class="col-md-12" >Signature of Building Manager</div>
+									<div class="col-md-12" id="sbd"  style="margin-left: 4%;">
+										<?php 
+										if($this->record['SIGNATURE_BUILDING_DATE'] != null && $this->record['SIGNATURE_BUILDING_DATE'] != '')
+											echo $this->record['SIGNATURE_BUILDING_DATE'];
+										?>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+
+				<div class="modal-footer" style="text-align: center;">
+					<? if($editable): ?>
+						<div dojoType="dijit.form.Button" class="short" 
+						onclick="<?= $this->model ?>Form.submit(function() {bratiliusDialog.hide();})">Accept Change</div>
+					<? endif; ?>
+					<div dojoType="dijit.form.Button" class="short"
+					onclick="bratiliusDialog.hide();">Cancel Change</div>
+
+				</div>
+
+			</div>
+
+			<script>
+				$(document).ready(function(){
+	//inspection signature
+	$(document).on('change', '#column_12_file', function(){
+		var name = document.getElementById("column_12_file").files[0].name;
+		var form_data = new FormData();
+		var ext = name.split('.').pop().toLowerCase();
+		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+		{
+			alert("Invalid Image File");
+		}
+		var oFReader = new FileReader();
+		oFReader.readAsDataURL(document.getElementById("column_12_file").files[0]);
+
+		oFReader.onload = function(e) {
+			$('img#inspection_column_12,img#building_inspection_column_12,img#company_inspections_column_12').attr('src', e.target.result);
+
+		}
+		var f = document.getElementById("column_12_file").files[0];
+		var fsize = f.size||f.fileSize;
+		if(fsize > 2048000)
+		{
+			alert("Image File Size must less than 2Mb");
+		}
+		else
+		{
+			form_data.append("signature", document.getElementById('column_12_file').files[0]);
+
+			$.ajax({
+				url: baseUrl+'/inspection/signatureupload?inspection=<?= $inspectionId ?>',
+				method:"POST",
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData: false,
+				beforeSend:function(){
+					$('#inspection_column_12 .label').html("<label class='text-success'>Image Uploading...</label>");
+				},   
+				success:function(data)
+				{	
+					// var dt =format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+					var dt = new Date().toISOString();
+					$('#inspection_column_12 .label').html("<input type='text' name='column_12' value='"+data+"' hidden><input type='text' name='column_12_name' value='"+data+"' hidden><input type='text' name='SIGNATURE_INSPECTOR_DATE' value='"+dt+"' hidden>");
+
+				}
+			});
+
+		}
+	});
+
+ 	//building signature
+ 	$(document).on('change', '#column_13_file', function(){
+ 		var name = document.getElementById("column_13_file").files[0].name;
+ 		var form_data = new FormData();
+ 		var ext = name.split('.').pop().toLowerCase();
+ 		if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+ 		{
+ 			alert("Invalid Image File");
+ 		}
+ 		var oFReader = new FileReader();
+ 		oFReader.readAsDataURL(document.getElementById("column_13_file").files[0]);
+
+ 		oFReader.onload = function(e) {
+ 			$('img#inspection_column_13,img#building_inspection_column_13,img#company_inspections_column_13').attr('src', e.target.result);
+ 		}
+ 		var f = document.getElementById("column_13_file").files[0];
+ 		var fsize = f.size||f.fileSize;
+ 		if(fsize > 2048000)
+ 		{
+ 			alert("Image File Size must less than 2Mb");
+ 		}
+ 		else
+ 		{
+ 			form_data.append("signature", document.getElementById('column_13_file').files[0]);
+
+ 			$.ajax({
+ 				url: baseUrl+'/inspection/signatureupload?inspection=<?= $inspectionId ?>',
+ 				method:"POST",
+ 				data: form_data,
+ 				contentType: false,
+ 				cache: false,
+ 				processData: false,
+ 				beforeSend:function(){
+ 					$('#inspection_column_13 .label').html("<label class='text-success'>Image Uploading...</label>");
+ 				},   
+ 				success:function(data)
+ 				{	
+ 					// var dt =format(new Date(), 'yyyy-MM-dd hh:mm:ss')
+ 					var dt = new Date().toISOString();
+ 					$('#inspection_column_13 .label').html("<input type='text' name='column_13' value='"+data+"' hidden><input type='text' name='column_13_name' value='"+data+"' hidden><input type='text' name='SIGNATURE_BUILDING_DATE' value='"+dt+"' hidden>");
+ 				}
+ 			});
+
+ 		}
+ 	});
+
+
+ 	$("#inspection_SUMMARY").attr('maxlength','1400');
+
+
+ 	var lls = $("#sbd").text().trim();
+ 	if(lls != ""){
+ 		lls = lls+' UTC'	
+ 		var df = new Date(lls);
+ 		var dat = format(df,'MM/dd/yyyy hh:mm t');
+ 		$("#sbd").html(dat);
+ 	}
+
+ 	var sid = $("#sid").text().trim();
+ 	if(sid != ""){
+ 		sid = sid+' UTC'	
+ 		var df = new Date(sid);
+ 		var dat = format(df,'MM/dd/yyyy hh:mm t');
+ 		$("#sid").html(dat);
+ 	}
+
+
+ });
+
+				format = function date2str(x, y) {
+
+					var dd = formatAMPM(x.getHours());
+					var z = {
+						M: x.getMonth() + 1,
+						d: x.getDate(),
+						h: dd[0],
+						m: x.getMinutes(),
+						t: dd[1]
+
+					};
+
+
+					y = y.replace(/(M+|d+|h+|m+|t+)/g, function(v) {
+						return ((v.length > 1 ? "0" : "") + eval('z.' + v.slice(-1))).slice(-2)
+					});
+
+					return y.replace(/(y+)/g, function(v) {
+						return x.getFullYear().toString().slice(-v.length)
+					});
+				}
+
+
+				function formatAMPM(hours) {
+					var ampm = hours >= 12 ? 'PM' : 'AM';
+					hours = hours % 12;
+  				hours = hours ? hours : 12;// the hour '0' should be '12'
+  				return [hours,ampm];
+  			}
+
+
+  		</script>

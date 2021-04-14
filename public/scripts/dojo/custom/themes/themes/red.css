@@ -1,0 +1,190 @@
+.themeRed .dojoxGridRowOver .dojoxGridCell,
+.themeRed .dojoxGridRowSelected {
+	background-color: #ae1916ad;
+}
+
+.themeRed A {
+	color: #ae1916;
+}
+
+.themeRed TD.navbar,
+.themeRed TD.navbarbg,
+.themeRed TD.navbarChecked {
+	border-right: 2px #7e0008 solid;
+}
+
+.themeRed TD.navbarbg,
+.themeRed TD.navbar,
+.themeRed TD.navbarChecked,
+.themeRed .dijitDialogTitleBar,
+.themeRed .dijitTabInnerDiv .dijitTabContent, 
+.themeRed .dijitTabInnerDiv,
+.themeRed .dijitTab
+{
+	background-color: #ae1916ad;
+}
+
+.themeRed TD.navbar:hover,
+.themeRed TD.navbarChecked,
+.themeRed .dojoxGridHeader .dojoxGridCell,
+.themeRed .dojoxGridHeader .dojoxGridCellOver,
+.themeRed .dijitTabChecked,
+.themeRed .dijitTabChecked .dijitTabInnerDiv,
+.themeRed .dijitTabChecked .dijitTabInnerDiv .dijitTabContent,
+.themeRed .dijitTabHover, 
+.themeRed .dijitTabHover .dijitTabInnerDiv,
+.themeRed .dijitTabHover .dijitTabInnerDiv .dijitTabContent
+{
+	background: url('../images/titleBarRed_active.gif') repeat-x;
+}
+
+.themeRed .dojoxGridHeader .dojoxGridCell {
+	border: solid 1px #7e0008 !important;
+}
+
+.themeRed .dojoxGridCell {
+	border-color: #7e0008;
+}
+
+.themeRed .dijitTab {
+	border: 1px solid #7e0008 !important;
+}
+
+.themeRed .dijitTabContainerBottom-spacer,
+.themeRed .dijitTabContainerTop-spacer,
+.themeRed .dijitSplitterH
+{
+	background: #b54c53 !important;
+}
+
+.themeRed .form_table {
+	background-image: url('../images/pdf_bg_red.jpg');
+}
+
+/* BUTTONS */
+.themeRed .dijitButton{
+	background-color: #ae1916ad;
+}
+
+
+/* CHECKBOX */
+.themeRed .dijitCheckBox,
+.themeRed .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') -16px -32px !important;
+}
+
+.themeRed .dijitCheckBoxChecked,
+.themeRed .dijitToggleButtonChecked .dijitCheckBoxIcon {
+	background: url('../images/spriteCheckbox.gif') 0 -32px !important;	
+}
+
+/* RADIO */
+.themeRed .dijitRadio, 
+.themeRed .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') -16px -32px !important;
+}
+
+.themeRed .dijitRadioChecked, 
+.themeRed .dijitToggleButtonChecked .dijitRadioIcon {
+	background: url('../images/spriteRadio.png') 0 -32px !important;
+}
+
+/* INPUT CONTROL BUTTONS */
+
+
+/* LOGIN DIALOG */
+.themeRed TABLE.authDialog {
+	border-color: #ae1916;
+}
+
+/* INPUT CONTROL BORDERS */
+.themeRed .usertitlename {
+	color:#ae1916;
+}
+.themeRed #sidebar-menu li.active {
+    border-left: 5px solid #ae1916;
+}
+.themeRed .bg-primary{
+	background: #ae1916ad;
+}
+.themeRed #header-logo a {
+    background: #ae1916;
+}
+.themeRed #page-header {
+	background-color: #fff;
+	border-top: 5px solid #ae1916ad;
+    border-bottom: 5px solid #ae1916ad;
+}
+.themeRed #header-logo{
+	background-color: #ae1916ad;
+}
+.themeRed .user-profile > a{
+	background-color: #c86260;
+   /* border-right: 5px solid #c86260;*/
+}
+.themeRed .user-profile > a:hover{
+	background-color: #ae1916;
+}
+.themeRed .nav > li.active > a{
+	background-color: #ae1916ad;
+}
+.themeRed .nav > li.active > a:focus{
+	background-color: #ae1916ad;
+}
+.themeRed .nav > li.active > a:hover{
+	background-color: #ae1916ad;
+}
+
+.themeRed .pdfFormColumn{
+	background-color: #ae1916ad;
+}
+
+.themeRed #page-sidebar li a:hover, 
+.themeRed #page-sidebar li.sfHover > a.sf-with-ul, 
+.themeRed #sidebar-menu li.active > a {
+    color: #ae1916;
+}
+
+.themeRed .doorFireDataArea{
+	background-color: #ae1916ad;
+}
+
+.themeRed .bratiliusPaginator .active{
+    background-color: #ae1916ad;
+    border-color: #ae1916ad;
+	color: #ffffff;
+}
+.themeRed .table-hover tr:hover td {
+    background: #c8626059;
+}
+.themeRed .selectedRow{
+	background-color: #c8626059!important;
+}
+.themeRed .selectedRow:hover{
+	background-color: #c8626059 !important;
+}
+.themeRed .main-header #header-right  a.signoutbtn:hover {
+    background: #c8626059;
+    color:#000 !important;
+     }
+.themeRed .hover-blue-alt:hover, .label-blue-alt {
+    background: #c8626059;
+    color:#000;
+    }
+.themeRed .mobileusername {
+    color: #ae1916;
+}
+.themeRed .searchtable::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ae1916;
+}
+.themeRed .searchtable::-moz-placeholder { /* Firefox 19+ */
+  color: #ae1916;
+}
+.themeRed .searchtable:-ms-input-placeholder { /* IE 10+ */
+  color: #ae1916;
+}
+.themeRed .searchtable:-moz-placeholder { /* Firefox 18- */
+  color: #ae1916;
+} 
+.themeRed .searchtable {color: #ae1916;}    
+ .themeRed .table-maindiv > a{color:#ae1916 !important;}       

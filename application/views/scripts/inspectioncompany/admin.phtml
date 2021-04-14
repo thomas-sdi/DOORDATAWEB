@@ -1,0 +1,122 @@
+<h1><?= $this->companyName ?></h1>       
+
+
+<div class="example-box-wrapper">
+
+
+	<!-- Company Profile Tab Start -->
+
+	<div class="content-box">
+
+		<div class="content-box-wrapper">
+			<div class="row">
+				<div id="inspection_company_profile" jsId="inspection_company_profile" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspectioncompany/profile"></div>
+			</div>
+		</div>
+
+	</div>
+
+	
+	
+
+	<div class="content-box">
+		<h3 id="employees" class="content-box-header bg-primary" style="text-align: left;">
+			<i class="glyph-icon icon-user"></i>
+			EMPLOYEES
+			<div class="header-buttons-separator">
+				<a class="icon-separator" href="javascript:cmp_emp.showNewDialog(-1);">
+					<i class="glyph-icon icon-plus"></i>
+				</a>
+
+				<a class="icon-separator door-excel-export" href="<?php echo App::baseUrl() ?>/inspectioncompany/excelexport?gridId=emp" target='_blank'>
+					<i class="glyph-icon fa-file-excel-o"></i>
+				</a>
+
+				<div class="table-maindiv">
+					<input type="text" name="search-inspection" id="search_emp" class="searchtable" placeholder="Search for Employee" value="<?php echo nvl($this->gridParams['FIRST_NAME'], '') ?>">
+					<a href="#" class="" id="searchEmpBtn"><i class="glyph-icon icon-search"></i></a>	
+				</div>
+
+
+			</div>
+		</h3>
+
+		<div class="content-box-wrapper">
+			<div class="row">
+			<!-- <div id="list_of_inspection_company_employees" jsId="list_of_inspection_company_employees" dojoType="dijit.layout.ContentPane" 
+				href="<?= App::baseUrl() ?>/inspectioncompany/employees"></div> -->
+
+				<div id="list_of_provider_employees" jsId="list_of_provider_employees" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspectioncompany/provideremployees"></div>
+				
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#searchEmpBtn").click(function(e){
+			searchInspectionCompanyEmp();	
+		});
+
+		$('#search_emp').on('keypress', function(e) {           
+			var code = e.keyCode || e.which;
+			if(code==13){
+				searchInspectionCompanyEmp();  
+			}
+		});
+
+		/*Export data*/
+		$(".door-excel-export").click(function(e){
+			var wpurl = $(this).attr("href")+'&_super=' + getParent();
+			console.log(wpurl)
+			$(this).attr('href', wpurl);
+		});
+
+	});
+
+
+	function searchInspectionCompanyEmp(){
+		var search = $("#search_emp").val();
+		// var _parent = getParent();
+		bratiliusDialog.setGrid("cmp_emp");
+		var elements = {
+			// "_super": _parent,
+			"FIRST_NAME":"*"+search+"*",
+			"LAST_NAME":"*"+search+"*",
+			"EMAIL":"*"+search+"*",
+			// "ADDRESS_2":"*"+search+"*",
+			"CITY":"*"+search+"*",
+			"STATE":"*"+search+"*"		
+		}
+		
+		bratiliusDialog.executeSearch(elements)
+	}
+
+
+
+	function getParent(){
+
+		var array = $(".content-box-wrapper #parentId")
+		var _parent = -1;
+		for(i=0;i< array.length;i++)
+		{
+			card_value =  array[i].value;
+			if(array[i].value != '' ){
+				_parent = array[i].value; break;   
+			} 
+		}
+
+		return _parent;
+	}
+
+
+
+</script>

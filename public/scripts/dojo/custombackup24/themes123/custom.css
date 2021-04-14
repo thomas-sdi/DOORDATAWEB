@@ -1,0 +1,708 @@
+@import url('../../ginger/themes/ginger.css');
+
+@import url("layout.css");
+@import url("buttons.css");
+@import url("door.css");
+@import url("paginator.css");
+@import url("themes/blue.css");
+@import url("themes/chrome.css");
+@import url("themes/red.css");
+@import url("themes/green.css");
+@import url("themes/brown.css");
+
+#page-header{
+	height: 60px;
+}
+
+#header-logo{
+	height: 60px;
+}
+
+#header-right .user-profile{
+	height: 60px;
+}
+
+.user-profile > a{
+	height: 60px;
+	line-height: 60px;
+}
+
+.title-hero{
+	margin: 15px 10px 10px;
+}
+
+html {
+	overflow: auto;
+}
+
+input[type='checkbox'],input.checkbox {
+	margin: 0 0 0 0 !important;
+	padding: 0 0 0 0 !important;
+}
+
+.underline {
+	border: 1px solid black;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	color:blue;
+}
+
+#page-sidebar {
+    background-color: #FFFFFF;
+    border-right: 1px solid #f5f7f9;
+}
+#sidebar-menu li.active > a {
+    background: #fff;
+}
+#sidebar-menu li.active  {
+   border-left: 5px solid #7da3c7;
+}
+#sidebar-menu li {
+   border-left: 5px solid transparent;
+}
+
+#sidebar-menu li > a:hover {
+    background: #fff;
+}
+
+.chartLabel{
+	font-size: 12pt;
+	margin-top: -7px;
+}
+.btn-success{
+	border-color: #28AE34;
+	background: #28AE34;
+}
+
+.dj_webkit .dijitTextBoxDisabled INPUT{
+	color: black !important;
+}
+
+.dojoxGridCellOver, .dojoxGridRowOver,
+.dojoxGridRowOver .dojoxGridCell {
+	color: black !important;
+}
+
+TD.navbar, TD.navbarChecked {
+    text-align: center;
+    cursor: pointer;
+	font-size: 10pt;
+    font-weight: bold;
+	color: white;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.dijitValidationIcon {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+TD.navbar:hover, TD.navbarChecked {
+	border-bottom-color: transparent !important;
+}
+
+TD.navbarActive {
+    text-align: center;
+	border-bottom-color: transparent !important;
+}
+
+.themeRed TD.navbarActive {
+	background: url('images/navbarActive.gif') repeat-x;
+}
+
+A.navbar {
+    font-size: 10pt;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.toolbar {
+    cursor: pointer;
+}
+
+.dijitSplitterH {
+	height: 6px !important;
+}
+
+.dijitTabContainerTop-tabs {
+	padding-top: 10px;
+	background: white !important;
+}
+
+.dijitBorderContainerNoGutter-child .dijitContentPane  {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.dijitDialogTitleBar {
+	color: white !important;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.dijitDialogCloseIcon {
+	background: url(images/closeButton.png) no-repeat right top !important;
+    height: 19px !important;
+    width: 19px !important;
+}
+
+.dijitDialogCloseIcon-hover {
+	background: url(images/closeButtonHover.png) no-repeat right top !important;
+}
+
+.dojoxGridHeader .dojoxGridCell {
+	padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.dojoxGridCell {
+	border-left-color: transparent !important;
+	border-top-color: transparent !important;
+	border-width: 1px;
+	border-style: solid !important;
+}
+
+.dojoxGridHeader .dojoxGridCell .dojoxGridSortNode { 
+	color: white !important;
+	height: 17px !important;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+.dijitTabInnerDiv .dijitTabContent, .dijitTabInnerDiv, .dijitTab {
+	padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.tabLabel {color: white !important;}
+
+.dijitTabContainer {
+	background: white !important;
+}
+
+.dijitBorderContainer-child {
+	border: none !important;
+}
+
+.dijitBorderContainer {
+	padding: 0px !important;
+}
+
+BODY, HTML, .mainDiv {
+   font-family: 'Roboto', sans-serif;
+    margin:0  !important;
+	padding:0 !important;
+	border: 0 !important;
+	height:100% !important;
+	width:100% !important; 
+}
+
+H1 {
+	font-weight:   bold;
+	font-size:     18pt;
+	margin-top:    10px;
+	margin-bottom: 10px;
+}
+
+.warning {
+	background-color: #fffc77 !important;
+}
+
+.error {
+    background-color: #f89a98 !important;
+}
+
+.unsaved {
+    background-color: #a4ffa8 !important;
+}
+
+.dijitError {
+    border-color: #ca0000  !important;
+    background-color:#f89a98  !important;
+}
+.dijitErrorFocused {
+    background-color: #eb3d3d !important;
+}
+
+.dijitError .dijitValidationIcon {
+    background: transparent url('images/error.png') no-repeat center center !important;
+}
+
+.dijitWarning {
+    background-color: #fffc77 !important;
+    background-image: none !important; 
+}
+.dijitWarningFocused {
+    background-color: #ffff00 !important;
+    background-image:none !important;
+}
+
+/* Validation errors  */
+.dijitWarning .dijitValidationIcon {
+	width: 16px;
+	visibility: visible;
+    background: transparent url('images/warning.png') no-repeat center center !important;
+}
+
+.saveButtonWarning {
+    color: #ff0000 !important;
+    text-decoration: blink !important;
+}
+
+.form_table {
+    vertical-align: top;
+    height: 333px; width: 173px;
+    border: none;
+}
+
+.form_table tr {
+    height: 22px; 
+}
+
+.form_table td {
+	padding-left: 10px;
+	font-size: 11pt;
+}
+
+.form_header {
+    font-size: 14pt !important;
+    font-weight: bold;
+    color: white;
+    vertical-align: top; 
+	padding-top: 10px;
+	padding-bottom: 20px;
+    text-align: center;
+}
+
+.photobucket IMG{
+	max-width: 410px;
+}
+
+.dijitTextBoxDisabled,
+.dijitComboBoxDisabled,
+.dijitSpinnerDisabled,
+.dijitTextAreaDisabled {
+    color: black !important;
+}
+
+.custom .dijitDialog .dijitDialogTitle {
+	color: #ffffff;
+}
+
+.custom .dijitTextArea {
+	width: auto;
+}
+
+.custom TEXTAREA {
+	border: none;
+}
+
+.dijitInputField {
+    border: none;
+}
+
+.dijitInputContainer{
+	padding: 6px 12px;
+	height: 100%;
+}
+
+.short .dijitInputContainer{
+	padding: 0px 5px;
+}
+
+#page-content-wrapper{
+	margin-top: 20px;
+}
+
+.content-box{
+	border: none;
+}
+
+.content-box-wrapper{
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.frameDiv{
+	background-color: #edf1f5;
+}
+
+#header-logo > a{
+	color: #FFFFFF;
+}
+
+.title-hero{
+	color: #FFFFFF !important;
+}
+
+.main-header a{
+	color: rgba(255,255,255) !important;
+}
+
+#auth_login, #auth_password{
+	padding-top: 0;
+}
+
+
+.dijitTextBox {
+    width: 100%;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px #f6f6f6 inset;
+    border-radius: 3px;
+}
+
+.dijitReset .dijitInputInner{
+    color: #000000 !important;
+    display: block;
+    float: none;
+    font-size: 15px;
+    height: 34px;
+   /* padding: 6px 12px;*/
+    width: 100%;
+}
+
+.short .dijitReset .dijitInputInner{
+	padding: 0px 0px;
+	height: 20px;
+}
+
+#loginForm{
+	padding-top: 20px;
+}
+
+.gridHeader{
+	color: #333;
+	background-color: #fafafa;
+	font-weight: bold;
+	border-color: #ddd;
+	padding-left: 10px;
+}
+
+.columnHeader{
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+.even{
+	 background-color: #ffffff;
+}
+.odd{
+	 background-color: #f8f9fa;
+}
+
+
+.gridRow{
+	padding-left: 10px;
+}
+
+.columnCell{
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+textarea{
+	border: none;
+	width: 100%;
+}
+
+.modal-footer{
+	border: none;
+}
+
+#sidebar-menu{
+	padding-top: 60px;
+	margin-top: 0px;
+}
+
+.pdfFormColumn{
+	color: #FFFFFF;
+	border-radius: 10px;
+	padding: 10px;
+	margin-left: 2px;
+	margin-bottom: 2px;
+}
+
+
+.pdfFormDetailRow{
+	padding-bottom: 10px;
+}
+
+.dijitDialogTitleBar{
+	display: none;
+}
+
+.table-hover tr:hover td{
+	background: #c7d8e8;
+}
+
+.selectedRow{
+	background-color: #c0d4e4 !important;
+}
+.selectedRow:hover{
+	background-color: #c0d4e4 !important;
+}
+
+/* Calendar widget */
+.dijitCalendarPopup{
+	background-color: #FFFFFF !important;
+	border-radius: 3px;
+	border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	content: "";
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);	
+}
+
+.dijitReset .dijitCalendarWeekTemplate{
+	text-align: right;
+}
+
+.dijitCalendarDayLabel, .dijitCalendarYearLabel, .dijitCalendarMonthLabel .dijitCalendarCurrentMonthLabel{
+	font-family: 'Roboto', sans-serif;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+	color: #3a4049;
+	padding: 5px;
+}
+
+.dijitCalendarMonthLabel{
+	font-weight: bold;
+	color: #000000;
+}
+
+.dijitCalendarContainer th, .dijitCalendarContainer td{
+	text-align: center;
+}
+
+.dijitCalendarYearLabel {
+	width: 153px;
+	text-align: center;
+}
+
+.dijitCalendarDateLabel:hover{
+	background-color: #3ca1ff;
+	border-color: #2173c0;
+	color: #fff;
+}
+
+.dijitCalendarDateLabel{
+	padding: 5px;
+}
+
+.dijitCalendarCurrentMonth .dijitCalendarDateTemplate, .dijitCalendarNextMonth .dijitCalendarDateTemplate{
+	padding: 5px;
+	border-radius: 3px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.dojoxCalendar .dijitCalendarNextMonth .dijitCalendarDateLabel,
+.dojoxCalendar .dijitCalendarPreviousMonth .dijitCalendarDateLabel  {
+ 	color: #999;
+}
+
+.dijitCalendarArrow {
+	cursor: pointer;
+}
+/* done with Calendar widget */
+
+.pb10{
+	padding-bottom: 10px;
+}
+
+.pt10{
+	padding-top: 10px;
+}
+
+.doorFireDataArea{
+	color: white;
+	border-radius: 10px; 
+	padding-top: 10px; 
+	padding-bottom: 10px;
+	margin-right: 2px;
+	margin-bottom: 10px;
+}
+
+.doorFireDataArea .dijitReset .dijitInputInner{
+	color: white !important;
+}
+
+.fdRow{
+	border: 1px solid black;
+	margin-bottom: 4px;
+	padding: 5px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.fdCell{
+	padding-top: 15px;
+	font-weight: bold;
+}
+
+
+.pictureNotes{
+	width: 100%;
+	border: 1px solid #ddd;
+	box-shadow: 1px 1px 3px #f6f6f6 inset;
+	border-radius: 3px;
+}
+
+@media(min-width: 980px){
+	.row-eq-height {
+	    display: -webkit-box;
+	    display: -webkit-flex;
+	    display: -ms-flexbox;
+	    display: flex;
+	}
+}
+@media(max-width: 960px; min-width: 780px;){
+	#sb-site{
+		margin-top: -60px;
+	}
+}
+@media(max-width: 960px){
+	#sidebar-menu{
+		padding-top: 60px;
+	}
+	#sb-site{
+		margin-top: 0px;
+	}
+}
+
+/*14/10/2019*/
+.usertitlename {
+	display: inline-block;
+	color:#fff;
+	line-height: 2;
+}
+.dijitContentPane {
+	width:100% !important;
+	/*height:100% !important;*/
+}
+.main-header #header-right  a.signoutbtn {color:#768294 !important;}
+#header-right .dropdown-menu .button-pane.button-pane-alt {border:none;}
+.login-content {
+    max-width: 425px;
+    margin: 22vh auto;
+    text-align: left;
+}
+.login-form {
+    background: #ffffff;
+    padding: 30px 30px 20px;
+    border-radius: 2px;
+}
+.login-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.login-form label {
+    color: #878787;
+    text-transform: uppercase;
+    font-size:16px;
+}
+
+.dijitTextBox {
+    border: 1px solid #8ba0bd;
+}
+
+.dijitInline.dijitButtonNode {
+    width: 100%;
+    height: 45px;
+    color: white !important;
+    font-weight: bold;
+    border: none !important;
+    font-weight: bold;
+    outline: none;
+    line-height: inherit;
+    padding:0;
+}
+.dijitOffScreen {
+    position: absolute;
+    left: 50%;
+    top: -10000px;
+
+}
+.login-form .btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding:0;
+    border: 0;
+    height: 45px;
+}
+.dijitToggleButton, .dijitButton, .dijitDropDownButton, .dijitComboButton {
+    margin: 0.2em;
+    vertical-align: middle;
+}
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.social.facebook {
+    background: #3b5998;
+}
+.social.btn {
+    border-radius: 0;
+}
+.dijitButtonContents {
+    margin-top: 4px !important;
+    color: white !important;
+    font-weight: bold !important;
+    outline: none;
+}
+.dijitInlineTable {
+    display: inline-table!important;}
+#companyLogoHeader {    vertical-align: bottom;
+    margin-left: 16px;
+}
+.footerpart{
+	 margin-bottom: 0;
+    font-size: 13px;
+    line-height: 57px;
+    color: #3f3f3f;
+    font-family: "Roboto";
+    font-weight: 400;
+    text-align: center;
+    height: 55px;
+    background-color: #ffffff;
+    overflow: hidden;
+} 
+.incomplete{
+	background: #ae1916;
+    color: #fff;
+    width:100%;
+}
+.new{
+ background:#578726;
+ color:#fff;
+ width:100%;
+}
+.assigned {
+	background:#d17f15;
+    color: #fff;
+    width:100%;
+}
+.completed {    
+	background: #7fa3c8;
+    color: #fff;
+    width: 100%;
+}
+.action-dropdown{
+   position: relative;
+    display: inline-block;
+    border: 0.5px solid #e6eaee;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    background: #f5f6fa;	
+}
+.action-dropdown .dropdown-menu {padding:0; }
+.action-dropdown .button-pane:first-child{border-width: 0px 0 0;}
+.action-dropdown .pad5A{padding: 0 !important;}
+.action-dropdown > a {
+	color: #696969;
+    font-weight: 300;
+}

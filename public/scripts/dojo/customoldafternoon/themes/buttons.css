@@ -1,0 +1,24 @@
+.submitButton .text, .cancelButton .text {
+	color: #ffffff;
+	padding: 15px;
+}
+
+.submitButton, .cancelButton {
+	border-radius: 3px;
+}
+
+.submitButton{
+	background: none repeat scroll 0 0 #ff5757 !important;
+	border-color: #f33
+}
+
+.cancelButton {
+	background: none repeat scroll 0 0 #9cd159 !important;
+	border-color: #8eca3f;
+}
+
+.dijitButtonText{
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 15px;
+}

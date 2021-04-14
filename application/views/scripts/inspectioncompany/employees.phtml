@@ -1,0 +1,13 @@
+<!-- all_employees grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+	array("grid" 		 => $this->grid, 
+		'caption' 	 => $this->companyName . ' EMPLOYEES', 
+		"caption_singular" => "EMPLOYEE",
+		'detailedView' => "/inspectioncompany/allemployees",
+		"imageNew"	 => $this->baseUrl . "/public/images/New Employees.png",
+		 'parentPaneId'		=> "list_of_inspection_company_employees",
+		 'gridParams'		=> $this->gridParams,
+		 'formActionUrl' => $this->baseUrl . '/inspectioncompany/save?_model=all_employees'
+	)) ?>
+</div>

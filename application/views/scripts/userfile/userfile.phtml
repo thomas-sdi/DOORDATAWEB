@@ -1,0 +1,144 @@
+<script type="text/javascript">  
+	dojo.require("dojo.io.iframe");  
+</script> 
+
+	<div class="content-box"><div class="content-box"><div class="content-box"><div class="content-box"><div class="content-box">
+
+<form id="upload_form" dojoType="ginger.form.ValidationForm" method="post" enctype="multipart/form-data">
+
+	<? $data = $this->record;
+	   $userFileId = $data != null ? $data['ID'] : null ; 	
+
+	?>
+
+       	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		
+		<?= $data != null ? '<i class="fa fa-edit"></i> Edit File' : '<i class="glyph-icon icon-file-o"></i> New File ' ?>
+		<div class="header-buttons-separator">
+			<a class="icon-separator" href="javascript:gridDialogDoor.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a>
+	     </div>
+	    </h3>
+
+
+  <div class="modal-body">
+  <div class="row">
+  	 <div class="col-md-3"></div>
+  	 <div class="col-md-6">
+
+		<div class="row">
+		<div class="col-sm-12">
+		 <label>Select file</label><br>
+       <div class="inputfile-box">
+       <input type="file" NAME="myfile" id="myfile" class="inputfile" onchange='uploadFile(this)'>
+       <label for="myfile" style="width:100%">
+    <span id="file-name" class="file-box"></span>
+    <span class="file-button">
+      <i class="fa fa-upload" aria-hidden="true"></i>
+      Select File
+    </span>
+  </label>
+</div>
+	
+		</div>	
+        </div>
+		<div class="row">
+		<div class="col-sm-12">
+		 <label>Description</label><br>
+		 <textarea class="dijitTextBox Userinput" style="height:100%;"name="description" rows="3" cols="23"><?= $data['DESCRIPTION'] ?> </textarea>
+	     </div>	
+        </div>		
+
+		<? if($data != null) { ?>	
+		<div class="row">
+		<div class="col-sm-12">
+		<label>Size</label><br>
+		<input class="dijitTextBox Userinput" type="text" disabled="" value="<?= $data['column_3'] ?>">
+		</div>	
+        </div>
+		<div class="row">
+		<div class="col-sm-12">
+		<label>Added On</label><br>
+		<input class="dijitTextBox Userinput" type="text" disabled="" value="<?= $data['column_4'] ?>"></div>	
+        </div>
+		<? } ?>
+         <div class="row">
+		<div class="col-sm-12">
+		<p><div id="status" jsid="status">&nbsp</div></p>
+		</div>	
+        </div>
+	</div>
+	<div class="col-md-3"></div>	
+  </div>		
+</div>
+	<div class="modal-footer" style="text-align: center;">	
+	<button id="user_file_submit" jsid="user_file_submit" dojoType='dijit.form.Button' class="short">
+		<?= $data != null ? 'Update File' : 'Add File' ?>
+
+		<script type="dojo/connect" event="onClick">	
+			dojo.io.iframe.send ({
+			url: baseUrl + '/userfile/savefile?_parent=<?= $userFileId ?>',
+			handleAs: "text", 
+			form: "upload_form",
+			load: function(response, ioArgs) {
+			console.log(response);
+			var responseObj = dojo.fromJson(response);
+			dojo.byId('status').innerHTML = responseObj.status;
+			gridDialogDoor.hide();
+			return response;
+		},
+		error: function(response) {  
+		console.log(response);
+		gridDialogDoor.hide();
+		dojo.byId('status').innerHTML = 'Error occurred';
+		return response;  
+	} 
+});
+</script>
+</button>
+<button id="user_file_cancel" jsid="user_file_cancel" dojoType='dijit.form.Button' class="short">Close
+	<script type="dojo/connect" event="onClick">	
+		gridDialogDoor.hide();
+	</script>
+</button>
+</div>
+</form>
+</div>
+
+<style>
+	.inputfile-box {
+  position: relative;
+}
+
+.inputfile {
+  display: none !important;
+}
+
+
+.file-box {
+    display: inline-block;
+    width: 100%;
+    /* padding: 5px 0px 5px 5px; */
+    box-sizing: border-box;
+    height: 45px;
+    border-radius: 3px;
+    line-height: 41px;
+    padding-left: 12px;
+}
+
+.file-button {
+    padding: 14px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    color: #fff;
+}
+
+</style>
+
+<script type="text/javascript">
+	function uploadFile(target) {
+	document.getElementById("file-name").innerHTML = target.files[0].name;
+}
+</script>

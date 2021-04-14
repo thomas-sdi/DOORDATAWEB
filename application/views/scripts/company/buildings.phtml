@@ -1,0 +1,12 @@
+<!-- Grid -->
+<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+		array("grid" 				=> $this->grid, 
+			  'caption' 			=> 'BUILDINGS: ' . $this->companyName,
+			  "caption_singular" 	=> 'BUILDING',
+			  'detailedView' 		=> "/company/buildingdetailview",
+			  "imageNew"	 		=> $this->baseUrl . "/public/images/New Building.png",
+			  'parentPaneId'		=> "owner_list_of_buildings",
+		 	  'gridParams'			=> $this->gridParams,
+		      'formActionUrl' 		=> $this->baseUrl . '/company/save?_model=company_buildings'
+			)
+)?>

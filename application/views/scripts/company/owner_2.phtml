@@ -1,0 +1,235 @@
+<div class="content-box">
+
+	<div class="content-box-wrapper">
+		
+		
+		
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#owner_inspections_tab" aria-controls="owner_inspections_tab" role="tab" data-toggle="tab">Inspections</a></li>
+			<li><a href="#owner_buildings_tab" aria-controls="owner_buildings_tab" role="tab" data-toggle="tab">Buildings</a></li>
+			<li><a href="#owner_employees_tab" aria-controls="owner_employees_tab" role="tab" data-toggle="tab">Employees</a></li>
+			<li><a href="#owner_company_tab" aria-controls="owner_company_tab" role="tab" data-toggle="tab">Company</a></li>
+		</ul>
+		
+		<h3 style="margin-top: 10px; margin-bottom: 10px;"><?= $this->companyName ?></h3>
+		
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  	
+		  	<!-- Inspections Tab Start -->
+		    <div role="tabpanel" class="tab-pane active" id="owner_inspections_tab">
+		    	<div class="content-box">
+					<h3 id="inspections" class="content-box-header bg-primary" style="text-align: left;">
+						<i class="fa fa-edit"></i>
+						INSPECTIONS
+						<div class="header-buttons-separator">
+							<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+								'<?php echo App::baseUrl() ?>/company/search?_model=company_inspections', 'cmp_company_inspections');">
+								<i class="glyph-icon icon-search"></i>
+				            </a>
+							<a class="icon-separator" href="javascript:cmp_company_inspections.showNewDialog(<?= $this->companyId ?>);">
+								<i class="glyph-icon icon-plus"></i>
+				            </a>
+						</div>
+					</h3>
+					
+					<div class="content-box-wrapper">
+						<div class="row">
+							<div id="owner_list_of_inspections" jsId="owner_list_of_inspections" dojoType="dijit.layout.ContentPane" href="<?= $this->baseUrl ?>/company/inspections?_parent=<?= $this->companyId ?>"></div>
+						</div>
+						
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#owner_inspection_doors_tab" aria-controls="owner_inspection_doors_tab" role="tab" data-toggle="tab">Doors</a></li>
+							<li><a href="#owner_inspection_history_tab" aria-controls="owner_inspection_history_tab" role="tab" data-toggle="tab">History</a></li>
+						</ul>
+						
+						<!-- Inspection Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="owner_inspection_doors_tab">
+								<div class="content-box">
+									<h3 id="doors_header" class="content-box-header bg-primary" style="text-align: left;">
+										<i class="fa fa-columns"></i>
+										
+										DOORS
+										<div class="header-buttons-separator">
+											<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+												'<?php echo App::baseUrl() ?>/inspection/search?_model=company_doors', 'cmp_company_doors');">
+												<i class="glyph-icon icon-search"></i>
+								            </a>
+											<a class="icon-separator" href="javascript:cmp_company_doors.showNewDialog();">
+												<i class="glyph-icon icon-plus"></i>
+								            </a>
+										</div>
+									</h3>
+									
+									<div class="content-box-wrapper">
+										<div class="row">
+											<div id="company_list_of_doors" jsId="company_list_of_doors" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/company/doors?_super=-1"></div>
+										</div>
+									</div>
+									
+								</div>
+							</div><!--End Of Doors Tab -->
+						
+							
+							<div role="tabpanel" class="tab-pane" id="owner_inspection_history_tab" style="display: none;">
+								<h3 id="doors_header" class="content-box-header bg-primary" style="text-align: left;">
+										<i class="glyph-icon icon-history"></i>
+										History
+									<div class="header-buttons-separator">
+										<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+											'<?php echo App::baseUrl() ?>/inspection/search?_model=company_inspects', 'cmp_company_inspects');">
+											<i class="glyph-icon icon-search"></i>
+							            </a>
+									</div>
+					                                </h3>
+                                   <div class="content-box-wrapper">
+										<div class="row">
+											<div id="company_list_of_changes" jsId="company_list_of_changes" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/company/changes?_super=-1"></div>
+
+										</div>
+									</div>
+
+
+							</div>
+
+
+							
+						</div>
+						<!-- End of Inspection Tab panes -->
+						
+					</div>
+				
+				</div>
+			</div><!-- Inspections Tab End -->
+			
+		    <div role="tabpanel" class="tab-pane" id="owner_buildings_tab">
+		    	
+		    	<div class="content-box">
+					<h3 id="buildings" class="content-box-header bg-primary" style="text-align: left;">
+						<i class="glyph-icon icon-building"></i>
+						BUILDINGS
+						<div class="header-buttons-separator">
+							<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+								'<?= App::baseUrl() ?>/company/search?_model=company_buildings', 'cmp_company_buildings');">
+								<i class="glyph-icon icon-linecons-search"></i>
+				            </a>
+							<a class="icon-separator" href="javascript:cmp_company_buildings.showNewDialog(<?= $this->companyId ?>);">
+								<i class="glyph-icon icon-plus"></i>
+				            </a>
+						</div>
+					</h3>
+					
+					<div class="content-box-wrapper">
+						<div class="row">
+							<div id="owner_list_of_buildings" jsId="owner_list_of_buildings" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/company/buildings?_parent=<?= $this->companyId ?>"></div>
+						</div>
+					</div>
+					
+				</div>
+		    	
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="owner_employees_tab">
+		    	
+		    	<div class="content-box">
+					<h3 id="employees" class="content-box-header bg-primary" style="text-align: left;">
+						<i class="glyph-icon icon-building"></i>
+						EMPLOYEES
+						<div class="header-buttons-separator">
+							<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+								'<?php echo App::baseUrl() ?>/company/search?_model=company_employees', 'cmp_company_employees');">
+								<i class="glyph-icon icon-linecons-search"></i>
+				            </a>
+							<a class="icon-separator" href="javascript:cmp_company_employees.showNewDialog(<?= $this->companyId ?>);">
+								<i class="glyph-icon icon-plus"></i>
+				            </a>
+						</div>
+					</h3>
+					
+					<div class="content-box-wrapper">
+						<div class="row">
+							<div id="owner_list_of_employees" jsId="owner_list_of_employees" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/company/employees?_parent=<?= $this->companyId ?>"></div>
+						</div>
+					</div>
+					
+				</div>
+		    	
+		    </div>
+		    
+		    
+		    <div role="tabpanel" class="tab-pane" id="owner_company_tab">
+		    	
+		    	<div class="content-box">
+					<h3 class="content-box-header bg-primary" style="text-align: left;">
+						<i class="glyph-icon icon-building"></i>
+						PROFILE
+					</h3>
+					
+					<div class="content-box-wrapper">
+						<div class="row">
+							<div id="owner_copmany_profile" dojoType="dijit.layout.ContentPane" title="Profile" href="<?= $this->baseUrl ?>/company/admin?_parent=<?= $this->companyId ?>"></div>
+						</div>
+					</div>
+					
+				</div>
+		    	
+		    </div>
+		  </div>
+		  
+	</div>
+	
+</div>
+
+<!--
+
+<div dojoType="dijit.layout.BorderContainer" style="width: 100%; height: 100%;" design="headline" gutters="false">
+    <div dojoType="ginger.TabContainer" region="center" style="background-color: white">
+    	<div dojoType="dijit.layout.ContentPane" title="Inspections" href="<?= $this->baseUrl ?>/company/inspections?_parent=<?= $this->companyId ?>"></div>
+
+        <div dojoType="dijit.layout.ContentPane" title="Employees" href="<?= $this->baseUrl ?>/company/employees?_parent=<?= $this->companyId ?>"></div>
+        <div dojoType="dijit.layout.ContentPane" title="Profile" href="<?= $this->baseUrl ?>/company/admin?_parent=<?= $this->companyId ?>"></div>
+    </div>
+</div>
+
+-->
+
+
+<!-- SUBMIT DIALOG -->
+<div id="dialogSubmit" dojoType="dijit.Dialog">
+
+   <div class="content-box">
+	
+	<h3 class="content-box-header bg-primary" style="text-align: left;">
+		<i class="glyph-icon icon-lock"></i>
+		Lock
+		<div class="header-buttons-separator">
+
+		<!-- 	<a class="icon-separator" href="javascript:dialogSubmit.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a> -->
+		</div>
+	</h3>
+
+	<div class="modal-body importpopup" >
+                <div class="row">
+					<div class="col-sm-12" style="padding-top: 20px;">
+					   <label id="lblInfo"></label>
+					</div>
+					<div class="col-sm-12" style="padding-top: 20px;text-align: center;">
+					
+                       <button dojoType="dijit.form.Button" class="short" type="submit">OK</button>
+
+					</div>
+	</div>
+				
+				
+				
+				
+				
+
+		
+		
+	</div>
+</div>
+
+</div>

@@ -1,0 +1,7 @@
+<? if($this->doorEditable == true): ?>
+<div dojoType="dijit.form.Button" class="short" onclick="gridDialogDoor.submit()">Accept Change</div>
+<? endif; ?>
+
+<div dojoType="dijit.form.Button" onclick="gridDialogDoor.onCancel(<?= $this->new ?>)">Cancel Change</div>
+
+<? //<div dojoType="dijit.form.Button" onclick="gridDialogDoor.submit()">Accept Change</div>  //old version?>

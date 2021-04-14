@@ -1,0 +1,375 @@
+<div class="content-box">
+	<h3 id="inspections" class="content-box-header bg-primary" style="text-align: left;">
+		<i class="fa fa-edit"></i>
+		INSPECTIONS
+		<div class="header-buttons-separator">
+			<a class="icon-separator" href="javascript:cmp_inspection.showNewDialog();">
+				<i class="glyph-icon icon-plus"></i>
+			</a>
+			
+			<a class="icon-separator" href="<?php echo App::baseUrl() ?>/inspection/excelexport?gridId=inspection" target='_blank'>
+				<i class="glyph-icon fa-file-excel-o"></i>
+			</a>
+			
+				<!-- <a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+				'<?php //echo App::baseUrl() ?>/inspection/search?_model=inspection', 'cmp_inspection');">
+				<i class="glyph-icon icon-search"></i>
+			</a> -->
+			<div class="table-maindiv">
+				<input type="text" name="search-inspection" class="searchtable" id="search_inspection" placeholder="Search for Inspection" value="<?php echo nvl($this->gridParams['BUILDING'], '') ?>">
+				<a href="#" class="" id="searchInspectionBtn"><i class="glyph-icon icon-search"></i></a>	
+			</div>
+
+		</div>
+	</h3>
+
+	<div class="content-box-wrapper">
+		<div class="row">
+			<div id="list_of_inspections" jsId="list_of_inspections" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspection/inspections"></div>
+		</div>
+	</div>
+
+</div>
+
+<!-- <div class="example-box-wrapper"> -->
+
+	<!-- <ul class="nav nav-tabs">
+		<li class="active"><a href="#inspection_doors_tab" aria-controls="inspection_doors_tab" role="tab" data-toggle="tab">Doors</a></li>
+		<li><a href="#inspection_history_tab" aria-controls="inspection_history_tab" role="tab" data-toggle="tab">History</a></li>
+	</ul> -->
+
+	<!-- Tab panes -->
+	<!--   <div class="tab-content"> -->
+
+		<!-- Door Tab Start -->
+		<div role="tabpanel" class="tab-pane active" id="inspection_tab">
+			<div class="content-box">
+				<h3  class="content-box-header bg-primary" style="text-align: left;">
+					<a class="activeT" id="doors_header" href="#"><i class="fa fa-columns"></i>
+					DOORS</a>
+					<a href="#" id="history_header" style="text-align: left;">
+						<i class="glyph-icon icon-history"></i>
+						HISTORY
+					</a>
+					<!--Doors-->   	
+					<div style="display: inline-block;"><div class="header-buttons-separator door-header">
+						<a class="icon-separator" href="javascript:cmp_inspection_door.showNewDialog();">
+							<i class="glyph-icon icon-plus"></i>
+						</a>
+						<a class="icon-separator  door-excel-export" href="<?php echo App::baseUrl() ?>/inspection/excelexport?gridId=inspection_door" target='_blank'>
+							<i class="glyph-icon fa-file-excel-o"></i>
+						</a>
+
+					<!-- 	<a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+						'<?php //echo App::baseUrl() ?>/inspection/search?_model=inspection_door', 'cmp_inspection_door');">
+						<i class="glyph-icon icon-search"></i>
+					</a> -->
+					<div class="table-maindiv">
+
+						<input type="text" name="search-inspection" class="searchtable" id="search_door" placeholder="Search for Door">
+						<a href="#" class="" id="searchDoorBtn"><i class="glyph-icon icon-search"></i></a>	
+
+					</div>
+
+				</div>
+				<!--histroy-->
+				<div class="header-buttons-separator histroy-header" hidden>
+					<!-- <a class="icon-separator" href="javascript:bratiliusDialog.showSearch(
+					'<?php //echo App::baseUrl() ?>/inspection/search?_model=inspection_inspects', 'cmp_inspection_inspects');">
+					<i class="glyph-icon icon-search"></i>
+				</a> -->
+				<a class="icon-separator history-excel-export" href="<?php echo App::baseUrl() ?>/inspection/excelexport?gridId=inspection_inspects" target='_blank'>
+					<i class="glyph-icon fa-file-excel-o"></i>
+				</a>
+				<div class="table-maindiv">
+					<input type="text" name="search-inspection" class="searchtable" id="search_history" placeholder="Search for History">
+					<a href="#" class="" id="searchHistoryBtn"><i class="glyph-icon icon-search"></i></a>	
+				</div>
+
+			</div>
+		</div>
+	</h3>
+
+
+
+		<!-- </div>
+		</div> -->
+		<!-- Door Tab End -->
+
+		<!-- History Tab Start -->
+		<!--   <div role="tabpanel" class="tab-pane active" id="inspection_history_tab"> -->
+
+			<!-- <div class="content-box"> -->
+
+				
+
+				<!--Doors--> 
+				<div class="content-box-wrapper door-detail">
+					<div class="row">
+						<div id="list_of_doors" jsId="list_of_doors" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspection/doors?_super=-1"></div>
+					</div>
+				</div>
+				<!--histroy-->
+				<div class="content-box-wrapper histroy-detail" hidden>
+					<div class="row">
+						<div id="list_of_changes" jsId="list_of_doors" dojoType="dijit.layout.ContentPane" href="<?= App::baseUrl() ?>/inspection/changes?_super=-1"></div>
+					</div>
+				</div>
+
+				<!-- 	</div> -->
+
+				<!--     </div>History Tab End -->
+
+
+			</div>
+
+		</div>
+
+		<? 
+/*
+//function assignInspection() is located in InspectionGrid.js ?>
+<div dojoType="dijit.layout.BorderContainer" style="width: 100%; height: 90%;" design="headline" liveSplitters="false">
+    <div dojoType='custom.ContentPane' region='top' splitter='true'
+		 style="height: 60%; width: 100%;">
+     	<?= $this->partial("../widgets/bratiliusgrid.phtml", 
+		                   array("grid" 		=> $this->components['inspection'],
+        	                     "can"  		=> $this->access['inspection'],
+								 "caption"      => 'INSPECTIONS',
+								 "customGrid"   => 'custom.InspectionGrid',
+		                         "caption_singular" => "INSPECTION",
+		                   		 'dialog'       => 'gridDialogInspection',
+		                   		 "detailedView"	=> $this->baseUrl . "/inspection/inspection",
+		                   		 "imageNew"	 	=> $this->baseUrl . "/public/images/New Inspection.png")) ?>
+	</div>
+	         
+	<div dojoType="ginger.TabContainer" region="center" style="width: 100%;">
+		<div dojoType="custom.ContentPane" title="Doors">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+				        	    array("grid" 		 => $this->components['inspection_door'], 
+				        	          'can'  	 	 => $this->access['inspection_door'],
+									  'caption' 	 => 'DOORS',
+				        	          "caption_singular" => "DOOR",
+									  'dialog'       => 'gridDialogDoor',
+									  "detailedView" => $this->baseUrl . "/inspection/door",
+				        	    	  'searchView'	 => $this->baseUrl . "/inspection/doorsearch",
+				        	    	  "imageNew"	 => $this->baseUrl . "/public/images/New Door.png")) ?>
+    	</div>
+    	<div dojoType="custom.ContentPane" title="History">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+        	    array("grid"  	=> $this->components['inspection_inspects'], 
+        	          "can"   	=> $this->access['inspection_inspects'],
+        	    	  "caption" => "HISTORY",
+        	    	  "icons" 	=> array("search"=>true, "excel"=>true)
+        	    )) ?>
+    	</div>
+    	<div dojoType="custom.ContentPane" title="Photobucket">
+      		<?= $this->partial( "../widgets/bratiliusgrid.phtml",
+        	    array("grid"  		 => $this->components['inspection_photobucket'], 
+        	          "caption" 	 => "PHOTOBUCKET",
+        	    	  "customGrid"   => 'custom.PhotobucketGrid',
+		              "detailedView" => $this->baseUrl . "/inspection/photobucket",
+        	    	  "icons"		 => array('new' => true, 'search' => true, 'excel' => true, 'download' => true),
+        	    	  "imageNew"	 => $this->baseUrl . "/public/images/New Photobucket.png" 
+        	    	)) 
+        	?>
+    	</div>
+ 	</div>
+</div>
+ * 
+ * */
+?>
+
+
+<!-- SUBMIT DIALOG -->
+<div id="dialogSubmit" dojoType="dijit.Dialog">
+
+	<div class="content-box">
+
+		<h3 class="content-box-header bg-primary" style="text-align: left;">
+			<i class="glyph-icon icon-lock"></i>
+			Lock
+			<div class="header-buttons-separator">
+
+		<!-- 	<a class="icon-separator" href="javascript:dialogSubmit.hide();">
+				<i class="glyph-icon icon-remove"></i>
+			</a> -->
+		</div>
+	</h3>
+
+	<div class="modal-body importpopup" >
+		<div class="row">
+			<div class="col-sm-12" style="padding-top: 20px;">
+				<label id="lblInfo"></label>
+			</div>
+			<div class="col-sm-12" style="padding-top: 20px;text-align: center;">
+
+				<button dojoType="dijit.form.Button" class="short" type="submit">OK</button>
+
+			</div>
+		</div>
+
+
+
+
+
+
+		
+		
+	</div>
+</div>
+
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		hideSubTable();
+		$("#doors_header").click(function(e){
+			e.preventDefault();
+			console.log("e");
+			$("#doors_header").addClass('activeT')
+			$("#history_header").removeClass('activeT')
+			hideSubTable()
+		});
+
+		$("#history_header").click(function(e){
+			e.preventDefault();
+			console.log("e");
+			$("#history_header").addClass('activeT')
+			$("#doors_header").removeClass('activeT')
+			hideSubTable()
+		});
+
+
+		
+		$("#searchInspectionBtn").click(function(e){
+			searchInspection();	
+		});
+		$("#searchDoorBtn").click(function(e){
+			searchDoor();	
+		});
+		$("#searchHistoryBtn").click(function(e){
+			searchHistory();	
+		});
+
+		$('#search_inspection').on('keypress', function(e) {           
+			var code = e.keyCode || e.which;
+			if(code==13){
+				searchInspection();  
+			}
+		});
+
+		$('#search_door').on('keypress', function(e) {           
+			var code = e.keyCode || e.which;
+			if(code==13){
+				searchDoor();  
+			}
+		});
+
+		$('#search_history').on('keypress', function(e) {           
+			var code = e.keyCode || e.which;
+			if(code==13){
+				searchHistory();  
+			}
+		});
+		
+		/*Export data*/
+		$(".door-excel-export").click(function(e){
+			var wpurl = $(this).attr("href")+'&_super=' + getParent();
+			$(this).attr('href', wpurl);
+		});
+
+		$(".history-excel-export").click(function(e){
+			var wpurl = $(this).attr("href")+'&_super=' + getParent();
+			$(this).attr('href', wpurl);
+		});
+		
+
+	});
+
+	function hideSubTable(){
+
+		if($("#doors_header").hasClass('activeT')){
+
+			$(".door-header").show();
+			$(".door-detail").show();
+			$(".histroy-header").hide();
+			$(".histroy-detail").hide();
+		}else{
+			$(".histroy-header").show();
+			$(".histroy-detail").show();
+			$(".door-header").hide();
+			$(".door-detail").hide();
+		}
+	}
+	function searchInspection(){
+		var search = $("#search_inspection").val();
+		bratiliusDialog.setGrid("cmp_inspection");
+		var elements = {
+			"BUILDING":"*"+search+"*",
+			"BUILDING_ADDRESS":"*"+search+"*",
+			"BUILDING_OWNER":"*"+search+"*",
+			"ADDRESS_1":"*"+search+"*",
+			"CITY":"*"+search+"*",
+			"STATE":"*"+search+"*",
+			// "INSPECTION_DATE":search+"*",
+			// "INSPECTION_COMPLETE_DATE":search+"*",
+			// "REINSPECT_DATE":search+"*",
+			"INSPECTOR":"*"+search+"*",
+			// "INSPECTION_COMPLETE_DATE_to": null,
+			// "INSPECTION_DATE_to": null,
+			// "REINSPECT_DATE_to": null,
+			// 'SUMMARY': null,
+			// "TEMPLATE": null,
+			// column_14: search,
+			// column_15: null
+			'status': "*"+search+"*"
+		}
+		bratiliusDialog.executeSearch(elements)
+	}
+
+	function searchDoor(){
+		var search = $("#search_door").val();
+		bratiliusDialog.setGrid("cmp_inspection_door");
+		var _parent = getParent();
+		var elements = {
+			"_super": _parent,
+			"NUMBER":search+"*",
+			"compliant":"*"+search+"*",
+			"LOCATION":search+"*"
+		}
+		bratiliusDialog.executeSearch(elements)
+	}
+
+	function searchHistory(){
+
+		var search = $("#search_history").val();
+		bratiliusDialog.setGrid("cmp_inspection_inspects");
+		var _parent = getParent();
+		var elements = {
+			"_super": _parent,
+			"INSPECTOR_ID":search+"*",
+			"INSPECTOR_ROLE":search+"*",
+			"ASSIGNED_DATE":search+"*",
+			"COMMENTS":"*"+search+"*"
+		}
+		bratiliusDialog.executeSearch(elements)
+	}
+
+	function getParent(){
+
+		var array = $(".content-box-wrapper #parentId")
+		var _parent = -1;
+		for(i=0;i< array.length;i++)
+		{
+			card_value =  array[i].value;
+			if(array[i].value != '' ){
+				_parent = array[i].value; break;   
+			} 
+		}
+		return _parent;
+	}
+
+
+
+</script>
+
+

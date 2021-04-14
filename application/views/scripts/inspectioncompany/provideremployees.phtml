@@ -1,0 +1,15 @@
+<!-- inspection company employees grid grid -->
+<div dojoType="dijit.layout.ContentPane" title="Employees">
+	<?= $this->partial("../widgets/bratiliusgrid.phtml", array(
+ 	    	     "grid" 			=> $this->components['emp'], 
+ 	    	     'can' 				=> $this->access['emp'], 
+ 	    	     'caption' 			=> 'EMPLOYEES',
+ 	    		 "caption_singular" => "EMPLOYEE",
+ 	    	     "detailedView" 	=> "/inspectioncompany/employee",
+ 	    		 "imageNew"	 		=> $this->baseUrl . "/public/images/New Employees.png",
+ 	    		 'parentPaneId'		=> "list_of_provider_employees",
+		 		 'gridParams'		=> $this->gridParams,
+		 		 'superGridId'		=> 'cmp_inspection_company',
+		 		 'formActionUrl' 	=> $this->baseUrl . '/inspectioncompany/save?_model=emp'
+	)) ?>
+</div>

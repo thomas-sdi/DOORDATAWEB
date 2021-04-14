@@ -1,0 +1,13 @@
+<!-- Building Owners Grid -->
+<div dojoType="dijit.layout.ContentPane" region="center" style="overflow: hidden;">
+<?= $this->partial("../widgets/bratiliusgrid.phtml", array(
+	"grid" 				=> $this->components['company'],
+	'caption' 			=> 'BUILDING OWNERS',
+    "caption_singular" 	=> "BUILDING OWNER",
+	'detailedView' 		=> "/company/detailview",
+	"imageNew"			=> $this->baseUrl . "/public/images/New Building Owner.png",
+	'parentPaneId'		=> "list_of_owners",
+	'gridParams'		=> $this->gridParams,
+	'formActionUrl' => $this->baseUrl . '/company/save?_model=company',  
+))?>
+</div>

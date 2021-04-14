@@ -1,0 +1,42 @@
+.door .dijitTabContainerTop-tabs  {
+	padding-top: 0px !important;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+}
+
+.door .dijitTabInnerDiv .dijitTabContent,
+.door .dijitTabInnerDiv,
+.door .dijitTab {
+	padding-top: 0px !important;
+	padding-bottom: 1px !important;
+	margin-right: 0 !important;
+}
+
+.door .dijitTab {
+	border-right: 1px #00007d solid !important;
+}
+
+.door .dijitDialogTitleBar {
+	visibility: hidden !important;
+	display: none !important;
+	height: 0px !important;
+}
+
+.door .dijitDialogPaneContent,
+.door .dijitContentPane
+ {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+}
+
+.door .tabLabel {
+	border: none !important;
+}
+
+.door .dijitDisabled,
+.door .dijitTextBoxDisabled,
+.door .dijitComboBoxDisabled,
+.door .dijitInputInner {
+	color: black !important;
+}
